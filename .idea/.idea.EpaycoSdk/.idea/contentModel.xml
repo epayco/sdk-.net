@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_EpaycoSdk.1375234587.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="EpaycoSdk" t="IncludeRecursive">
+        <e p="Epayco.cs" t="Include" />
+        <e p="EpaycoSdk.csproj" t="IncludeRecursive" />
+        <e p="Models" t="Include">
+          <e p="Auth" t="Include">
+            <e p="AuthModel.cs" t="Include" />
+          </e>
+          <e p="Bank" t="Include">
+            <e p="BanksModel.cs" t="Include" />
+            <e p="PseModel.cs" t="Include" />
+            <e p="SplitReceivers.cs" t="Include" />
+            <e p="TransactionModel.cs" t="Include" />
+          </e>
+          <e p="Cash" t="Include">
+            <e p="CashModel.cs" t="Include" />
+            <e p="CashTransactionModel.cs" t="Include" />
+          </e>
+          <e p="Charge" t="Include">
+            <e p="ChargeModel.cs" t="Include" />
+            <e p="ChargeTransactionModel.cs" t="Include" />
+          </e>
+          <e p="Customer" t="Include">
+            <e p="CustomerCreateModel.cs" t="Include" />
+            <e p="CustomerEditModel.cs" t="Include" />
+            <e p="CustomerFindModel.cs" t="Include" />
+            <e p="CustomerListModel.cs" t="Include" />
+            <e p="CustomerTokenDeleteModel.cs" t="Include" />
+            <e p="TokenModel.cs" t="Include" />
+          </e>
+          <e p="Plans" t="Include">
+            <e p="CreatePlanModel.cs" t="Include" />
+            <e p="FindAllPlansModel.cs" t="Include" />
+            <e p="FindPlanModel.cs" t="Include" />
+            <e p="RemovePlanModel.cs" t="Include" />
+          </e>
+          <e p="Subscriptions" t="Include">
+            <e p="AllSubscriptionModel.cs" t="Include" />
+            <e p="CancelSubscriptionModel.cs" t="Include" />
+            <e p="ChargeSubscriptionModel.cs" t="Include" />
+            <e p="CreateSubscriptionModel.cs" t="Include" />
+            <e p="FindSusbscriptionModel.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="README.md" t="Include" />
+        <e p="Utils" t="Include">
+          <e p="Auxiliars.cs" t="Include" />
+          <e p="BodyRequest.cs" t="Include" />
+          <e p="Constants.cs" t="Include" />
+          <e p="Request.cs" t="Include" />
+          <e p="RequestRest.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="epayco-icon.ico" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+      </e>
+      <e p="EpaycoSdk.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

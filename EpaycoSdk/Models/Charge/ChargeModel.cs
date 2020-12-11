@@ -20,7 +20,7 @@ namespace EpaycoSdk.Models.Charge
         public string estado { get; set; }
         public string respuesta { get; set; }
         public string autorizacion { get; set; }
-        public int recibo { get; set; }
+        public string recibo { get; set; }
         public string fecha { get; set; }
         public string franquicia { get; set; }
         public string cod_respuesta { get; set; }

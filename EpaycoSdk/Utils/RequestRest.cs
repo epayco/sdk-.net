@@ -1,3 +1,4 @@
+using System.Net;
 using RestSharp;
 
 namespace EpaycoSdk.Utils
@@ -10,7 +11,7 @@ namespace EpaycoSdk.Utils
 
         public RequestRest()
         {
-            
+            System.Net.ServicePointManager.SecurityProtocol = (SecurityProtocolType) 3072;
         }
 
         #endregion
@@ -46,7 +47,7 @@ namespace EpaycoSdk.Utils
         
         private string Get()
         {
-            var request = new RestRequest();
+            var request = new RestRequest(END_POINT);
             string auth = "Basic " + PUBLIC_KEY_BASE64;
             request.AddHeader("authorization", auth);
             request.AddHeader("content-type", "application/json");
@@ -70,7 +71,6 @@ namespace EpaycoSdk.Utils
             
             var response = client.Post<dynamic>(request);
             return response.Content;
-           
         }
 
         #endregion

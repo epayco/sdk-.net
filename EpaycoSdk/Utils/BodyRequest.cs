@@ -353,12 +353,12 @@ namespace EpaycoSdk.Utils
         
         public string getQueryGetTransaction(string publicKey, string transactionId)
         {
-            return Constants.base_url_secure + Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
+            return Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
         }
         
         public string getQueryGetBanks(string publicKey)
         {
-            return Constants.base_url_secure + Constants.url_get_banks + "?public_key=" + publicKey ;
+            return Constants.url_get_banks + "?public_key=" + publicKey ;
         }
         
         /*
@@ -370,19 +370,19 @@ namespace EpaycoSdk.Utils
             switch (type)
             {
                 case "efecty":
-                    endpoint = Constants.base_url_secure + Constants.url_cash_efecty;
+                    endpoint = Constants.url_cash_efecty;
                     break;
                 case "baloto":
-                    endpoint = Constants.base_url_secure + Constants.url_cash_baloto;
+                    endpoint = Constants.url_cash_baloto;
                     break;
                 case "gana":
-                    endpoint = Constants.base_url_secure + Constants.url_cash_gana;
+                    endpoint = Constants.url_cash_gana;
                     break;
                 case "redservi":
-                    endpoint = Constants.base_url_secure + Constants.url_cash_redservi;
+                    endpoint = Constants.url_cash_redservi;
                     break;
                 case "puntored":
-                    endpoint = Constants.base_url_secure + Constants.url_cash_puntored;
+                    endpoint = Constants.url_cash_puntored;
                     break;
                 default:
                     return "";
@@ -475,7 +475,10 @@ namespace EpaycoSdk.Utils
              string extra4,
              string extra5,
              string extra6,
-             string extra7)
+             string extra7,
+             string extra8,
+             string extra9,
+             string extra10)
          {
              return "{\r\n\"token_card\": \""+token_card+"\",\r" +
                     "\n\"customer_id\": \""+customer_id+"\",\r" +
@@ -489,8 +492,6 @@ namespace EpaycoSdk.Utils
                     "\n\"value\": \""+value+"\",\r" +
                     "\n\"tax\": \""+tax+"\",\r" +
                     "\n\"tax_base\": \""+tax_base+"\",\r" +
-                    "\n\"phone\": \""+phone+"\",\r" +
-                    "\n\"tax_base\": \""+tax_base+"\",\r" +
                     "\n\"currency\": \""+currency+"\",\r" +
                     "\n\"dues\": \""+dues+"\",\r" +
                     "\n\"address\": \""+address+"\",\r" +
@@ -498,6 +499,7 @@ namespace EpaycoSdk.Utils
                     "\n\"cell_phone\": \""+cell_phone+"\",\r" +
                     "\n\"url_response\": \""+url_response+"\",\r" +
                     "\n\"url_confirmation\": \""+url_confirmation+"\",\r" +
+                    "\n\"extras\": {\r" +
                     "\n\"extra1\": \""+extra1+"\",\r" +
                     "\n\"extra2\": \""+extra2+"\",\r" +
                     "\n\"extra3\": \""+extra3+"\",\r" +
@@ -505,6 +507,9 @@ namespace EpaycoSdk.Utils
                     "\n\"extra5\": \""+extra5+"\",\r" +
                     "\n\"extra6\": \""+extra6+"\",\r" +
                     "\n\"extra7\": \""+extra7+"\",\r" +
+                    "\n\"extra8\": \""+extra8+"\",\r" +
+                    "\n\"extra9\": \""+extra9+"\",\r" +
+                    "\n\"extra10\": \""+extra10+"\"\r },\r" +
                     "\n\"ip\": \""+ip+"\"\r\n}";
          }
         #endregion

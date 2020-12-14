@@ -11,8 +11,6 @@ using EpaycoSdk.Models.Plans;
 using EpaycoSdk.Models.Subscriptions;
 using EpaycoSdk.Utils;
 using Newtonsoft.Json;
-using RestSharp;
-using RestSharp.Serialization.Json;
 
 namespace EpaycoSdk
 {
@@ -407,7 +405,7 @@ namespace EpaycoSdk
         {
             BanksModel bank = new BanksModel();
             ENDPOINT = body.getQueryGetBanks(_PUBLIC_KEY);
-            string content = _request.Execute(
+            string content = _restRequest.Execute(
                 ENDPOINT, 
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
@@ -496,19 +494,22 @@ namespace EpaycoSdk
             string url_response,
             string url_confirmation,
             string ip,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "")
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A")
         {
             ENDPOINT = Constants.url_charge;
             PARAMETER = body.getBodyChargeCreate(token_card, customer_id, doc_type, doc_number, name, last_name,
                 email, bill, description, value, tax, tax_base, currency, dues, address, phone, cell_phone,
                 url_response,
-                url_confirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7);
+                url_confirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             string content = _request.Execute(
                 ENDPOINT, 
                 "POST",
@@ -530,5 +531,4 @@ namespace EpaycoSdk
         }
         #endregion
     }
-    
 }

@@ -384,6 +384,8 @@ namespace EpaycoSdk.Utils
                 case "puntored":
                     endpoint = Constants.url_cash_puntored;
                     break;
+                case "sured":
+                    endpoint = Constants.url_cash_sured;
                 default:
                     return "";
             }

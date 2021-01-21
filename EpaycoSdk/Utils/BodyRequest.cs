@@ -389,7 +389,8 @@ namespace EpaycoSdk.Utils
                 default:
                     return "";
             }
-            return endpoint;
+
+            return base_url_secure + endpoint;
         }
         
          public string getBodyCashCreate(

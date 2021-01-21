@@ -226,7 +226,7 @@ BanksModel banks = epayco.GetBanks();
 Ejemplo de la petición:
 ```
 CashModel response = epayco.CashCreate(
-    "type", //efecty, gana, baloto, redservi, puntored
+    "type", //efecty, gana, baloto, redservi, puntored, sured
     "invoice",
     "description",
     "value",

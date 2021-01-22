@@ -245,7 +245,7 @@ namespace EpaycoSdk.Utils
                    "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
         
-        public string getBodyBankCreateSplit( //romedu
+        public string getBodyBankCreateSplit(
            string I,
            bool test,
            string public_key,

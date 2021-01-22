@@ -245,7 +245,7 @@ namespace EpaycoSdk.Utils
                    "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
         
-        public string getBodyBankCreateSplit(
+        public string getBodyBankCreateSplit( //romedu
            string I,
            bool test,
            string public_key,
@@ -386,11 +386,12 @@ namespace EpaycoSdk.Utils
                     break;
                 case "sured":
                     endpoint = Constants.url_cash_sured;
+                    break;
                 default:
                     return "";
             }
 
-            return base_url_secure + endpoint;
+            return Constants.base_url_secure + endpoint;
         }
         
          public string getBodyCashCreate(

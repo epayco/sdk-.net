@@ -61,6 +61,7 @@
     <Compile Include="Models\Bank\SplitReceivers.cs" />
     <Compile Include="Models\Bank\TransactionModel.cs" />
     <Compile Include="Models\Cash\CashModel.cs" />
+    <Compile Include="Models\Cash\CashSplitModel.cs" />
     <Compile Include="Models\Cash\CashTransactionModel.cs" />
     <Compile Include="Models\Charge\ChargeModel.cs" />
     <Compile Include="Models\Charge\ChargeTransactionModel.cs" />

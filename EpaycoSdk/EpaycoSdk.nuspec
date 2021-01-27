@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ePayco.Net</id>
-    <version>1.0.11</version>
+    <version>1.0.12</version>
     <title>ePayco SDK .Net</title>
     <authors>ePayco</authors>
     <owners>ePayco</owners>
@@ -19,4 +19,7 @@
         <dependency id="RestSharp" version="105.2.3"/>
     </dependencies>
   </metadata>
+  <files>
+    <file src="./bin/Release/epayco.net.dll" target="lib\net40" />
+  </files>
 </package>

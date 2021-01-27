@@ -444,18 +444,35 @@ namespace EpaycoSdk
             string end_date,
             string url_response,
             string url_confirmation,
-            string method_confirmation)
+            string method_confirmation,
+            CashSplitModel split_data = null)
         {
+            CashModel cash = null;
+            string content = "";
             ENDPOINT = body.getQueryCash(type);
-            PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY,
+
+            if (split_data != null)
+            {
+                PARAMETER = body.getBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
+                "", invoice, description, value, tax, tax_base, currency, type_person, doc_type, doc_number, name,
+                last_name, email, "", cell_phone, url_response, url_confirmation, method_confirmation, split_data.splitpayment,
+                split_data.split_app_id, split_data.split_merchant_id, split_data.split_type, split_data.split_primary_receiver,
+                split_data.split_primary_receiver_fee, split_data.split_receivers);
+            }
+            else
+            {
+                PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
                 invoice, description, value, tax, tax_base, currency, type_person, doc_type, doc_number, name,
                 last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation);
-            string content = _restRequest.Execute(
+            }
+
+            content = _restRequest.Execute(
                 ENDPOINT, 
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-            CashModel cash = JsonConvert.DeserializeObject<CashModel>(content);
+
+            cash = JsonConvert.DeserializeObject<CashModel>(content);
             return cash;
         }
         

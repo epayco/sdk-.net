@@ -384,10 +384,14 @@ namespace EpaycoSdk.Utils
                 case "puntored":
                     endpoint = Constants.url_cash_puntored;
                     break;
+                case "sured":
+                    endpoint = Constants.url_cash_sured;
+                    break;
                 default:
                     return "";
             }
-            return endpoint;
+
+            return Constants.base_url_secure + endpoint;
         }
         
          public string getBodyCashCreate(

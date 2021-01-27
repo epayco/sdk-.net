@@ -46,6 +46,7 @@ namespace EpaycoSdk.Utils
         public const string url_cash_gana = "/restpagos/v2/efectivo/gana";
         public const string url_cash_redservi = "/restpagos/v2/efectivo/redservi";
         public const string url_cash_puntored = "/restpagos/v2/efectivo/puntored";
+        public const string url_cash_sured = "/restpagos/v2/efectivo/sured";
         public const string url_cash_transaction = "/restpagos/transaction/response.json?";
     }
 }

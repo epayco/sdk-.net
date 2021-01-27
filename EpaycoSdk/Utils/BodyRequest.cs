@@ -391,7 +391,7 @@ namespace EpaycoSdk.Utils
                     return "";
             }
 
-            return Constants.base_url_secure + endpoint;
+            return endpoint;
         }
         
          public string getBodyCashCreate(

@@ -380,7 +380,7 @@ namespace EpaycoSdk
         public TransactionModel GetTransaction(string transactionId)
         {
             ENDPOINT = body.getQueryGetTransaction(_PUBLIC_KEY, transactionId);
-            string content = _request.Execute(
+            string content = _restRequest.Execute(
                 ENDPOINT, 
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),

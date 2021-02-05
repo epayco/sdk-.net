@@ -380,7 +380,7 @@ namespace EpaycoSdk
         public TransactionModel GetTransaction(string transactionId)
         {
             ENDPOINT = body.getQueryGetTransaction(_PUBLIC_KEY, transactionId);
-            string content = _request.Execute(
+            string content = _restRequest.Execute(
                 ENDPOINT, 
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
@@ -479,7 +479,7 @@ namespace EpaycoSdk
         public CashTransactionModel GetCashTransaction(string ref_payco)
         {
             ENDPOINT = body.getQueryCashTransaction(ref_payco, _PUBLIC_KEY);
-            string content = _request.Execute(
+            string content = _restRequest.Execute(
                 ENDPOINT, 
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY));
@@ -539,7 +539,7 @@ namespace EpaycoSdk
         public ChargeTransactionModel GetChargeTransaction(string ref_payco)
         {
             ENDPOINT = body.getQueryCashTransaction(ref_payco, _PUBLIC_KEY);
-            string content = _request.Execute(
+            string content = _restRequest.Execute(
                 ENDPOINT, 
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY));

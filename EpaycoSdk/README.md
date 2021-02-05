@@ -239,7 +239,6 @@ CashModel response = epayco.CashCreate(
     "name",
     "last_name",
     "email",
-    "country",
     "cell_phone",
     "url_response",
     "url_confirmation",);

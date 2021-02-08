@@ -66,6 +66,6 @@ namespace EpaycoSdk.Models.Cash
         public string x_extra9 { get; set; }
         public string x_extra10 { get; set; }
         public int totalerrores { get; set; }
-        public List<CashErrors> errores { get; set; }
+        public dynamic errores { get; set; }
     }
 }

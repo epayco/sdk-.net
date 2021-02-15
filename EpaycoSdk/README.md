@@ -239,10 +239,11 @@ CashModel response = epayco.CashCreate(
     "name",
     "last_name",
     "email",
-    "country",
     "cell_phone",
+    "end_date",
     "url_response",
-    "url_confirmation",);
+    "url_confirmation",
+    "method_confirmation");
 ```
 ### Get Cash Transaction
 Ejemplo de la petición:

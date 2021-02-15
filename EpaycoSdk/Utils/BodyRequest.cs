@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using EpaycoSdk.Models.Bank;
+using EpaycoSdk.Models.Cash;
+using Newtonsoft;
 
 namespace EpaycoSdk.Utils
 {
@@ -349,7 +351,11 @@ namespace EpaycoSdk.Utils
                   "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
  
-        
+        public string getBodySplitPayments(CashSplitModel split_details)
+        {
+           List<SplitReceivers> split_receivers = split_details.split_receivers;
+           return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);
+        }
         
         public string getQueryGetTransaction(string publicKey, string transactionId)
         {

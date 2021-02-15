@@ -50,6 +50,15 @@ namespace EpaycoSdk.Utils
                 // return Convert.ToBase64String(plainTextBytes);;
             }
         }
+
+        public static string ConcatBodyStrings(string body_string1, string body_string2)
+        {
+            string body_substring1 = body_string1.Remove(body_string1.Length - 3);
+            string body_substring2 = body_string2.Substring(1);
+            string concatenated_strings = body_substring1 + "," + body_substring2;
+
+            return concatenated_strings;
+        }
         #endregion
     }
 }

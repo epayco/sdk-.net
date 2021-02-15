@@ -250,6 +250,59 @@ Ejemplo de la petición:
 CashTransactionModel cash = epayco.GetCashTransaction("ref_payco");
 ```
 
+### Split Payments
+
+Previous requirements: https://docs.epayco.co/tools/split-payment
+
+#### Split 1-1
+
+Ejemplo de la petición:
+
+```
+CashSplitModel splitData = new CashSplitModel();
+splitData.splitpayment = "true";
+splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
+splitData.split_type = "02";
+splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_primary_receiver_fee = "10";
+splitData.split_rule = "";
+List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
+splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitData.split_receivers = splitReceivers;
+
+CashModel response = epayco.CashCreate(
+    //Other customary parameters...
+    splitData
+);
+```
+
+#### Split multiple
+
+use the following attributes in case you need to do a dispersion with multiple providers
+
+Ejemplo de la petición:
+
+```
+CashSplitModel splitData = new CashSplitModel();
+splitData.splitpayment = "true";
+splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
+splitData.split_type = "02";
+splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_primary_receiver_fee = "0";
+splitData.split_rule = "multiple";
+List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
+splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 2ND RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitData.split_receivers = splitReceivers;
+
+CashModel response = epayco.CashCreate(
+    //Other customary parameters...
+    splitData
+);
+```
+
 ## PAYMENT
 ### Payment Create
 Ejemplo de la petición:
@@ -282,4 +335,57 @@ ChargeModel response = epayco.ChargeCreate(
 Ejemplo de la petición:
 ```
  ChargeTransactionModel cash = epayco.GetChargeTransaction("ref_payco");
+```
+
+### Split Payments
+
+Previous requirements: https://docs.epayco.co/tools/split-payment
+
+#### Split 1-1
+
+Ejemplo de la petición:
+
+```
+CashSplitModel splitData = new CashSplitModel();
+splitData.splitpayment = "true";
+splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
+splitData.split_type = "02";
+splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_primary_receiver_fee = "10";
+splitData.split_rule = "";
+List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
+splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitData.split_receivers = splitReceivers;
+
+ChargeModel response = epayco.ChargeCreate(
+    //Other customary parameters...
+    splitData
+);
+```
+
+#### Split multiple
+
+use the following attributes in case you need to do a dispersion with multiple providers
+
+Ejemplo de la petición:
+
+```
+CashSplitModel splitData = new CashSplitModel();
+splitData.splitpayment = "true";
+splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
+splitData.split_type = "02";
+splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_primary_receiver_fee = "0";
+splitData.split_rule = "multiple";
+List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
+splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 2ND RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitData.split_receivers = splitReceivers;
+
+ChargeModel response = epayco.ChargeCreate(
+    //Other customary parameters...
+    splitData
+);
 ```

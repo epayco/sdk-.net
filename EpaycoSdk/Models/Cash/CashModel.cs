@@ -38,7 +38,7 @@ namespace EpaycoSdk.Models.Cash
         public string direccion { get; set; }
         public string ind_pais { get; set; }
         public string pin { get; set; }
-        public int codigoproyecto { get; set; }
+        public string codigoproyecto { get; set; }
         public string fechaexpiracion { get; set; }
         public string fechapago { get; set; }
         public decimal factor_conversion { get; set; }

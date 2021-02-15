@@ -17,7 +17,7 @@ namespace EpaycoSdk.Models.Cash
         public string descripcion { get; set; }
         public string valor { get; set; }
         public string iva { get; set; }
-        public int baseiva { get; set; }
+        public dynamic baseiva { get; set; }
         public string moneda { get; set; }
         public string banco { get; set; }
         public string estado { get; set; }

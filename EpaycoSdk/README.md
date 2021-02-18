@@ -323,7 +323,7 @@ ChargeModel response = epayco.ChargeCreate(
     "tax_base",
     "currency",
     "dues",
-    "caddress",
+    "address",
     "phone",
     "cell_phone",
     "url_response",

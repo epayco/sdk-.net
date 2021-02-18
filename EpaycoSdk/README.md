@@ -328,7 +328,17 @@ ChargeModel response = epayco.ChargeCreate(
     "cell_phone",
     "url_response",
     "url_confirmation",
-    "ip");
+    "ip",
+    "extra1",
+    "extra2",
+    "extra3",
+    "extra4",
+    "extra5",
+    "extra6",
+    "extra7",
+    "extra8",
+    "extra9",
+    "extra10");
 ```
 
 

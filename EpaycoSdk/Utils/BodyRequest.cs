@@ -351,7 +351,7 @@ namespace EpaycoSdk.Utils
                   "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
  
-        public string getBodySplitPayments(CashSplitModel split_details)
+        public string getBodySplitPayments(SplitModel split_details)
         {
            List<SplitReceivers> split_receivers = split_details.split_receivers;
            return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);

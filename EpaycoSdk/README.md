@@ -260,7 +260,7 @@ Previous requirements: https://docs.epayco.co/tools/split-payment
 Ejemplo de la petición:
 
 ```
-CashSplitModel splitData = new CashSplitModel();
+SplitModel splitData = new SplitModel();
 splitData.splitpayment = "true";
 splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
@@ -285,7 +285,7 @@ use the following attributes in case you need to do a dispersion with multiple p
 Ejemplo de la petición:
 
 ```
-CashSplitModel splitData = new CashSplitModel();
+SplitModel splitData = new SplitModel();
 splitData.splitpayment = "true";
 splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
@@ -357,7 +357,7 @@ Previous requirements: https://docs.epayco.co/tools/split-payment
 Ejemplo de la petición:
 
 ```
-CashSplitModel splitData = new CashSplitModel();
+SplitModel splitData = new SplitModel();
 splitData.splitpayment = "true";
 splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
@@ -382,7 +382,7 @@ use the following attributes in case you need to do a dispersion with multiple p
 Ejemplo de la petición:
 
 ```
-CashSplitModel splitData = new CashSplitModel();
+SplitModel splitData = new SplitModel();
 splitData.splitpayment = "true";
 splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";

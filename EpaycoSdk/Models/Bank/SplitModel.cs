@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using EpaycoSdk.Models.Bank;
 
-namespace EpaycoSdk.Models.Cash
+namespace EpaycoSdk.Models.Bank
 {
-    public class CashSplitModel
+    public class SplitModel
     {
         public string splitpayment { get; set; }
         public string split_app_id { get; set; }

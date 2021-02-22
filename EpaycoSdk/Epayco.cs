@@ -445,7 +445,7 @@ namespace EpaycoSdk
             string url_response,
             string url_confirmation,
             string method_confirmation,
-            CashSplitModel split_details = null)
+            SplitModel split_details = null)
         {
             CashModel cash = null;
             string content = "";
@@ -514,7 +514,7 @@ namespace EpaycoSdk
             string extra8 = "N/A",
             string extra9 = "N/A",
             string extra10 = "N/A",
-            CashSplitModel split_details = null)
+            SplitModel split_details = null)
         {
             ENDPOINT = Constants.url_charge;
             PARAMETER = body.getBodyChargeCreate(token_card, customer_id, doc_type, doc_number, name, last_name,

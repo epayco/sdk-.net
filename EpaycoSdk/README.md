@@ -212,7 +212,7 @@ PseModel response = epayco.BankCreateSplit(
 ### Get Transaction
 Ejemplo de la petición:
 ```
-TransactionModel transaction = epayco.GetTransaction("id_transaction");
+TransactionModel transaction = epayco.GetTransaction("codigo_recibo");
 ```
 
 ### Get Banks

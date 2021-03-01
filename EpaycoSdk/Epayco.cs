@@ -380,7 +380,7 @@ namespace EpaycoSdk
         public TransactionModel GetTransaction(string transactionId)
         {
             ENDPOINT = body.getQueryGetTransaction(_PUBLIC_KEY, transactionId);
-            string content = _request.Execute(
+            string content = _restRequest.Execute(
                 ENDPOINT, 
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
@@ -445,25 +445,18 @@ namespace EpaycoSdk
             string url_response,
             string url_confirmation,
             string method_confirmation,
-            CashSplitModel split_data = null)
+            SplitModel split_details = null)
         {
             CashModel cash = null;
             string content = "";
             ENDPOINT = body.getQueryCash(type);
-
-            if (split_data != null)
-            {
-                PARAMETER = body.getBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
-                "", invoice, description, value, tax, tax_base, currency, type_person, doc_type, doc_number, name,
-                last_name, email, "", cell_phone, url_response, url_confirmation, method_confirmation, split_data.splitpayment,
-                split_data.split_app_id, split_data.split_merchant_id, split_data.split_type, split_data.split_primary_receiver,
-                split_data.split_primary_receiver_fee, split_data.split_receivers);
-            }
-            else
-            {
-                PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
+            PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
                 invoice, description, value, tax, tax_base, currency, type_person, doc_type, doc_number, name,
                 last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation);
+            
+            if(split_details != null){
+                string split_req_body = body.getBodySplitPayments(split_details);
+                PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, split_req_body);
             }
 
             content = _restRequest.Execute(
@@ -479,7 +472,7 @@ namespace EpaycoSdk
         public CashTransactionModel GetCashTransaction(string ref_payco)
         {
             ENDPOINT = body.getQueryCashTransaction(ref_payco, _PUBLIC_KEY);
-            string content = _request.Execute(
+            string content = _restRequest.Execute(
                 ENDPOINT, 
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY));
@@ -520,18 +513,26 @@ namespace EpaycoSdk
             string extra7 = "N/A",
             string extra8 = "N/A",
             string extra9 = "N/A",
-            string extra10 = "N/A")
+            string extra10 = "N/A",
+            SplitModel split_details = null)
         {
             ENDPOINT = Constants.url_charge;
             PARAMETER = body.getBodyChargeCreate(token_card, customer_id, doc_type, doc_number, name, last_name,
                 email, bill, description, value, tax, tax_base, currency, dues, address, phone, cell_phone,
                 url_response,
                 url_confirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
+            
+            if(split_details != null){
+                string split_req_body = body.getBodySplitPayments(split_details);
+                PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, split_req_body);
+            }
+            
             string content = _request.Execute(
                 ENDPOINT, 
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
-                PARAMETER); 
+                PARAMETER);
+
             ChargeModel payment = JsonConvert.DeserializeObject<ChargeModel>(content);
             return payment;
         }
@@ -539,7 +540,7 @@ namespace EpaycoSdk
         public ChargeTransactionModel GetChargeTransaction(string ref_payco)
         {
             ENDPOINT = body.getQueryCashTransaction(ref_payco, _PUBLIC_KEY);
-            string content = _request.Execute(
+            string content = _restRequest.Execute(
                 ENDPOINT, 
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY));

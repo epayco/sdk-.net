@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace EpaycoSdk.Models.Cash
 {
     public class CashModel
@@ -8,6 +6,7 @@ namespace EpaycoSdk.Models.Cash
         public string title_response { get; set; }
         public string text_response { get; set; }
         public string last_action { get; set; }
+        public string message { get; set; }
         public DataCash data { get; set; }
     }
     
@@ -18,7 +17,7 @@ namespace EpaycoSdk.Models.Cash
         public string descripcion { get; set; }
         public string valor { get; set; }
         public string iva { get; set; }
-        public string baseiva { get; set; }
+        public dynamic baseiva { get; set; }
         public string moneda { get; set; }
         public string banco { get; set; }
         public string estado { get; set; }
@@ -39,18 +38,12 @@ namespace EpaycoSdk.Models.Cash
         public string direccion { get; set; }
         public string ind_pais { get; set; }
         public string pin { get; set; }
-        public int codigoproyecto { get; set; }
+        public string codigoproyecto { get; set; }
         public string fechaexpiracion { get; set; }
         public string fechapago { get; set; }
         public decimal factor_conversion { get; set; }
         public string valor_pesos { get; set; }
         public int totalerrores { get; set; }
-        public List<CashErrors> errores { get; set; }
-    }
-
-    public class CashErrors
-    {
-        public string codError { get; set; }
-        public string errorMessage { get; set; }
+        public dynamic errores { get; set; }
     }
 }

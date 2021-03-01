@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using EpaycoSdk.Models.Bank;
+using EpaycoSdk.Models.Cash;
+using Newtonsoft;
 
 namespace EpaycoSdk.Utils
 {
@@ -57,17 +59,17 @@ namespace EpaycoSdk.Utils
 
         public string getQueryFindCustomer(string publicKey, string id_customer)
         {
-            return Constants.url_base + Constants.url_find_customer  + publicKey + "/" + id_customer;
+            return Constants.url_find_customer + publicKey + "/" + id_customer;
         }
         
         public string getQueryFindAllCustomers(string publicKey)
         {
-            return Constants.url_base + Constants.url_find_all_customer  + publicKey;
+            return Constants.url_find_all_customer + publicKey;
         }
         
         public string getQueryUpdateCustomer(string publicKey, string customer_id)
         {
-            return Constants.url_base + Constants.url_update_customer  + publicKey + "/" + customer_id;
+            return Constants.url_update_customer + publicKey + "/" + customer_id;
         }
         
         public string getBodyUpdateCustomer(string name)
@@ -99,17 +101,17 @@ namespace EpaycoSdk.Utils
         
         public string getQueryGetPlan(string id_plan, string publicKey)
         {
-            return Constants.url_base + Constants.url_get_plan  + publicKey + "/" + id_plan;
+            return Constants.url_get_plan + publicKey + "/" + id_plan;
         }
         
         public string getQueryGetAllPlans(string publicKey)
         {
-            return Constants.url_base + Constants.url_get_all_plans  + publicKey;
+            return Constants.url_get_all_plans + publicKey;
         }
         
         public string getQueryRemovePlan(string publicKey, string id_plan)
         {
-            return Constants.url_base + Constants.url_remove_plan  + publicKey + "/" + id_plan;
+            return Constants.url_remove_plan + publicKey + "/" + id_plan;
         }
         
         /*
@@ -142,12 +144,12 @@ namespace EpaycoSdk.Utils
         }
         public string getQueryFindSubscription(string publicKey, string id)
         {
-            return Constants.url_base + Constants.url_get_subscription  +  id + "/" + publicKey;
+            return Constants.url_get_subscription + id + "/" + publicKey;
         }
         
         public string getQueryFindAllSubscription(string publicKey)
         {
-            return Constants.url_base + Constants.url_get_all_subscriptions + publicKey;
+            return Constants.url_get_all_subscriptions + publicKey;
         }
         
         public string getBodyCancelSubscription(string subscriptionId)
@@ -349,7 +351,11 @@ namespace EpaycoSdk.Utils
                   "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
  
-        
+        public string getBodySplitPayments(SplitModel split_details)
+        {
+           List<SplitReceivers> split_receivers = split_details.split_receivers;
+           return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);
+        }
         
         public string getQueryGetTransaction(string publicKey, string transactionId)
         {
@@ -446,7 +452,7 @@ namespace EpaycoSdk.Utils
          
          public string getQueryCashTransaction(string ref_payco, string publicKey)
          {
-             return Constants.base_url_secure + Constants.url_cash_transaction + "ref_payco=" + ref_payco + "&public_key=" + publicKey;
+             return Constants.url_cash_transaction + "ref_payco=" + ref_payco + "&public_key=" + publicKey;
          }
          
          /*

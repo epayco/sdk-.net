@@ -70,6 +70,7 @@
     <Compile Include="Models\Customer\CustomerFindModel.cs" />
     <Compile Include="Models\Customer\CustomerListModel.cs" />
     <Compile Include="Models\Customer\CustomerTokenDeleteModel.cs" />
+    <Compile Include="Models\Customer\DebitTokenModel.cs" />
     <Compile Include="Models\Customer\TokenModel.cs" />
     <Compile Include="Models\Plans\CreatePlanModel.cs" />
     <Compile Include="Models\Plans\FindAllPlansModel.cs" />

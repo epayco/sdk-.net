@@ -33,6 +33,13 @@ namespace EpaycoSdk.Utils
                    "\n\"card[cvc]\":\"" + cvc + "\"\n}";
         }
 
+        public string getBodyCreateDebitToken(string accountNumber, string accountType, string bankCode)
+        {
+            return "{\n\"debitAccount[number]\":\"" + accountNumber + "\"," +
+                   "\n\"debitAccount[type]\":\"" + accountType + "\"," +
+                   "\n\"debitAccount[bank]\":\"" + bankCode + "\"\n}";
+        }
+
         public string getBodyCreateCustomer(
             string token_card, 
             string name, 

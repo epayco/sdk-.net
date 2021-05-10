@@ -6,11 +6,11 @@ namespace EpaycoSdk.Models
         public string id { get; set; }
         public bool success { get; set; }
         public string type { get; set; }
-        public Data data { get; set; }
+        public DebitTokenData data { get; set; }
         public DebitAccount debitAccount { get; set; }
     }
 
-    public partial class Data
+    public partial class DebitTokenData
     {
         public string status { get; set; }
         public string id { get; set; }

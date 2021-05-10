@@ -9,6 +9,7 @@ namespace EpaycoSdk.Utils
         * CUSTOMER
         */
         public const string url_create_token = "/v1/tokens";
+        public const string url_create_debit_token = "/v1/tokens/debit";
         public const string url_create_customer = "/payment/v1/customer/create";
         public const string url_find_customer = "/payment/v1/customer/";
         public const string url_find_all_customer = "/payment/v1/customers/";

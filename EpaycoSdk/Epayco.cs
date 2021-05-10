@@ -59,6 +59,20 @@ namespace EpaycoSdk
             return token;
         }
 
+        public DebitTokenModel CreateDebitToken(string accountNumber, string accountType, string bankCode)
+        {
+            PARAMETER = body.getBodyCreateDebitToken(accountNumber, accountType, bankCode);
+            ENDPOINT = Constants.url_create_debit_token;
+            string content = _request.Execute(
+                ENDPOINT, 
+                "POST",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER);
+            DebitTokenModel token = JsonConvert.DeserializeObject<DebitTokenModel>(content);
+            
+            return token;
+        }
+
         public CustomerCreateModel CustomerCreate(string token_card, 
             string name, 
             string last_name, 

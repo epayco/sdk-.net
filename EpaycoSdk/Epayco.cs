@@ -353,8 +353,9 @@ namespace EpaycoSdk
             string split_type,
             string split_primary_receiver,
             string split_primary_receiver_fee,
-            List<SplitReceivers> split_receivers,
-            string extra1 = "",
+            // List<SplitReceivers> split_receivers,
+            string split_receivers
+            List<SplitReceivers> extra1 = "",
             string extra2 = "",
             string extra3 = "",
             string extra4 = "",

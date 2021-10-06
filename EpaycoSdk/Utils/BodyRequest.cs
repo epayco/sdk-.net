@@ -192,6 +192,7 @@ namespace EpaycoSdk.Utils
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string type_person,
             string doc_type,
@@ -221,6 +222,7 @@ namespace EpaycoSdk.Utils
                    "\n\"valor\": \""+Auxiliars.AESEncrypt(value, private_key)+"\",\r" +
                    "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, private_key)+"\",\r" +
                    "\n\"baseiva\": \""+Auxiliars.AESEncrypt(tax_base, private_key)+"\",\r" +
+                   "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, private_key)+"\",\r" +
                    "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, private_key)+"\",\r" +
                    "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(type_person, private_key)+"\",\r" +
                    "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(doc_type, private_key)+"\",\r" +
@@ -258,6 +260,7 @@ namespace EpaycoSdk.Utils
            string value,
            string tax,
            string tax_base,
+           string ico,
            string currency,
            string type_person,
            string doc_type,
@@ -318,6 +321,7 @@ namespace EpaycoSdk.Utils
                   "\n\"valor\": \""+Auxiliars.AESEncrypt(value, private_key)+"\",\r" +
                   "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, private_key)+"\",\r" +
                   "\n\"baseiva\": \""+Auxiliars.AESEncrypt(tax_base, private_key)+"\",\r" +
+                  "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, private_key)+"\",\r" +
                   "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, private_key)+"\",\r" +
                   "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(type_person, private_key)+"\",\r" +
                   "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(doc_type, private_key)+"\",\r" +
@@ -371,7 +375,7 @@ namespace EpaycoSdk.Utils
          * CASH
          */
         public string getQueryCash(string type)
-        {
+        {       
             var endpoint = "";
             switch (type)
             {
@@ -410,6 +414,7 @@ namespace EpaycoSdk.Utils
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string type_person,
             string doc_type,
@@ -431,6 +436,7 @@ namespace EpaycoSdk.Utils
                    "\n\"valor\": \""+value+"\",\r" +
                    "\n\"iva\": \""+tax+"\",\r" +
                    "\n\"baseiva\": \""+tax_base+"\",\r" +
+                   "\n\"ico\": \""+ico+"\",\r" +
                    "\n\"moneda\": \""+currency+"\",\r" +
                    "\n\"tipo_persona\": \""+type_person+"\",\r" +
                    "\n\"tipo_doc\": \""+doc_type+"\",\r" +
@@ -471,6 +477,7 @@ namespace EpaycoSdk.Utils
              string value,
              string tax,
              string tax_base,
+             string ico,
              string currency,
              string dues,
              string address,
@@ -502,6 +509,7 @@ namespace EpaycoSdk.Utils
                     "\n\"value\": \""+value+"\",\r" +
                     "\n\"tax\": \""+tax+"\",\r" +
                     "\n\"tax_base\": \""+tax_base+"\",\r" +
+                    "\n\"ico\": \""+ico+"\",\r" +
                     "\n\"currency\": \""+currency+"\",\r" +
                     "\n\"dues\": \""+dues+"\",\r" +
                     "\n\"address\": \""+address+"\",\r" +

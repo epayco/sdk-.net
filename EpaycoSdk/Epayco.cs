@@ -125,7 +125,35 @@ namespace EpaycoSdk
             CustomerEditModel customer = JsonConvert.DeserializeObject<CustomerEditModel>(content);
             return customer;
         }
-        
+
+        public TokenMessage addNewToken(string token_card, string customer_id)
+        {
+            ENDPOINT = Constants.url_add_new_token;
+            PARAMETER = body.getBodyAddNewToken(token_card, customer_id);
+            string content = _request.Execute(
+                ENDPOINT,
+                "POST",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER);
+            TokenMessage customer = JsonConvert.DeserializeObject<TokenMessage>(content);
+            return customer;
+        }
+
+        public SetDefaultToken addDefaultCard(string token_card, string customer_id, string franchise, string mask)
+        {
+            ENDPOINT = Constants.url_set_default_token;
+            PARAMETER = body.getBodySetDefaultToken(token_card, customer_id, franchise, mask);
+            string content = _request.Execute(
+                ENDPOINT,
+                "POST",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER);
+            SetDefaultToken customer = JsonConvert.DeserializeObject<SetDefaultToken>(content);
+            return customer;
+        }
+
+
+
         public CustomerTokenDeleteModel CustomerDeleteToken(string franchise, string mask, string customer_id)
         {
             ENDPOINT = Constants.url_token_delete;
@@ -294,6 +322,7 @@ namespace EpaycoSdk
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string type_person,
             string doc_type,
@@ -316,7 +345,7 @@ namespace EpaycoSdk
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreate(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
-                tax_base, currency, type_person, doc_type, doc_number, name, last_name, email, country,
+                tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country,
                 cell_phone, url_response, url_confirmation, method_confirmation, extra1, extra2, extra3,
                 extra4, extra5, extra6, extra7);
             string content = _restRequest.Execute(
@@ -335,6 +364,7 @@ namespace EpaycoSdk
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string type_person,
             string doc_type,
@@ -353,9 +383,8 @@ namespace EpaycoSdk
             string split_type,
             string split_primary_receiver,
             string split_primary_receiver_fee,
-            // List<SplitReceivers> split_receivers,
-            string split_receivers
-            List<SplitReceivers> extra1 = "",
+            List<SplitReceivers> split_receivers,
+            string extra1 = "",
             string extra2 = "",
             string extra3 = "",
             string extra4 = "",
@@ -365,7 +394,7 @@ namespace EpaycoSdk
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
-                tax_base, currency, type_person, doc_type, doc_number, name, last_name, email, country,
+                tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country,
                 cell_phone, url_response, url_confirmation, method_confirmation, splitpayment, split_app_id, split_merchant_id,
                 split_type, split_primary_receiver, split_primary_receiver_fee, split_receivers, extra1, extra2, extra3,
                 extra4, extra5, extra6, extra7);
@@ -405,7 +434,7 @@ namespace EpaycoSdk
         public BanksModel GetBanks()
         {
             BanksModel bank = new BanksModel();
-            ENDPOINT = body.getQueryGetBanks(_PUBLIC_KEY);
+            ENDPOINT = body.getQueryGetBanks(_PUBLIC_KEY,_TEST);
             string content = _restRequest.Execute(
                 ENDPOINT, 
                 "GET",
@@ -434,6 +463,7 @@ namespace EpaycoSdk
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string type_person,
             string doc_type,
@@ -448,18 +478,17 @@ namespace EpaycoSdk
             string method_confirmation,
             SplitModel split_details = null)
         {
-            CashModel cash = null;
-            string content = "";
+            CashModel cash;
+            string content;
             ENDPOINT = body.getQueryCash(type);
             PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
-                invoice, description, value, tax, tax_base, currency, type_person, doc_type, doc_number, name,
+                invoice, description, value, tax, tax_base, ico, currency, type_person, doc_type, doc_number, name,
                 last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation);
             
             if(split_details != null){
                 string split_req_body = body.getBodySplitPayments(split_details);
                 PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, split_req_body);
             }
-
             content = _restRequest.Execute(
                 ENDPOINT, 
                 "POST",
@@ -497,6 +526,7 @@ namespace EpaycoSdk
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string dues,
             string address,
@@ -519,7 +549,7 @@ namespace EpaycoSdk
         {
             ENDPOINT = Constants.url_charge;
             PARAMETER = body.getBodyChargeCreate(token_card, customer_id, doc_type, doc_number, name, last_name,
-                email, bill, description, value, tax, tax_base, currency, dues, address, phone, cell_phone,
+                email, bill, description, value, tax, tax_base, ico, currency, dues, address, phone, cell_phone,
                 url_response,
                 url_confirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             

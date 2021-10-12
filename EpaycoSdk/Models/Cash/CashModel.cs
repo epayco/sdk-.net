@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 namespace EpaycoSdk.Models.Cash
 {
     public class CashModel
@@ -10,6 +11,11 @@ namespace EpaycoSdk.Models.Cash
         public DataCash data { get; set; }
     }
     
+    public class errors
+    {
+        public string codError { get; set; }
+        public string errorMessage { get; set; }
+    }
     public class DataCash
     {
         public int ref_payco { get; set; }
@@ -17,6 +23,7 @@ namespace EpaycoSdk.Models.Cash
         public string descripcion { get; set; }
         public string valor { get; set; }
         public string iva { get; set; }
+        public string ico { get; set; }
         public dynamic baseiva { get; set; }
         public string moneda { get; set; }
         public string banco { get; set; }
@@ -44,6 +51,6 @@ namespace EpaycoSdk.Models.Cash
         public decimal factor_conversion { get; set; }
         public string valor_pesos { get; set; }
         public int totalerrores { get; set; }
-        public dynamic errores { get; set; }
+        public List<errors> errores { get; set; }
     }
 }

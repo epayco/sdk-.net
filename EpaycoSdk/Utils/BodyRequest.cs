@@ -83,7 +83,21 @@ namespace EpaycoSdk.Utils
                    "\n\"mask\":\"" + mask + "\"," +
                    "\n\"customer_id\":\"" + customer_id + "\"\n}";
         }
-        
+
+        public string getBodyAddNewToken(string token_card, string customer_id)
+        {
+            return "{\n\"token_card\":\"" + token_card + "\"," +
+                   "\n\"customer_id\":\"" + customer_id + "\"\n}";
+        }
+        public string getBodySetDefaultToken(string token, string customer_id, string franchise, string mask)
+        {
+            return "{\n\"franchise\":\"" + franchise + "\"," +
+                   "\n\"token\":\"" + token + "\"," +
+                   "\n\"mask\":\"" + mask + "\"," +
+                   "\n\"customer_id\":\"" + customer_id + "\"\n}";
+        }
+
+
         /*
          * PLANS QUERYS AND BODY
          */
@@ -366,9 +380,14 @@ namespace EpaycoSdk.Utils
             return Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
         }
         
-        public string getQueryGetBanks(string publicKey)
+        public string getQueryGetBanks(string publicKey, bool test)
         {
-            return Constants.url_get_banks + "?public_key=" + publicKey ;
+            string pruebas = "2";
+            if (test)
+            {
+                pruebas = "1";
+            }
+            return Constants.url_get_banks + "?public_key=" + publicKey + "&test=" + pruebas;
         }
         
         /*

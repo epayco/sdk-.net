@@ -205,14 +205,14 @@ PseModel response = epayco.BankCreateSplit(
   "split_type",
   "split_primary_receiver",
   "split_primary_receiver_fee",
-  splitReceiverses // Este sería un array de tipo SplitReceivers el cual se inicializa al principio del método
+  splitReceiverses // Este sería un array de tipo SplitReceivers el cual se inicializa al principio del método es un campo opcional y es obligatorio sí se envía split_rule
 );
 ```
 
 ### Get Transaction
 Ejemplo de la petición:
 ```
-TransactionModel transaction = epayco.GetTransaction("id_transaction");
+TransactionModel transaction = epayco.GetTransaction("ticketId");
 ```
 
 ### Get Banks
@@ -292,7 +292,7 @@ splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
 splitData.split_type = "02";
 splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_primary_receiver_fee = "0";
-splitData.split_rule = "multiple";
+splitData.split_rule = "multiple"; //si se envía este parámetro el campo splitReceivers se vuelve obligatorio
 List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
 splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
 splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 2ND RECEIVER", fee = "10", total = "1000", fee_type = "01" });
@@ -389,7 +389,7 @@ splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
 splitData.split_type = "02";
 splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_primary_receiver_fee = "0";
-splitData.split_rule = "multiple";
+splitData.split_rule = "multiple"; // si se envía este parámetro el campo splitReceivers se vuelve obligatorio
 List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
 splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
 splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 2ND RECEIVER", fee = "10", total = "1000", fee_type = "01" });

@@ -303,32 +303,10 @@ namespace EpaycoSdk.Utils
            string extra7 = "")
         {
            var localIP = "";
+           var split_receivers_json = Newtonsoft.Json.JsonConvert.SerializeObject(split_receivers);
            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
            localIP = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
-           string split_data = "";
-           int count = 0;
-           foreach (var split in split_receivers)
-           {
-               if (count == 0)
-               {
-                   split_data += "[{" + split.id + "," + split.fee + "," + split.fee_type + "";
-               }
-               else
-               {
-                   split_data += ",{" + split.id + "," + split.fee + "," + split.fee_type + "";
-               }
 
-               if (count == split_receivers.Count - 1)
-               {
-                   split_data += "}]";
-               }
-               else
-               {
-                   split_data += "}";
-               }
-               count++;
-              
-           }
            return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, private_key)+"\",\r" +
                   "\n\"factura\": \""+Auxiliars.AESEncrypt(invoice, private_key)+"\",\r" +
                   "\n\"descripcion\": \""+Auxiliars.AESEncrypt(description, private_key)+"\",\r" +
@@ -354,7 +332,7 @@ namespace EpaycoSdk.Utils
                   "\n\"split_type\": \"" + Auxiliars.AESEncrypt(split_type, private_key) + "\",\r" +
                   "\n\"split_primary_receiver\": \"" + Auxiliars.AESEncrypt(split_primary_receiver, private_key) + "\",\r" +
                   "\n\"split_primary_receiver_fee\": \"" + Auxiliars.AESEncrypt(split_primary_receiver_fee, private_key) + "\",\r" +
-                  "\n\"split_receivers\": \""+Auxiliars.AESEncrypt(split_data, private_key)+"\",\r" +
+                  "\n\"split_receivers\": \""+Auxiliars.AESEncrypt(split_receivers_json, private_key)+"\",\r" +
                   "\n\"extra1\": \""+Auxiliars.AESEncrypt(extra1, private_key)+"\",\r" +
                   "\n\"extra2\": \""+Auxiliars.AESEncrypt(extra2, private_key)+"\",\r" +
                   "\n\"extra3\": \""+Auxiliars.AESEncrypt(extra3, private_key)+"\",\r" +

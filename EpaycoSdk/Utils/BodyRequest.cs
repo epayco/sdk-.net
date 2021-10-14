@@ -307,7 +307,7 @@ namespace EpaycoSdk.Utils
            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
            localIP = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
 
-           return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, private_key)+"\",\r" +
+            return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, private_key)+"\",\r" +
                   "\n\"factura\": \""+Auxiliars.AESEncrypt(invoice, private_key)+"\",\r" +
                   "\n\"descripcion\": \""+Auxiliars.AESEncrypt(description, private_key)+"\",\r" +
                   "\n\"valor\": \""+Auxiliars.AESEncrypt(value, private_key)+"\",\r" +
@@ -350,28 +350,35 @@ namespace EpaycoSdk.Utils
         public string getBodySplitPayments(SplitModel split_details)
         {
            List<SplitReceivers> split_receivers = split_details.split_receivers;
-           return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);
-        }
-        
-        public string getQueryGetTransaction(string publicKey, string transactionId)
-        {
-            return Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
-        }
-        
-        public string getQueryGetBanks(string publicKey, bool test)
-        {
-            string pruebas = "2";
-            if (test)
-            {
-                pruebas = "1";
-            }
-            return Constants.url_get_banks + "?public_key=" + publicKey + "&test=" + pruebas;
-        }
-        
-        /*
-         * CASH
-         */
-        public string getQueryCash(string type)
+            var split_receivers_json = Newtonsoft.Json.JsonConvert.SerializeObject(split_receivers);
+             return "{\r\n\"splitpayment\": \"" + split_details.splitpayment + "\",\r" +
+                   "\n\"split_app_id\": \"" + split_details.split_app_id + "\",\r" +
+                   "\n\"split_merchant_id\": \"" + split_details.split_merchant_id + "\",\r" +
+                   "\n\"split_type\": \"" + split_details.split_type + "\",\r" +
+                   "\n\"split_primary_receiver\": \"" + split_details.split_primary_receiver + "\",\r" +
+                   "\n\"split_primary_receiver_fee\": \"" + split_details.split_primary_receiver_fee + "\",\r" +
+                   "\n\"split_receivers\":" + split_receivers_json + "\r\n}";
+         }
+
+         public string getQueryGetTransaction(string publicKey, string transactionId)
+         {
+             return Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
+         }
+
+         public string getQueryGetBanks(string publicKey, bool test)
+         {
+             string pruebas = "2";
+             if (test)
+             {
+                 pruebas = "1";
+             }
+             return Constants.url_get_banks + "?public_key=" + publicKey + "&test=" + pruebas;
+         }
+
+         /*
+          * CASH
+          */
+            public string getQueryCash(string type)
         {       
             var endpoint = "";
             switch (type)

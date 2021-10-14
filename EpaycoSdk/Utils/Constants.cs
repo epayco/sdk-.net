@@ -2,7 +2,7 @@ namespace EpaycoSdk.Utils
 {
     public class Constants
     {
-        public const string url_base = "https://api.secure.epayco.xyz";
+        public const string url_base = "https://api.secure.epayco.io";
 
         public const string base_url_secure = "https://secure2.epayco.io";
         /*
@@ -38,17 +38,17 @@ namespace EpaycoSdk.Utils
         /*
          * BANK CREATE
          */
-        public const string url_pagos_debitos = "/restpagostest/pagos/debitos.json";
-        public const string url_get_transaction = "/restpagostest/pse/transactioninfomation.json";
-        public const string url_get_banks = "/restpagostest/pse/bancos.json";
+        public const string url_pagos_debitos = "/restpagos/pagos/debitos.json";
+        public const string url_get_transaction = "/restpagos/pse/transactioninfomation.json";
+        public const string url_get_banks = "/restpagos/pse/bancos.json";
         
         /*CASH*/
-        public const string url_cash_efecty = "/restpagostest/v2/efectivo/efecty";
-        public const string url_cash_baloto = "/restpagostest/v2/efectivo/baloto";
-        public const string url_cash_gana = "/restpagostest/v2/efectivo/gana";
-        public const string url_cash_redservi = "/restpagostest/v2/efectivo/redservi";
-        public const string url_cash_puntored = "/restpagostest/v2/efectivo/puntored";
-        public const string url_cash_sured = "/restpagostest/v2/efectivo/sured";
-        public const string url_cash_transaction = "/restpagostest/transaction/response.json?";
+        public const string url_cash_efecty = "/restpagos/v2/efectivo/efecty";
+        public const string url_cash_baloto = "/restpagos/v2/efectivo/baloto";
+        public const string url_cash_gana = "/restpagos/v2/efectivo/gana";
+        public const string url_cash_redservi = "/restpagos/v2/efectivo/redservi";
+        public const string url_cash_puntored = "/restpagos/v2/efectivo/puntored";
+        public const string url_cash_sured = "/restpagos/v2/efectivo/sured";
+        public const string url_cash_transaction = "/restpagos/transaction/response.json?";
     }
 }

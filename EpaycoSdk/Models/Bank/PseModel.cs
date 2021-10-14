@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using EpaycoSdk.Models.Cash;
+
 namespace EpaycoSdk.Models.Bank
 {
     public class PseModel
@@ -25,6 +28,7 @@ namespace EpaycoSdk.Models.Bank
         public string urlbanco { get; set; }
         public string transactionId { get; set; }
         public string ticketId { get; set; }
-        public dynamic errores { get; set; }
+        public List<errors> errores { get; set; }
+
     }
 }

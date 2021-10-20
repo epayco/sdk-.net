@@ -22,6 +22,7 @@ namespace EpaycoSdk.Models.Cash
         public decimal x_amount_country { get; set; }
         public decimal x_amount_ok { get; set; }
         public double x_tax { get; set; }
+        public double x_ico { get; set; }
         public decimal x_amount_base { get; set; }
         public string x_currency_code { get; set; }
         public string x_bank_name { get; set; }

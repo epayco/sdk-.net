@@ -381,6 +381,7 @@ namespace EpaycoSdk
             string split_app_id,
             string split_merchant_id,
             string split_type,
+            string split_rule,
             string split_primary_receiver,
             string split_primary_receiver_fee,
             List<SplitReceivers> split_receivers,
@@ -396,7 +397,7 @@ namespace EpaycoSdk
             PARAMETER = body.getBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
                 tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country,
                 cell_phone, url_response, url_confirmation, method_confirmation, splitpayment, split_app_id, split_merchant_id,
-                split_type, split_primary_receiver, split_primary_receiver_fee, split_receivers, extra1, extra2, extra3,
+                split_type, split_rule, split_primary_receiver, split_primary_receiver_fee, split_receivers, extra1, extra2, extra3,
                 extra4, extra5, extra6, extra7);
             string content = _restRequest.Execute(
                 ENDPOINT, 
@@ -487,14 +488,13 @@ namespace EpaycoSdk
             
             if(split_details != null){
                 string split_req_body = body.getBodySplitPayments(split_details);
-                PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, split_req_body);
+               PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, split_req_body);
             }
             content = _restRequest.Execute(
                 ENDPOINT, 
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-
             cash = JsonConvert.DeserializeObject<CashModel>(content);
             return cash;
         }

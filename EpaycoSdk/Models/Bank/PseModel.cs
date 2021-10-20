@@ -19,6 +19,7 @@ namespace EpaycoSdk.Models.Bank
         public string descripcion { get; set; }
         public string valor { get; set; }
         public string iva { get; set; }
+        public string ico { get; set; }
         public string baseiva { get; set; }
         public string moneda { get; set; }
         public string respuesta { get; set; }

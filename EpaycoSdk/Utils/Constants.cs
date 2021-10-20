@@ -2,9 +2,9 @@ namespace EpaycoSdk.Utils
 {
     public class Constants
     {
-        public const string url_base = "https://api.secure.epayco.io";
+        public const string url_base = "https://api.secure.payco.co";
 
-        public const string base_url_secure = "https://secure2.epayco.io";
+        public const string base_url_secure = "https://secure.payco.co";
         /*
         * CUSTOMER
         */

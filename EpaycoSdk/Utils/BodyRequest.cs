@@ -291,6 +291,7 @@ namespace EpaycoSdk.Utils
            string split_app_id,
            string split_merchant_id,
            string split_type,
+           string split_rule,
            string split_primary_receiver,
            string split_primary_receiver_fee,
            List<SplitReceivers> split_receivers,
@@ -330,6 +331,7 @@ namespace EpaycoSdk.Utils
                   "\n\"split_app_id\": \"" + Auxiliars.AESEncrypt(split_app_id, private_key) + "\",\r" +
                   "\n\"split_merchant_id\": \"" + Auxiliars.AESEncrypt(split_merchant_id, private_key) + "\",\r" +
                   "\n\"split_type\": \"" + Auxiliars.AESEncrypt(split_type, private_key) + "\",\r" +
+                  "\n\"split_rule\": \"" + Auxiliars.AESEncrypt(split_rule, private_key) + "\",\r" +
                   "\n\"split_primary_receiver\": \"" + Auxiliars.AESEncrypt(split_primary_receiver, private_key) + "\",\r" +
                   "\n\"split_primary_receiver_fee\": \"" + Auxiliars.AESEncrypt(split_primary_receiver_fee, private_key) + "\",\r" +
                   "\n\"split_receivers\": \""+Auxiliars.AESEncrypt(split_receivers_json, private_key)+"\",\r" +
@@ -349,15 +351,7 @@ namespace EpaycoSdk.Utils
  
         public string getBodySplitPayments(SplitModel split_details)
         {
-           List<SplitReceivers> split_receivers = split_details.split_receivers;
-            var split_receivers_json = Newtonsoft.Json.JsonConvert.SerializeObject(split_receivers);
-             return "{\r\n\"splitpayment\": \"" + split_details.splitpayment + "\",\r" +
-                   "\n\"split_app_id\": \"" + split_details.split_app_id + "\",\r" +
-                   "\n\"split_merchant_id\": \"" + split_details.split_merchant_id + "\",\r" +
-                   "\n\"split_type\": \"" + split_details.split_type + "\",\r" +
-                   "\n\"split_primary_receiver\": \"" + split_details.split_primary_receiver + "\",\r" +
-                   "\n\"split_primary_receiver_fee\": \"" + split_details.split_primary_receiver_fee + "\",\r" +
-                   "\n\"split_receivers\":" + split_receivers_json + "\r\n}";
+            return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);
          }
 
          public string getQueryGetTransaction(string publicKey, string transactionId)

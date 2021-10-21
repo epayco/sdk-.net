@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EpaycoSdk.Models
 {
     public class TokenModel
@@ -26,5 +28,21 @@ namespace EpaycoSdk.Models
         public string exp_month { get; set; }
         public string exp_year { get; set; }
         public string name { get; set; }
+        public string mask { get; set; }
+    }
+
+    public class TokenMessage
+    {
+        public bool status { get; set; }
+        public string type { get; set; }
+        public string message { get; set; }
+    }
+
+    public class SetDefaultToken
+    {
+        public bool status { get; set; }
+        public string message { get; set; }
+        public List<Cards> cars { get; set; }
+
     }
 }

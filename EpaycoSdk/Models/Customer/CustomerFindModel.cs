@@ -29,8 +29,10 @@ namespace EpaycoSdk.Models
     public class Cards
     {
         public string token { get; set; }
+        public string insert { get; set; }
+        public int priority { get; set; }
+        public bool _default { get; set; }
         public string franchise { get; set; }
         public string mask { get; set; }
-        public string created { get; set; }
     }
 }

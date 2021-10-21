@@ -83,7 +83,21 @@ namespace EpaycoSdk.Utils
                    "\n\"mask\":\"" + mask + "\"," +
                    "\n\"customer_id\":\"" + customer_id + "\"\n}";
         }
-        
+
+        public string getBodyAddNewToken(string token_card, string customer_id)
+        {
+            return "{\n\"token_card\":\"" + token_card + "\"," +
+                   "\n\"customer_id\":\"" + customer_id + "\"\n}";
+        }
+        public string getBodySetDefaultToken(string token, string customer_id, string franchise, string mask)
+        {
+            return "{\n\"franchise\":\"" + franchise + "\"," +
+                   "\n\"token\":\"" + token + "\"," +
+                   "\n\"mask\":\"" + mask + "\"," +
+                   "\n\"customer_id\":\"" + customer_id + "\"\n}";
+        }
+
+
         /*
          * PLANS QUERYS AND BODY
          */
@@ -192,6 +206,7 @@ namespace EpaycoSdk.Utils
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string type_person,
             string doc_type,
@@ -221,6 +236,7 @@ namespace EpaycoSdk.Utils
                    "\n\"valor\": \""+Auxiliars.AESEncrypt(value, private_key)+"\",\r" +
                    "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, private_key)+"\",\r" +
                    "\n\"baseiva\": \""+Auxiliars.AESEncrypt(tax_base, private_key)+"\",\r" +
+                   "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, private_key)+"\",\r" +
                    "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, private_key)+"\",\r" +
                    "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(type_person, private_key)+"\",\r" +
                    "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(doc_type, private_key)+"\",\r" +
@@ -258,6 +274,7 @@ namespace EpaycoSdk.Utils
            string value,
            string tax,
            string tax_base,
+           string ico,
            string currency,
            string type_person,
            string doc_type,
@@ -274,6 +291,7 @@ namespace EpaycoSdk.Utils
            string split_app_id,
            string split_merchant_id,
            string split_type,
+           string split_rule,
            string split_primary_receiver,
            string split_primary_receiver_fee,
            List<SplitReceivers> split_receivers,
@@ -286,38 +304,17 @@ namespace EpaycoSdk.Utils
            string extra7 = "")
         {
            var localIP = "";
+           var split_receivers_json = Newtonsoft.Json.JsonConvert.SerializeObject(split_receivers);
            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
            localIP = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
-           string split_data = "";
-           int count = 0;
-           foreach (var split in split_receivers)
-           {
-               if (count == 0)
-               {
-                   split_data += "[{" + split.id + "," + split.fee + "," + split.fee_type + "";
-               }
-               else
-               {
-                   split_data += ",{" + split.id + "," + split.fee + "," + split.fee_type + "";
-               }
 
-               if (count == split_receivers.Count - 1)
-               {
-                   split_data += "}]";
-               }
-               else
-               {
-                   split_data += "}";
-               }
-               count++;
-              
-           }
-           return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, private_key)+"\",\r" +
+            return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, private_key)+"\",\r" +
                   "\n\"factura\": \""+Auxiliars.AESEncrypt(invoice, private_key)+"\",\r" +
                   "\n\"descripcion\": \""+Auxiliars.AESEncrypt(description, private_key)+"\",\r" +
                   "\n\"valor\": \""+Auxiliars.AESEncrypt(value, private_key)+"\",\r" +
                   "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, private_key)+"\",\r" +
                   "\n\"baseiva\": \""+Auxiliars.AESEncrypt(tax_base, private_key)+"\",\r" +
+                  "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, private_key)+"\",\r" +
                   "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, private_key)+"\",\r" +
                   "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(type_person, private_key)+"\",\r" +
                   "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(doc_type, private_key)+"\",\r" +
@@ -334,9 +331,10 @@ namespace EpaycoSdk.Utils
                   "\n\"split_app_id\": \"" + Auxiliars.AESEncrypt(split_app_id, private_key) + "\",\r" +
                   "\n\"split_merchant_id\": \"" + Auxiliars.AESEncrypt(split_merchant_id, private_key) + "\",\r" +
                   "\n\"split_type\": \"" + Auxiliars.AESEncrypt(split_type, private_key) + "\",\r" +
+                  "\n\"split_rule\": \"" + Auxiliars.AESEncrypt(split_rule, private_key) + "\",\r" +
                   "\n\"split_primary_receiver\": \"" + Auxiliars.AESEncrypt(split_primary_receiver, private_key) + "\",\r" +
                   "\n\"split_primary_receiver_fee\": \"" + Auxiliars.AESEncrypt(split_primary_receiver_fee, private_key) + "\",\r" +
-                  "\n\"split_receivers\": \""+Auxiliars.AESEncrypt(split_data, private_key)+"\",\r" +
+                  "\n\"split_receivers\": \""+Auxiliars.AESEncrypt(split_receivers_json, private_key)+"\",\r" +
                   "\n\"extra1\": \""+Auxiliars.AESEncrypt(extra1, private_key)+"\",\r" +
                   "\n\"extra2\": \""+Auxiliars.AESEncrypt(extra2, private_key)+"\",\r" +
                   "\n\"extra3\": \""+Auxiliars.AESEncrypt(extra3, private_key)+"\",\r" +
@@ -353,25 +351,29 @@ namespace EpaycoSdk.Utils
  
         public string getBodySplitPayments(SplitModel split_details)
         {
-           List<SplitReceivers> split_receivers = split_details.split_receivers;
-           return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);
-        }
-        
-        public string getQueryGetTransaction(string publicKey, string transactionId)
-        {
-            return Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
-        }
-        
-        public string getQueryGetBanks(string publicKey)
-        {
-            return Constants.url_get_banks + "?public_key=" + publicKey ;
-        }
-        
-        /*
-         * CASH
-         */
-        public string getQueryCash(string type)
-        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);
+         }
+
+         public string getQueryGetTransaction(string publicKey, string transactionId)
+         {
+             return Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
+         }
+
+         public string getQueryGetBanks(string publicKey, bool test)
+         {
+             string pruebas = "2";
+             if (test)
+             {
+                 pruebas = "1";
+             }
+             return Constants.url_get_banks + "?public_key=" + publicKey + "&test=" + pruebas;
+         }
+
+         /*
+          * CASH
+          */
+            public string getQueryCash(string type)
+        {       
             var endpoint = "";
             switch (type)
             {
@@ -410,6 +412,7 @@ namespace EpaycoSdk.Utils
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string type_person,
             string doc_type,
@@ -431,6 +434,7 @@ namespace EpaycoSdk.Utils
                    "\n\"valor\": \""+value+"\",\r" +
                    "\n\"iva\": \""+tax+"\",\r" +
                    "\n\"baseiva\": \""+tax_base+"\",\r" +
+                   "\n\"ico\": \""+ico+"\",\r" +
                    "\n\"moneda\": \""+currency+"\",\r" +
                    "\n\"tipo_persona\": \""+type_person+"\",\r" +
                    "\n\"tipo_doc\": \""+doc_type+"\",\r" +
@@ -471,6 +475,7 @@ namespace EpaycoSdk.Utils
              string value,
              string tax,
              string tax_base,
+             string ico,
              string currency,
              string dues,
              string address,
@@ -502,6 +507,7 @@ namespace EpaycoSdk.Utils
                     "\n\"value\": \""+value+"\",\r" +
                     "\n\"tax\": \""+tax+"\",\r" +
                     "\n\"tax_base\": \""+tax_base+"\",\r" +
+                    "\n\"ico\": \""+ico+"\",\r" +
                     "\n\"currency\": \""+currency+"\",\r" +
                     "\n\"dues\": \""+dues+"\",\r" +
                     "\n\"address\": \""+address+"\",\r" +

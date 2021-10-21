@@ -14,7 +14,9 @@ namespace EpaycoSdk.Utils
         public const string url_find_all_customer = "/payment/v1/customers/";
         public const string url_update_customer = "/payment/v1/customer/edit/";
         public const string url_token_delete = "/v1/remove/token";
-        
+        public const string url_add_new_token = "/v1/customer/add/token";
+        public const string url_set_default_token = "/payment/v1/customer/reasign/card/default";
+
         /*
          * PLANS
          */

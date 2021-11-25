@@ -170,7 +170,7 @@ PseModel response = epayco.BankCreate(
   "cell_phone",
   "url_response",
   "url_confirmation",
-  "method_confirmation"
+  "metodoconfirmacion"
 );
 ```
 
@@ -198,7 +198,7 @@ PseModel response = epayco.BankCreateSplit(
   "cell_phone",
   "url_response",
   "url_confirmation",
-  "method_confirmation"
+  "metodoconfirmacion"
   "splitpayment", // true or false
   "split_app_id",
   "split_merchant_id",
@@ -243,7 +243,7 @@ CashModel response = epayco.CashCreate(
     "end_date",
     "url_response",
     "url_confirmation",
-    "method_confirmation");
+    "metodoconfirmacion");
 ```
 ### Get Cash Transaction
 Ejemplo de la petición:
@@ -328,6 +328,7 @@ ChargeModel response = epayco.ChargeCreate(
     "cell_phone",
     "url_response",
     "url_confirmation",
+    "method_confirmation",
     "ip",
     "extra1",
     "extra2",

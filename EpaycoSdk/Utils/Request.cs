@@ -21,7 +21,7 @@ namespace EpaycoSdk.Utils
         #endregion
 
         #region Atributes
-        const string BASE_URL = Constants.url_base;
+        static string BASE_URL = Constants.url_base;
         private string END_POINT = string.Empty;
         private string TYPE = string.Empty;
         private string PUBLIC_KEY_BASE64 = string.Empty;

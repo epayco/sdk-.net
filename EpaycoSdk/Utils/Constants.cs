@@ -1,10 +1,21 @@
+using System;
+using System.IO;
 namespace EpaycoSdk.Utils
 {
     public class Constants
     {
-        public const string url_base = "https://api.secure.payco.co";
 
-        public const string base_url_secure = "https://secure.payco.co";
+        private static string ValueEnv(dynamic env, string defaul)
+        {
+            if (env)
+            {
+                return env;
+            }
+            return defaul;
+        }
+        public static string url_base = ValueEnv(Environment.GetEnvironmentVariable("BASE_URL_SDK"), "https://api.secure.payco.co");
+        public static string base_url_secure = ValueEnv(Environment.GetEnvironmentVariable("SECURE_URL_SDK"), "https://secure.payco.co");
+        public static string entorno = ValueEnv(Environment.GetEnvironmentVariable("ENTORNO"), "/restpagos");
         /*
         * CUSTOMER
         */
@@ -38,17 +49,17 @@ namespace EpaycoSdk.Utils
         /*
          * BANK CREATE
          */
-        public const string url_pagos_debitos = "/restpagos/pagos/debitos.json";
-        public const string url_get_transaction = "/restpagos/pse/transactioninfomation.json";
-        public const string url_get_banks = "/restpagos/pse/bancos.json";
+        public static string url_pagos_debitos = entorno + "/pagos/debitos.json";
+        public static string url_get_transaction = entorno + "/restpagos/pse/transactioninfomation.json";
+        public static string url_get_banks = entorno + "/restpagos/pse/bancos.json";
         
         /*CASH*/
-        public const string url_cash_efecty = "/restpagos/v2/efectivo/efecty";
-        public const string url_cash_baloto = "/restpagos/v2/efectivo/baloto";
-        public const string url_cash_gana = "/restpagos/v2/efectivo/gana";
-        public const string url_cash_redservi = "/restpagos/v2/efectivo/redservi";
-        public const string url_cash_puntored = "/restpagos/v2/efectivo/puntored";
-        public const string url_cash_sured = "/restpagos/v2/efectivo/sured";
-        public const string url_cash_transaction = "/restpagos/transaction/response.json?";
+        public static string url_cash_efecty = entorno + "/v2/efectivo/efecty";
+        public static string url_cash_baloto = entorno + "/v2/efectivo/baloto";
+        public static string url_cash_gana = entorno + "/v2/efectivo/gana";
+        public static string url_cash_redservi = entorno + "/v2/efectivo/redservi";
+        public static string url_cash_puntored = entorno + "/v2/efectivo/puntored";
+        public static string url_cash_sured = entorno + "/v2/efectivo/sured";
+        public static string url_cash_transaction = entorno + "/transaction/response.json?";
     }
 }

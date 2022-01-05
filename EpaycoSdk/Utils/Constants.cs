@@ -16,6 +16,8 @@ namespace EpaycoSdk.Utils
         public static string url_base = ValueEnv(Environment.GetEnvironmentVariable("BASE_URL_SDK"), "https://api.secure.payco.co");
         public static string base_url_secure = ValueEnv(Environment.GetEnvironmentVariable("SECURE_URL_SDK"), "https://secure.payco.co");
         public static string entorno = ValueEnv(Environment.GetEnvironmentVariable("ENTORNO"), "/restpagos");
+
+        public const string base_url_apify =  ValueEnv(Environment.GetEnvironmentVariable("BASE_URL_APIFY"),"https://apify.epayco.co");
         /*
         * CUSTOMER
         */
@@ -61,5 +63,12 @@ namespace EpaycoSdk.Utils
         public static string url_cash_puntored = entorno + "/v2/efectivo/puntored";
         public static string url_cash_sured = entorno + "/v2/efectivo/sured";
         public static string url_cash_transaction = entorno + "/transaction/response.json?";
+
+        /*DAVIPLATA*/
+        public const string url_daviplata = "/payment/process/daviplata";
+        public const string url_daviplata_confirm = "/payment/confirm/daviplata";
+
+        /*SAFETYPAY*/
+        public const string url_safetypay = "/payment/process/safetypay";
     }
 }

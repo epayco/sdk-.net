@@ -77,17 +77,20 @@
     <Compile Include="Models\Plans\FindAllPlansModel.cs" />
     <Compile Include="Models\Plans\FindPlanModel.cs" />
     <Compile Include="Models\Plans\RemovePlanModel.cs" />
+    <Compile Include="Models\Safetypay\safetypayModel.cs" />
     <Compile Include="Models\Subscriptions\AllSubscriptionModel.cs" />
     <Compile Include="Models\Subscriptions\CancelSubscriptionModel.cs" />
     <Compile Include="Models\Subscriptions\ChargeSubscriptionModel.cs" />
     <Compile Include="Models\Subscriptions\CreateSubscriptionModel.cs" />
     <Compile Include="Models\Subscriptions\FindSusbscriptionModel.cs" />
+    <Compile Include="Models\Daviplata\DaviplataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Auxiliars.cs" />
     <Compile Include="Utils\BodyRequest.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\Request.cs" />
     <Compile Include="Utils\RequestRest.cs" />
+	  <Compile Include="Utils\RequestApify.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />

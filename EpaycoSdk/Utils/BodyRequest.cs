@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using EpaycoSdk.Models.Bank;
 using EpaycoSdk.Models.Cash;
+using EpaycoSdk.Models.Daviplata;
+using EpaycoSdk.Models.Safetypay;
 using Newtonsoft;
 
 namespace EpaycoSdk.Utils
@@ -528,6 +530,137 @@ namespace EpaycoSdk.Utils
                     "\n\"extra10\": \""+extra10+"\"\r },\r" +
                     "\n\"ip\": \""+ip+"\"\r\n}";
          }
+
+        public string getBodyDaviplata(
+            string doc_type,
+            string document,
+            string name,
+            string last_name,
+            string email,
+            string ind_country,
+            string phone,
+            string country,
+            string city,
+            string address,
+            string ip,
+            string currency,
+            string invoice,
+            string description,
+            decimal value,
+            decimal tax,
+            decimal tax_base,
+            decimal ico,
+            bool test,
+            string url_response,
+            string url_confirmation,
+            string method_confirmation)
+        {
+            bodyDaviplata body = new bodyDaviplata
+            {
+                doc_type = doc_type,
+                document = document,
+                name = name,
+                last_name = last_name,
+                email = email,
+                ind_country = ind_country,
+                phone = phone,
+                country = country,
+                city = city,
+                address = address,
+                ip = ip,
+                currency = currency,
+                invoice = invoice,
+                description = description,
+                value = value,
+                tax = tax,
+                tax_base = tax_base,
+                ico = ico,
+                test = test,
+                url_response = url_response,
+                url_confirmation = url_confirmation,
+                method_confirmation = method_confirmation
+            };
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
+
+        }
+
+        public string getBodyConfirmDaviplata(
+            string ref_payco,
+            string id_session_token,
+            string otp)
+        {
+            bodyConfirmDaviplata body = new bodyConfirmDaviplata
+            {
+                refPayco = ref_payco,
+                idSessionToken = id_session_token,
+                otp = otp,
+            };
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
+
+        }
+
+        public string getBodySafetypayCreate(
+            string cash,
+            string end_date,
+            string doc_type,
+            string document,
+            string name,
+            string last_name,
+            string email,
+            string ind_country,
+            string phone,
+            string country,
+            string city,
+            string address,
+            string ip,
+            string currency,
+            string invoice,
+            string description,
+            decimal value,
+            decimal tax,
+            decimal tax_base,
+            decimal ico,
+            bool test,
+            string url_response,
+            string url_response_pointer,
+            string url_confirmation,
+            string method_confirmation)
+
+        {
+
+            bodySafetypay body = new bodySafetypay
+            {
+                cash                = cash,
+                expirationDate      = end_date,
+                docType             = doc_type,
+                document            = document,
+                name                = name,
+                lastName            = last_name,
+                email               = email,
+                indCountry          = ind_country,
+                phone               = phone,
+                country             = country,
+                city                = city,
+                address             = address,
+                ip                  = ip,
+                currency            = currency,
+                invoice             = invoice,
+                description         = description,
+                value               = value,
+                tax                 = tax,
+                ico                 = tax_base,
+                taxBase             = ico,
+                testMode            = test,
+                urlResponse         = url_response,
+                urlResponsePointer  = url_response_pointer,
+                urlConfirmation     = url_confirmation,
+                methodConfirmation  = method_confirmation,
+                typeIntegration     = ".NET"
+            };
+            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
+        }
         #endregion
     }
 }

@@ -353,7 +353,19 @@ namespace EpaycoSdk.Utils
  
         public string getBodySplitPayments(SplitModel split_details)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);
+            SplitModelRest split = new SplitModelRest
+            {
+                splitpayment = split_details.splitpayment,
+                split_app_id = split_details.split_app_id,
+                split_merchant_id = split_details.split_merchant_id,
+                split_primary_receiver = split_details.split_primary_receiver,
+                split_primary_receiver_fee = split_details.split_primary_receiver_fee,
+                split_rule = split_details.split_rule,
+                split_type = split_details.split_type,
+                split_receivers = Newtonsoft.Json.JsonConvert.SerializeObject(split_details.split_receivers)
+            };
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(split);
          }
 
          public string getQueryGetTransaction(string publicKey, string transactionId)
@@ -485,6 +497,7 @@ namespace EpaycoSdk.Utils
              string cell_phone,
              string url_response,
              string url_confirmation,
+             string method_confirmation,
              string ip,
              string extra1,
              string extra2,
@@ -517,6 +530,7 @@ namespace EpaycoSdk.Utils
                     "\n\"cell_phone\": \""+cell_phone+"\",\r" +
                     "\n\"url_response\": \""+url_response+"\",\r" +
                     "\n\"url_confirmation\": \""+url_confirmation+"\",\r" +
+                    "\n\"method_confirmation\": \"" + method_confirmation + "\",\r" +
                     "\n\"extras\": {\r" +
                     "\n\"extra1\": \""+extra1+"\",\r" +
                     "\n\"extra2\": \""+extra2+"\",\r" +

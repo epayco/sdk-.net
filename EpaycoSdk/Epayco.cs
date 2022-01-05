@@ -537,6 +537,7 @@ namespace EpaycoSdk
             string cell_phone,
             string url_response,
             string url_confirmation,
+            string method_confirmation,
             string ip,
             string extra1 = "N/A",
             string extra2 = "N/A",
@@ -554,7 +555,7 @@ namespace EpaycoSdk
             PARAMETER = body.getBodyChargeCreate(token_card, customer_id, doc_type, doc_number, name, last_name,
                 email, bill, description, value, tax, tax_base, ico, currency, dues, address, phone, cell_phone,
                 url_response,
-                url_confirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
+                url_confirmation, method_confirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             
             if(split_details != null){
                 string split_req_body = body.getBodySplitPayments(split_details);

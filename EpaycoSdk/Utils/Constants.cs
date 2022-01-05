@@ -17,7 +17,7 @@ namespace EpaycoSdk.Utils
         public static string base_url_secure = ValueEnv(Environment.GetEnvironmentVariable("SECURE_URL_SDK"), "https://secure.payco.co");
         public static string entorno = ValueEnv(Environment.GetEnvironmentVariable("ENTORNO"), "/restpagos");
 
-        public const string base_url_apify =  ValueEnv(Environment.GetEnvironmentVariable("BASE_URL_APIFY"),"https://apify.epayco.co");
+        public static string base_url_apify =  ValueEnv(Environment.GetEnvironmentVariable("BASE_URL_APIFY"),"https://apify.epayco.co");
         /*
         * CUSTOMER
         */

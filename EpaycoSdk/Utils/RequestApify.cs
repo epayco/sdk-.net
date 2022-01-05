@@ -19,7 +19,7 @@ namespace EpaycoSdk.Utils
 
          #region Atributes
 
-        const string BASE_URL = Constants.base_url_apify;
+        static string BASE_URL = Constants.base_url_apify;
         private string END_POINT = string.Empty;
         private string TYPE = string.Empty;
         private string PUBLIC_KEY_BASE64 = string.Empty;

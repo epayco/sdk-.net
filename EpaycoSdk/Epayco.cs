@@ -31,6 +31,7 @@ namespace EpaycoSdk
             _LANG = lang;
             _TEST = test;
             _request.AuthService(publicKey, privateKey);
+            _requestApify.AuthService(publicKey, privateKey);
         }
         #endregion
 

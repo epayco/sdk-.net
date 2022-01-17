@@ -95,7 +95,7 @@ namespace EpaycoSdk.Utils
            
         }
         
-        public AuthModel GetBearerToken()
+        private AuthModel GetBearerToken()
         {
             PARAMETER = body.getBodyAuthBearer(PUBLIC_KEY, PRIVATE_KEY);
             var request = new RestRequest("/v1/auth/login");

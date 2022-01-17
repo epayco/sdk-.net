@@ -44,17 +44,17 @@ namespace EpaycoSdk.Models.Daviplata
         public string idSessionToken { get; set; }
         public string tokenExpirationDate { get; set; }
         public int totalErrors { get; set; }
-        public List<errors> errores { get; set; }
+        public List<errors> errors { get; set; }
     }
 
     public class bodyDaviplata
     {
-        public string doc_type { get; set; }
+        public string docType { get; set; }
         public string document { get; set; }
         public string name { get; set; }
-        public string last_name { get; set; }
+        public string lastName { get; set; }
         public string email { get; set; }
-        public string ind_country { get; set; }
+        public string indCountry { get; set; }
         public string phone { get; set; }
         public string country { get; set; }
         public string city { get; set; }
@@ -65,12 +65,13 @@ namespace EpaycoSdk.Models.Daviplata
         public string description { get; set; }
         public decimal value { get; set; }
         public decimal tax { get; set; }
-        public decimal tax_base { get; set; }
+        public decimal taxBase { get; set; }
         public decimal ico { get; set; }
         public bool test { get; set; }
-        public string url_response { get; set; }
-        public string url_confirmation { get; set; }
-        public string method_confirmation { get; set; }
+        public string urlResponse { get; set; }
+        public string urlConfirmation { get; set; }
+        public string methodConfirmation { get; set; }
+        public string typeIntegration { get; set; }
     }
 
     public class bodyConfirmDaviplata
@@ -100,6 +101,6 @@ namespace EpaycoSdk.Models.Daviplata
         public int idTransactionAutorization { get; set; }
         public string response { get; set; }
         public int totalErrors { get; set; }
-        public List<errors> errores { get; set; }
+        public List<errors> errors { get; set; }
     }
 }

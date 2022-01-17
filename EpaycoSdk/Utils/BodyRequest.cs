@@ -571,12 +571,12 @@ namespace EpaycoSdk.Utils
         {
             bodyDaviplata body = new bodyDaviplata
             {
-                doc_type = doc_type,
+                docType = doc_type,
                 document = document,
                 name = name,
-                last_name = last_name,
+                lastName = last_name,
                 email = email,
-                ind_country = ind_country,
+                indCountry = ind_country,
                 phone = phone,
                 country = country,
                 city = city,
@@ -587,12 +587,13 @@ namespace EpaycoSdk.Utils
                 description = description,
                 value = value,
                 tax = tax,
-                tax_base = tax_base,
+                taxBase = tax_base,
                 ico = ico,
                 test = test,
-                url_response = url_response,
-                url_confirmation = url_confirmation,
-                method_confirmation = method_confirmation
+                urlResponse = url_response,
+                urlConfirmation = url_confirmation,
+                methodConfirmation = method_confirmation,
+                typeIntegration = ".NET"
             };
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(body);

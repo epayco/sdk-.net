@@ -4,20 +4,11 @@ namespace EpaycoSdk.Utils
 {
     public class Constants
     {
+        public static string url_base =  "https://api.secure.epayco.io";
+        public static string base_url_secure = "https://secure2.epayco.io";
+        public static string entorno =  "/restpagos";
 
-        private static string ValueEnv(dynamic env, string defaul)
-        {
-            if (env)
-            {
-                return env;
-            }
-            return defaul;
-        }
-        public static string url_base = ValueEnv(Environment.GetEnvironmentVariable("BASE_URL_SDK"), "https://api.secure.payco.co");
-        public static string base_url_secure = ValueEnv(Environment.GetEnvironmentVariable("SECURE_URL_SDK"), "https://secure.payco.co");
-        public static string entorno = ValueEnv(Environment.GetEnvironmentVariable("ENTORNO"), "/restpagos");
-
-        public static string base_url_apify =  ValueEnv(Environment.GetEnvironmentVariable("BASE_URL_APIFY"),"https://apify.epayco.co");
+        public static string base_url_apify = "https://apify.epayco.io";
         /*
         * CUSTOMER
         */

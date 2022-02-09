@@ -401,3 +401,86 @@ ChargeModel response = epayco.ChargeCreate(
     splitData
 );
 ```
+
+
+### Daviplata
+
+## Create
+
+Crea una transaccion en Daviplata
+Ejemplo de la peticion
+```
+DaviplataModel response = epayco.DaviplataCreate(
+    "doc_type",
+    "document",
+    "name",
+    "last_name",
+    "email",
+    "ind_country",
+    "phone",
+    "country",
+    "city",
+    "address",
+    "ip",
+    "currency",
+    "invoice",
+    "description",
+    "value",
+    "tax", 
+    "tax_base",
+    "ico",
+    "test",
+    "url_response",
+    "url_confirmation",
+    "method_confirmation"
+)
+```
+
+## Confirm
+Confirma una transaccion en Daviplata
+
+Ejemplo:
+```
+DaviplataConfirmModel response = epayco.daviplataConfirm(
+    "ref_payco",
+    "id_session_token",
+    "otp"
+)
+```
+
+### Safetypay
+
+## Create
+Crea una transaccion en Safetypay
+
+Ejemplo de peticion
+```
+safetypayModel response = epayco.safetypayCreate(
+    "cash",
+    "end_date",
+    "doc_type",
+    "document",
+    "name",
+    "last_name",
+    "email",
+    "ind_country",
+    "phone",
+    "country",
+    "city",
+    "address",
+    "ip",
+    "currency",
+    "invoice",
+    "description",
+    "value",
+    "tax",
+    "tax_base",
+    "ico",
+    "test",
+    "url_response",
+    "url_confirmation",
+    "url_response_pointer",
+    "method_confirmation"
+)
+```
+

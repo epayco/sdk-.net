@@ -95,7 +95,7 @@ namespace EpaycoSdk.Utils
            
         }
         
-        private AuthModel GetBearerToken()
+        public AuthModel GetBearerToken()
         {
             PARAMETER = body.getBodyAuthBearer(PUBLIC_KEY, PRIVATE_KEY);
             var request = new RestRequest("/v1/auth/login");
@@ -108,7 +108,6 @@ namespace EpaycoSdk.Utils
             AuthModel auth = JsonConvert.DeserializeObject<AuthModel>(response.Content);
             return auth;
         }
-
         #endregion
     }
 }

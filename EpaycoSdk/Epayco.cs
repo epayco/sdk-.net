@@ -9,6 +9,8 @@ using EpaycoSdk.Models.Cash;
 using EpaycoSdk.Models.Charge;
 using EpaycoSdk.Models.Plans;
 using EpaycoSdk.Models.Subscriptions;
+using EpaycoSdk.Models.Daviplata;
+using EpaycoSdk.Models.Safetypay;
 using EpaycoSdk.Utils;
 using Newtonsoft.Json;
 
@@ -19,6 +21,7 @@ namespace EpaycoSdk
         BodyRequest body = new BodyRequest();
         Request _request = new Request();
         RequestRest _restRequest = new RequestRest();
+        RequestApify _requestApify = new RequestApify();
         Auxiliars _auxiliars = new Auxiliars();
         #region Constructor
         public Epayco(string publicKey, string privateKey, string lang, bool test)
@@ -579,6 +582,112 @@ namespace EpaycoSdk
             ChargeTransactionModel transaction = JsonConvert.DeserializeObject<ChargeTransactionModel>(content);
             return transaction;
         }
+
+        /* 
+         * DAVIPLATA
+         */
+
+        public DaviplataModel daviplataCreate(
+            string doc_type,
+            string document,
+            string name,
+            string last_name,
+            string email,
+            string ind_country,
+            string phone,
+            string country,
+            string city,
+            string address,
+            string ip,
+            string currency,
+            string invoice,
+            string description,
+            decimal value,
+            decimal tax = 0, 
+            decimal tax_base = 0,
+            decimal ico = 0,
+            bool test = false,
+            string url_response = "",
+            string url_confirmation = "",
+            string method_confirmation = "" 
+            )
+        {
+            ENDPOINT = Constants.url_daviplata;
+            PARAMETER = body.getBodyDaviplata(doc_type, document, name, last_name,
+                email, ind_country, phone, country, city, address, ip, currency, invoice, description, value, tax, tax_base, ico, test,
+                url_response, url_confirmation, method_confirmation );
+
+            string content = _requestApify.Execute(
+                ENDPOINT,
+                "POST",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER);
+
+            DaviplataModel payment = JsonConvert.DeserializeObject<DaviplataModel>(content);
+            return payment;
+        }
+
+
+        public DaviplataConfirmModel daviplataConfirm(
+            string ref_payco,
+            string id_session_token,
+            string otp
+            )
+        {
+            ENDPOINT = Constants.url_daviplata_confirm;
+            PARAMETER = body.getBodyConfirmDaviplata(ref_payco, id_session_token, otp);
+
+            string content = _requestApify.Execute(
+                ENDPOINT,
+                "POST",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER);
+
+            DaviplataConfirmModel payment = JsonConvert.DeserializeObject<DaviplataConfirmModel>(content);
+            return payment;
+        }
+
+        public safetypayModel safetypayCreate(string cash,
+            string end_date,
+            string doc_type,
+            string document,
+            string name,
+            string last_name,
+            string email,
+            string ind_country,
+            string phone,
+            string country,
+            string city,
+            string address,
+            string ip,
+            string currency,
+            string invoice,
+            string description,
+            decimal value,
+            decimal tax = 0,
+            decimal tax_base = 0,
+            decimal ico = 0,
+            bool test = false,
+            string url_response = "",
+            string url_confirmation = "",
+            string url_response_pointer = "",
+            string method_confirmation = "")
+        {
+            ENDPOINT = Constants.url_safetypay;
+            PARAMETER = body.getBodySafetypayCreate(cash,end_date,doc_type,document,name,last_name,email,
+                ind_country,phone,country,city,address,ip,currency,invoice,description,value,tax,tax_base,ico,
+                test,url_response, url_response_pointer, url_confirmation, method_confirmation);
+
+            string content = _requestApify.Execute(
+                ENDPOINT,
+                "POST",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER);
+
+            safetypayModel payment = JsonConvert.DeserializeObject<safetypayModel>(content);
+            return payment;
+        }
+
         #endregion
     }
 }

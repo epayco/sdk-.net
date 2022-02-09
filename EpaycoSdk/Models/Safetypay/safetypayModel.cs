@@ -31,7 +31,7 @@ namespace EpaycoSdk.Models.Safetypay
         public string transactionId { get; set; }
         public string ticketId { get; set; }
         public int totalErrors { get; set; }
-        public List<errors> errores { get; set; }
+        public List<errors> errors { get; set; }
     }
 
     public class bodySafetypay

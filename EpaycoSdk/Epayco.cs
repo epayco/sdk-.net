@@ -568,8 +568,27 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-
-            ChargeModel payment = JsonConvert.DeserializeObject<ChargeModel>(content);
+         
+            ChargeModel payment = new ChargeModel();
+            
+            if (content.Contains("errorMessage"))
+            {
+                ChargeDataListError response = JsonConvert.DeserializeObject<ChargeDataListError>(content);
+                ChargeData data = new ChargeData
+                {
+                    status = response.data.status,
+                    description = response.data.description,
+                    errors = response.data.errors
+                };
+                payment.status = response.status;
+                payment.message = response.message;
+                payment.data = data;
+               
+            }else
+            {
+                payment = JsonConvert.DeserializeObject<ChargeModel>(content);
+            }
+            
             return payment;
         }
         

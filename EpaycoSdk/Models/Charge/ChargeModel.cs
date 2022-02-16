@@ -1,5 +1,13 @@
+using EpaycoSdk.Models.Cash;
+using System.Collections.Generic;
+
 namespace EpaycoSdk.Models.Charge
 {
+    public class ChargeResponse
+    {
+        public bool status { get; set; }
+        public string message { get; set; }
+    }
     public class ChargeModel
     {
         public bool status { get; set; }
@@ -7,6 +15,20 @@ namespace EpaycoSdk.Models.Charge
         public ChargeData data { get; set; }
     }
 
+  
+    public class ChargeDataListError
+    {
+        public bool status { get; set; }
+        public string message { get; set; }
+        public ChargeDataError data { get; set; }
+    }
+
+    public class ChargeDataError
+    {
+        public string status { get; set; }
+        public string description { get; set; }
+        public List<errors> errors { get; set; }
+    }
     public class ChargeData
     {
         public int ref_payco { get; set; }
@@ -37,6 +59,6 @@ namespace EpaycoSdk.Models.Charge
         public string ind_pais { get; set; }
         public string status { get; set; }
         public string description { get; set; }
-        public string errors { get; set; }
+        public dynamic errors { get; set; }
     }
 }

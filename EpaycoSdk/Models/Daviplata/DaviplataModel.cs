@@ -27,10 +27,10 @@ namespace EpaycoSdk.Models.Daviplata
         public string estatus{ get; set; }
         public string response { get; set; }
         public string autorization { get; set; }
-        public int receipt { get; set; }
+        public string receipt { get; set; }
         public string date { get; set; }
         public string franchise { get; set; }
-        public int codResponse { get; set; }
+        public string codResponse { get; set; }
         public string ip{ get; set; }
         public string testMode { get; set; }
         public string docType { get; set; }
@@ -98,7 +98,7 @@ namespace EpaycoSdk.Models.Daviplata
         public string date { get; set; }
         public string numApproval { get; set; }
         public string idTransactionDaviplata { get; set; }
-        public int idTransactionAutorization { get; set; }
+        public string idTransactionAutorization { get; set; }
         public string response { get; set; }
         public int totalErrors { get; set; }
         public List<errors> errors { get; set; }

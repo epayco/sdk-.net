@@ -170,7 +170,7 @@ PseModel response = epayco.BankCreate(
   "cell_phone",
   "url_response",
   "url_confirmation",
-  "method_confirmation"
+  "metodoconfirmacion"
 );
 ```
 
@@ -198,7 +198,7 @@ PseModel response = epayco.BankCreateSplit(
   "cell_phone",
   "url_response",
   "url_confirmation",
-  "method_confirmation"
+  "metodoconfirmacion"
   "splitpayment", // true or false
   "split_app_id",
   "split_merchant_id",
@@ -243,7 +243,7 @@ CashModel response = epayco.CashCreate(
     "end_date",
     "url_response",
     "url_confirmation",
-    "method_confirmation");
+    "metodoconfirmacion");
 ```
 ### Get Cash Transaction
 Ejemplo de la petición:
@@ -328,6 +328,7 @@ ChargeModel response = epayco.ChargeCreate(
     "cell_phone",
     "url_response",
     "url_confirmation",
+    "method_confirmation",
     "ip",
     "extra1",
     "extra2",
@@ -400,3 +401,86 @@ ChargeModel response = epayco.ChargeCreate(
     splitData
 );
 ```
+
+
+### Daviplata
+
+## Create
+
+Crea una transaccion en Daviplata
+Ejemplo de la peticion
+```
+DaviplataModel response = epayco.DaviplataCreate(
+    "doc_type",
+    "document",
+    "name",
+    "last_name",
+    "email",
+    "ind_country",
+    "phone",
+    "country",
+    "city",
+    "address",
+    "ip",
+    "currency",
+    "invoice",
+    "description",
+    "value",
+    "tax", 
+    "tax_base",
+    "ico",
+    "test",
+    "url_response",
+    "url_confirmation",
+    "method_confirmation"
+)
+```
+
+## Confirm
+Confirma una transaccion en Daviplata
+
+Ejemplo:
+```
+DaviplataConfirmModel response = epayco.daviplataConfirm(
+    "ref_payco",
+    "id_session_token",
+    "otp"
+)
+```
+
+### Safetypay
+
+## Create
+Crea una transaccion en Safetypay
+
+Ejemplo de peticion
+```
+safetypayModel response = epayco.safetypayCreate(
+    "cash",
+    "end_date",
+    "doc_type",
+    "document",
+    "name",
+    "last_name",
+    "email",
+    "ind_country",
+    "phone",
+    "country",
+    "city",
+    "address",
+    "ip",
+    "currency",
+    "invoice",
+    "description",
+    "value",
+    "tax",
+    "tax_base",
+    "ico",
+    "test",
+    "url_response",
+    "url_confirmation",
+    "url_response_pointer",
+    "method_confirmation"
+)
+```
+

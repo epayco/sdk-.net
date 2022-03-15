@@ -5,6 +5,8 @@ namespace EpaycoSdk.Utils
         public const string url_base = "https://api.secure.payco.co";
 
         public const string base_url_secure = "https://secure.payco.co";
+
+        public const string base_url_apify = "https://apify.epayco.co";
         /*
         * CUSTOMER
         */
@@ -50,5 +52,12 @@ namespace EpaycoSdk.Utils
         public const string url_cash_puntored = "/restpagos/v2/efectivo/puntored";
         public const string url_cash_sured = "/restpagos/v2/efectivo/sured";
         public const string url_cash_transaction = "/restpagos/transaction/response.json?";
+
+        /*DAVIPLATA*/
+        public const string url_daviplata = "/payment/process/daviplata";
+        public const string url_daviplata_confirm = "/payment/confirm/daviplata";
+
+        /*SAFETYPAY*/
+        public const string url_safetypay = "/payment/process/safetypay";
     }
 }

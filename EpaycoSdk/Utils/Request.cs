@@ -108,7 +108,6 @@ namespace EpaycoSdk.Utils
             AuthModel auth = JsonConvert.DeserializeObject<AuthModel>(response.Content);
             return auth;
         }
-
         #endregion
     }
 }

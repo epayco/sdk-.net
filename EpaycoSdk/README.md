@@ -159,6 +159,7 @@ PseModel response = epayco.BankCreate(
   "value",
   "tax",
   "tax_base",
+  "ico",
   "currency",
   "type_person",
   "doc_type",
@@ -179,7 +180,7 @@ PseModel response = epayco.BankCreate(
 Ejemplo de la petición:
 ```
 List<SplitReceivers> splitReceiverses = new List<SplitReceivers>();
-splitReceiverses.Add(new SplitReceivers(){id= "ID_COMMERCE_RECEIVER", fee = "1000", fee_type = "01"});
+splitReceiverses.Add(new SplitReceivers(){id= "ID_COMMERCE_RECEIVER", total = 10000, iva = 2500, ico = 2500, base_iva = 5000,  fee = 100});
 PseModel response = epayco.BankCreateSplit(
   "bank_code",
   "invoice",
@@ -187,6 +188,7 @@ PseModel response = epayco.BankCreateSplit(
   "value",
   "tax",
   "tax_base",
+  "ico",
   "currency",
   "type_person",
   "doc_type",
@@ -203,6 +205,7 @@ PseModel response = epayco.BankCreateSplit(
   "split_app_id",
   "split_merchant_id",
   "split_type",
+  "split_rule",
   "split_primary_receiver",
   "split_primary_receiver_fee",
   splitReceiverses // Este sería un array de tipo SplitReceivers el cual se inicializa al principio del método es un campo opcional y es obligatorio sí se envía split_rule
@@ -232,6 +235,7 @@ CashModel response = epayco.CashCreate(
     "value",
     "tax",
     "tax_base",
+    "ico",
     "currency",
     "type_person",
     "doc_type",
@@ -269,7 +273,7 @@ splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_primary_receiver_fee = "10";
 splitData.split_rule = "";
 List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
-splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = 10000, iva = 2500, ico = 2500, base_iva = 5000,  fee = 100 });
 splitData.split_receivers = splitReceivers;
 
 CashModel response = epayco.CashCreate(
@@ -294,8 +298,8 @@ splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_primary_receiver_fee = "0";
 splitData.split_rule = "multiple"; //si se envía este parámetro el campo splitReceivers se vuelve obligatorio
 List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
-splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
-splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 2ND RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = 10000, iva = 2500, ico = 2500, base_iva = 5000,  fee = 100 });
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = 10000, iva = 2500, ico = 2500, base_iva = 5000,  fee = 100 });
 splitData.split_receivers = splitReceivers;
 
 CashModel response = epayco.CashCreate(
@@ -321,6 +325,7 @@ ChargeModel response = epayco.ChargeCreate(
     "value",
     "tax",
     "tax_base",
+    "ico",
     "currency",
     "dues",
     "address",
@@ -367,7 +372,7 @@ splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_primary_receiver_fee = "10";
 splitData.split_rule = "";
 List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
-splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = 10000, iva = 2500, ico = 2500, base_iva = 5000,  fee = 100 });
 splitData.split_receivers = splitReceivers;
 
 ChargeModel response = epayco.ChargeCreate(
@@ -392,8 +397,8 @@ splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
 splitData.split_primary_receiver_fee = "0";
 splitData.split_rule = "multiple"; // si se envía este parámetro el campo splitReceivers se vuelve obligatorio
 List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
-splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 1ST RECEIVER", fee = "10", total = "1000", fee_type = "01" });
-splitReceivers.Add(new SplitReceivers() { id = "P_CUST_ID_CLIENTE 2ND RECEIVER", fee = "10", total = "1000", fee_type = "01" });
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = 10000, iva = 2500, ico = 2500, base_iva = 5000,  fee = 100 });
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = 10000, iva = 2500, ico = 2500, base_iva = 5000,  fee = 100 });
 splitData.split_receivers = splitReceivers;
 
 ChargeModel response = epayco.ChargeCreate(
@@ -441,7 +446,7 @@ Confirma una transaccion en Daviplata
 
 Ejemplo:
 ```
-DaviplataConfirmModel response = epayco.daviplataConfirm(
+DaviplataConfirmModel response = epayco.DaviplataConfirm(
     "ref_payco",
     "id_session_token",
     "otp"
@@ -455,7 +460,7 @@ Crea una transaccion en Safetypay
 
 Ejemplo de peticion
 ```
-safetypayModel response = epayco.safetypayCreate(
+safetypayModel response = epayco.SafetypayCreate(
     "cash",
     "end_date",
     "doc_type",

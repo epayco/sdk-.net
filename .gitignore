@@ -2,3 +2,5 @@ bin/
 obj/
 /packages/
 .vs/
+.vs/EpaycoSdk/v16/.suo
+ePayco.Net.*.nupkg

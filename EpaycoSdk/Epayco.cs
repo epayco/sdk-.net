@@ -607,7 +607,7 @@ namespace EpaycoSdk
          * DAVIPLATA
          */
 
-        public DaviplataModel daviplataCreate(
+        public DaviplataModel DaviplataCreate(
             string doc_type,
             string document,
             string name,
@@ -648,7 +648,7 @@ namespace EpaycoSdk
         }
 
 
-        public DaviplataConfirmModel daviplataConfirm(
+        public DaviplataConfirmModel DaviplataConfirm(
             string ref_payco,
             string id_session_token,
             string otp
@@ -667,7 +667,7 @@ namespace EpaycoSdk
             return payment;
         }
 
-        public safetypayModel safetypayCreate(string cash,
+        public safetypayModel SafetypayCreate(string cash,
             string end_date,
             string doc_type,
             string document,

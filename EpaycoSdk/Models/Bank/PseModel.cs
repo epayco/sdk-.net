@@ -29,6 +29,7 @@ namespace EpaycoSdk.Models.Bank
         public string urlbanco { get; set; }
         public string transactionId { get; set; }
         public string ticketId { get; set; }
+        public object extras { get; set;  }
         public List<errors> errores { get; set; }
 
     }

@@ -345,7 +345,10 @@ namespace EpaycoSdk
             string extra4 = "",
             string extra5 = "",
             string extra6 = "",
-            string extra7 = "")
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "")
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreate(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
@@ -395,7 +398,10 @@ namespace EpaycoSdk
             string extra4 = "",
             string extra5 = "",
             string extra6 = "",
-            string extra7 = "")
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "")
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
@@ -445,6 +451,7 @@ namespace EpaycoSdk
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
+            System.Console.WriteLine(content);
             BankResponse response = JsonConvert.DeserializeObject<BankResponse>(content);
             if (response.success)
             {
@@ -481,6 +488,16 @@ namespace EpaycoSdk
             string url_response,
             string url_confirmation,
             string method_confirmation,
+            string extra1 = "",
+            string extra2 = "",
+            string extra3 = "",
+            string extra4 = "",
+            string extra5 = "",
+            string extra6 = "",
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "",
             SplitModel split_details = null)
         {
             CashModel cash;
@@ -488,7 +505,7 @@ namespace EpaycoSdk
             ENDPOINT = body.getQueryCash(type);
             PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
                 invoice, description, value, tax, tax_base, ico, currency, type_person, doc_type, doc_number, name,
-                last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation);
+                last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation,  extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             
             if(split_details != null){
                 string split_req_body = body.getBodySplitPayments(split_details);
@@ -540,16 +557,16 @@ namespace EpaycoSdk
             string url_confirmation,
             string method_confirmation,
             string ip,
-            string extra1 = "N/A",
-            string extra2 = "N/A",
-            string extra3 = "N/A",
-            string extra4 = "N/A",
-            string extra5 = "N/A",
-            string extra6 = "N/A",
-            string extra7 = "N/A",
-            string extra8 = "N/A",
-            string extra9 = "N/A",
-            string extra10 = "N/A",
+            string extra1 = "",
+            string extra2 = "",
+            string extra3 = "",
+            string extra4 = "",
+            string extra5 = "",
+            string extra6 = "",
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "",
             SplitModel split_details = null)
         {
             ENDPOINT = Constants.url_charge;
@@ -629,7 +646,17 @@ namespace EpaycoSdk
             bool test = false,
             string url_response = "",
             string url_confirmation = "",
-            string method_confirmation = "" 
+            string method_confirmation = "",
+            string extra1 = "",
+            string extra2 = "",
+            string extra3 = "",
+            string extra4 = "",
+            string extra5 = "",
+            string extra6 = "",
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = ""
             )
         {
             ENDPOINT = Constants.url_daviplata;
@@ -691,7 +718,17 @@ namespace EpaycoSdk
             string url_response = "",
             string url_confirmation = "",
             string url_response_pointer = "",
-            string method_confirmation = "")
+            string method_confirmation = "",
+            string extra1 = "",
+            string extra2 = "",
+            string extra3 = "",
+            string extra4 = "",
+            string extra5 = "",
+            string extra6 = "",
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "")
         {
             ENDPOINT = Constants.url_safetypay;
             PARAMETER = body.getBodySafetypayCreate(cash,end_date,doc_type,document,name,last_name,email,

@@ -1,4 +1,5 @@
-﻿using EpaycoSdk.Models.Cash;
+﻿using EpaycoSdk.Models.Bank;
+using EpaycoSdk.Models.Cash;
 using System.Collections.Generic;
 
 namespace EpaycoSdk.Models.Daviplata
@@ -43,6 +44,8 @@ namespace EpaycoSdk.Models.Daviplata
         public string indCountry { get; set; }
         public string idSessionToken { get; set; }
         public string tokenExpirationDate { get; set; }
+        public Extras extras { get; set; }
+
         public int totalErrors { get; set; }
         public List<errors> errors { get; set; }
     }
@@ -71,6 +74,18 @@ namespace EpaycoSdk.Models.Daviplata
         public string urlResponse { get; set; }
         public string urlConfirmation { get; set; }
         public string methodConfirmation { get; set; }
+        
+        public string extra1 { get; set; }
+        public string extra2 { get; set; }
+        public string extra3 { get; set; }
+        public string extra4 { get; set; }
+        public string extra4 { get; set; }
+        public string extra5 { get; set; }
+        public string extra6 { get; set; }
+        public string extra7 { get; set; }
+        public string extra8 { get; set; }
+        public string extra9 { get; set; }
+        public string extra10 { get; set; }
         public string typeIntegration { get; set; }
     }
 

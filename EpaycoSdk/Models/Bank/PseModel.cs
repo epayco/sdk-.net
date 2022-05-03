@@ -11,6 +11,20 @@ namespace EpaycoSdk.Models.Bank
         public string last_action { get; set; }
         public DataPse data { get; set; }
     }
+
+    public class Extras
+    {
+        public string extra1 { get; set; }
+        public string extra2 { get; set; }
+        public string extra3 { get; set; }
+        public string extra4 { get; set; }
+        public string extra5 { get; set; }
+        public string extra6 { get; set; }
+        public string extra7 { get; set; }
+        public string extra8 { get; set; }
+        public string extra9 { get; set; }
+        public string extra10 { get; set; }
+    }
     
     public class DataPse
     {
@@ -29,7 +43,7 @@ namespace EpaycoSdk.Models.Bank
         public string urlbanco { get; set; }
         public string transactionId { get; set; }
         public string ticketId { get; set; }
-        public object extras { get; set;  }
+        public Extras extras { get; set;  }
         public List<errors> errores { get; set; }
 
     }

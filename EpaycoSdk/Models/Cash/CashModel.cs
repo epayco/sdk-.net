@@ -1,3 +1,4 @@
+using EpaycoSdk.Models.Bank;
 using System.Collections.Generic;
 namespace EpaycoSdk.Models.Cash
 {
@@ -50,6 +51,7 @@ namespace EpaycoSdk.Models.Cash
         public string fechapago { get; set; }
         public decimal factor_conversion { get; set; }
         public string valor_pesos { get; set; }
+        public Extras extras { get; set; }
         public int totalerrores { get; set; }
         public List<errors> errores { get; set; }
     }

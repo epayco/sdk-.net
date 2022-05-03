@@ -227,7 +227,10 @@ namespace EpaycoSdk.Utils
             string extra4 = "",
             string extra5 = "",
             string extra6 = "",
-            string extra7 = "")
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "")
         {
             var localIP = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -258,6 +261,9 @@ namespace EpaycoSdk.Utils
                    "\n\"extra5\": \""+Auxiliars.AESEncrypt(extra5, private_key)+"\",\r" +
                    "\n\"extra6\": \""+Auxiliars.AESEncrypt(extra6, private_key)+"\",\r" +
                    "\n\"extra7\": \""+Auxiliars.AESEncrypt(extra7, private_key)+"\",\r" +
+                   "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, private_key)+"\",\r" +
+                   "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, private_key)+"\",\r" +
+                   "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, private_key)+"\",\r" +
                    "\n\"public_key\": \""+public_key+"\",\r" +
                    "\n\"enpruebas\": \""+Auxiliars.AESEncrypt(test.ToString(), private_key)+"\",\r" +
                    "\n\"ip\": \""+Auxiliars.AESEncrypt(localIP, private_key)+"\",\r" +
@@ -297,13 +303,16 @@ namespace EpaycoSdk.Utils
            string split_primary_receiver,
            string split_primary_receiver_fee,
            List<SplitReceivers> split_receivers,
-           string extra1 = "",
-           string extra2 = "",
-           string extra3 = "",
-           string extra4 = "",
-           string extra5 = "",
-           string extra6 = "",
-           string extra7 = "")
+            string extra1 = "",
+            string extra2 = "",
+            string extra3 = "",
+            string extra4 = "",
+            string extra5 = "",
+            string extra6 = "",
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "")
         {
            var localIP = "";
            var split_receivers_json = Newtonsoft.Json.JsonConvert.SerializeObject(split_receivers);
@@ -344,6 +353,9 @@ namespace EpaycoSdk.Utils
                   "\n\"extra5\": \""+Auxiliars.AESEncrypt(extra5, private_key)+"\",\r" +
                   "\n\"extra6\": \""+Auxiliars.AESEncrypt(extra6, private_key)+"\",\r" +
                   "\n\"extra7\": \""+Auxiliars.AESEncrypt(extra7, private_key)+"\",\r" +
+                  "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, private_key)+"\",\r" +
+                  "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, private_key)+"\",\r" +
+                  "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, private_key)+"\",\r" +
                   "\n\"public_key\": \""+public_key+"\",\r" +
                   "\n\"enpruebas\": \""+test+"\",\r" +
                   "\n\"ip\": \""+localIP+"\",\r" +
@@ -438,7 +450,17 @@ namespace EpaycoSdk.Utils
             string end_date,
             string url_response,
             string url_confirmation,
-            string method_confirmation)
+            string method_confirmation,
+            string extra1 = "",
+            string extra2 = "",
+            string extra3 = "",
+            string extra4 = "",
+            string extra5 = "",
+            string extra6 = "",
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "")
         {
             var localIP = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -461,6 +483,16 @@ namespace EpaycoSdk.Utils
                    "\n\"url_respuesta\": \""+url_response+"\",\r" +
                    "\n\"url_confirmacion\": \""+url_confirmation+"\",\r" +
                    "\n\"metodoconfirmacion\": \""+method_confirmation+"\",\r" +
+                   "\n\"extra1\": \""+extra1+"\",\r" +
+                   "\n\"extra2\": \""+extra2+"\",\r" +
+                   "\n\"extra3\": \""+extra3+"\",\r" +
+                   "\n\"extra4\": \""+extra4+"\",\r" +
+                   "\n\"extra5\": \""+extra5+"\",\r" +
+                   "\n\"extra6\": \""+extra6+"\",\r" +
+                   "\n\"extra7\": \""+extra7+"\",\r" +
+                   "\n\"extra8\": \""+extra8+"\",\r" +
+                   "\n\"extra9\": \""+extra9+"\",\r" +
+                   "\n\"extra10\": \""+extra10+"\",\r" +
                    "\n\"public_key\": \""+public_key+"\",\r" +
                    "\n\"enpruebas\": \""+test+"\",\r" +
                    "\n\"ip\": \""+localIP+"\",\r" +
@@ -567,7 +599,17 @@ namespace EpaycoSdk.Utils
             bool test,
             string url_response,
             string url_confirmation,
-            string method_confirmation)
+            string method_confirmation,
+            string extra1 = "",
+            string extra2 = "",
+            string extra3 = "",
+            string extra4 = "",
+            string extra5 = "",
+            string extra6 = "",
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "")
         {
             bodyDaviplata body = new bodyDaviplata
             {
@@ -593,6 +635,16 @@ namespace EpaycoSdk.Utils
                 urlResponse = url_response,
                 urlConfirmation = url_confirmation,
                 methodConfirmation = method_confirmation,
+                extra1 = extra1,
+                extra2 = extra2,
+                extra3 = extra3,
+                extra4 = extra4,
+                extra5 = extra5,
+                extra6 = extra6,
+                extra7 = extra7,
+                extra8 = extra8,
+                extra9 = extra9,
+                extra10 = extra10,
                 typeIntegration = ".NET"
             };
 
@@ -641,7 +693,17 @@ namespace EpaycoSdk.Utils
             string url_response,
             string url_response_pointer,
             string url_confirmation,
-            string method_confirmation)
+            string method_confirmation,
+            string extra1 = "",
+            string extra2 = "",
+            string extra3 = "",
+            string extra4 = "",
+            string extra5 = "",
+            string extra6 = "",
+            string extra7 = "",
+            string extra8 = "",
+            string extra9 = "",
+            string extra10 = "")
 
         {
 
@@ -672,6 +734,16 @@ namespace EpaycoSdk.Utils
                 urlResponsePointer  = url_response_pointer,
                 urlConfirmation     = url_confirmation,
                 methodConfirmation  = method_confirmation,
+                extra1 = extra1,
+                extra2 = extra2,
+                extra3 = extra3,
+                extra4 = extra4,
+                extra5 = extra5,
+                extra6 = extra6,
+                extra7 = extra7,
+                extra8 = extra8,
+                extra9 = extra9,
+                extra10 = extra10,
                 typeIntegration     = ".NET"
             };
             return Newtonsoft.Json.JsonConvert.SerializeObject(body);

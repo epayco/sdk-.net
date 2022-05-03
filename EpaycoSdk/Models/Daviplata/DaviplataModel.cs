@@ -79,7 +79,6 @@ namespace EpaycoSdk.Models.Daviplata
         public string extra2 { get; set; }
         public string extra3 { get; set; }
         public string extra4 { get; set; }
-        public string extra4 { get; set; }
         public string extra5 { get; set; }
         public string extra6 { get; set; }
         public string extra7 { get; set; }

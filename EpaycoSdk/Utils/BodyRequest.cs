@@ -221,16 +221,16 @@ namespace EpaycoSdk.Utils
             string url_response,
             string url_confirmation,
             string method_confirmation,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "")
+            string extra1,
+            string extra2 ,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
         {
             var localIP = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -303,16 +303,16 @@ namespace EpaycoSdk.Utils
            string split_primary_receiver,
            string split_primary_receiver_fee,
            List<SplitReceivers> split_receivers,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "")
+            string extra1,
+            string extra2,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
         {
            var localIP = "";
            var split_receivers_json = Newtonsoft.Json.JsonConvert.SerializeObject(split_receivers);
@@ -451,16 +451,16 @@ namespace EpaycoSdk.Utils
             string url_response,
             string url_confirmation,
             string method_confirmation,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "")
+            string extra1,
+            string extra2,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
         {
             var localIP = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -600,16 +600,16 @@ namespace EpaycoSdk.Utils
             string url_response,
             string url_confirmation,
             string method_confirmation,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "")
+            string extra1,
+            string extra2,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
         {
             bodyDaviplata body = new bodyDaviplata
             {
@@ -694,16 +694,16 @@ namespace EpaycoSdk.Utils
             string url_response_pointer,
             string url_confirmation,
             string method_confirmation,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "")
+            string extra1,
+            string extra2,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
 
         {
 

@@ -339,22 +339,21 @@ namespace EpaycoSdk
             string url_response,
             string url_confirmation,
             string method_confirmation,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "")
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A")
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreate(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
                 tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country,
-                cell_phone, url_response, url_confirmation, method_confirmation, extra1, extra2, extra3,
-                extra4, extra5, extra6, extra7);
+                cell_phone, url_response, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             string content = _restRequest.Execute(
                 ENDPOINT, 
                 "POST",
@@ -392,16 +391,16 @@ namespace EpaycoSdk
             string split_primary_receiver,
             string split_primary_receiver_fee,
             List<SplitReceivers> split_receivers,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "")
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A")
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
@@ -451,7 +450,6 @@ namespace EpaycoSdk
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-            System.Console.WriteLine(content);
             BankResponse response = JsonConvert.DeserializeObject<BankResponse>(content);
             if (response.success)
             {
@@ -488,21 +486,20 @@ namespace EpaycoSdk
             string url_response,
             string url_confirmation,
             string method_confirmation,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "",
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A",
             SplitModel split_details = null)
         {
             CashModel cash;
             string content;
-            Console.WriteLine("Estoy en cashCreate \n");
             ENDPOINT = body.getQueryCash(type);
             PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
                 invoice, description, value, tax, tax_base, ico, currency, type_person, doc_type, doc_number, name,
@@ -558,16 +555,16 @@ namespace EpaycoSdk
             string url_confirmation,
             string method_confirmation,
             string ip,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "",
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A",
             SplitModel split_details = null)
         {
             ENDPOINT = Constants.url_charge;
@@ -645,19 +642,19 @@ namespace EpaycoSdk
             decimal tax_base = 0,
             decimal ico = 0,
             bool test = false,
-            string url_response = "",
-            string url_confirmation = "",
-            string method_confirmation = "",
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = ""
+            string url_response = "N/A",
+            string url_confirmation = "N/A",
+            string method_confirmation = "N/A",
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A"
             )
         {
             ENDPOINT = Constants.url_daviplata;
@@ -716,20 +713,20 @@ namespace EpaycoSdk
             decimal tax_base = 0,
             decimal ico = 0,
             bool test = false,
-            string url_response = "",
-            string url_confirmation = "",
-            string url_response_pointer = "",
-            string method_confirmation = "",
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "",
-            string extra8 = "",
-            string extra9 = "",
-            string extra10 = "")
+            string url_response = "N/A",
+            string url_confirmation = "N/A",
+            string url_response_pointer = "N/A",
+            string method_confirmation = "N/A",
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A")
         {
             ENDPOINT = Constants.url_safetypay;
             PARAMETER = body.getBodySafetypayCreate(cash,end_date,doc_type,document,name,last_name,email,

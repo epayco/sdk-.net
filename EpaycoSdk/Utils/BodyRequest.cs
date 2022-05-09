@@ -222,7 +222,7 @@ namespace EpaycoSdk.Utils
             string url_confirmation,
             string method_confirmation,
             string extra1,
-            string extra2 ,
+            string extra2,
             string extra3,
             string extra4,
             string extra5,
@@ -357,8 +357,8 @@ namespace EpaycoSdk.Utils
                   "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, private_key)+"\",\r" +
                   "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, private_key)+"\",\r" +
                   "\n\"public_key\": \""+public_key+"\",\r" +
-                  "\n\"enpruebas\": \""+test+"\",\r" +
-                  "\n\"ip\": \""+localIP+"\",\r" +
+                  "\n\"enpruebas\": \""+ Auxiliars.AESEncrypt(test.ToString(), private_key) +"\",\r" +
+                  "\n\"ip\": \""+ Auxiliars.AESEncrypt(localIP, private_key) +"\",\r" +
                   "\n\"i\": \""+I+"\",\r" +
                   "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }

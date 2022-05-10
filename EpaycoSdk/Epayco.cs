@@ -506,7 +506,7 @@ namespace EpaycoSdk
                 last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation,  extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             
             if(split_details != null){
-                string split_req_body = body.getBodySplitPayments(split_details);
+                string split_req_body = body.getBodySplitPayments(split_details, true);
                PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, split_req_body);
             }
             content = _restRequest.Execute(
@@ -574,7 +574,7 @@ namespace EpaycoSdk
                 url_confirmation, method_confirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             
             if(split_details != null){
-                string split_req_body = body.getBodySplitPayments(split_details);
+                string split_req_body = body.getBodySplitPayments(split_details, false);
                 PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, split_req_body);
             }
             

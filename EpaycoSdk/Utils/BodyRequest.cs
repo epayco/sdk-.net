@@ -363,7 +363,7 @@ namespace EpaycoSdk.Utils
                   "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
  
-        public string getBodySplitPayments(SplitModel split_details)
+        public string getBodySplitPayments(SplitModel split_details,bool cash = false)
         {
             SplitModelRest split = new SplitModelRest
             {
@@ -373,10 +373,16 @@ namespace EpaycoSdk.Utils
                 split_primary_receiver = split_details.split_primary_receiver,
                 split_primary_receiver_fee = split_details.split_primary_receiver_fee,
                 split_rule = split_details.split_rule,
-                split_type = split_details.split_type,
-                split_receivers = Newtonsoft.Json.JsonConvert.SerializeObject(split_details.split_receivers)
+                split_type = split_details.split_type
             };
 
+            if (cash)
+            {
+                split.split_receivers = Newtonsoft.Json.JsonConvert.SerializeObject(split_details.split_receivers);
+            }else
+            {
+                split.split_receivers = split_details.split_receivers;
+            }
             return Newtonsoft.Json.JsonConvert.SerializeObject(split);
          }
 

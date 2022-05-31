@@ -404,35 +404,6 @@ namespace EpaycoSdk.Utils
          /*
           * CASH
           */
-            public string getQueryCash(string type)
-        {       
-            var endpoint = "";
-            switch (type)
-            {
-                case "efecty":
-                    endpoint = Constants.url_cash_efecty;
-                    break;
-                case "baloto":
-                    endpoint = Constants.url_cash_baloto;
-                    break;
-                case "gana":
-                    endpoint = Constants.url_cash_gana;
-                    break;
-                case "redservi":
-                    endpoint = Constants.url_cash_redservi;
-                    break;
-                case "puntored":
-                    endpoint = Constants.url_cash_puntored;
-                    break;
-                case "sured":
-                    endpoint = Constants.url_cash_sured;
-                    break;
-                default:
-                    return "";
-            }
-
-            return endpoint;
-        }
         
          public string getBodyCashCreate(
             string I,
@@ -733,8 +704,8 @@ namespace EpaycoSdk.Utils
                 description         = description,
                 value               = value,
                 tax                 = tax,
-                ico                 = tax_base,
-                taxBase             = ico,
+                ico                 = ico,
+                taxBase             = tax_base,
                 testMode            = test,
                 urlResponse         = url_response,
                 urlResponsePointer  = url_response_pointer,

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
+using System.Linq;
 using EpaycoSdk.Models;
 using EpaycoSdk.Models.Bank;
 using EpaycoSdk.Models.Cash;
@@ -500,7 +501,32 @@ namespace EpaycoSdk
         {
             CashModel cash;
             string content;
-            ENDPOINT = body.getQueryCash(type);
+            bool isCorrect = this.GetEntitiesCash(type);
+            if (!isCorrect)
+            {
+                cash = new CashModel
+                {
+                    success = false,
+                    title_response = "Error",
+                    text_response = "Método de pago en efectivo no válido, unicamnete soportados: efecty, gana, redservi, puntored, sured",
+                    last_action = "validation transaction",
+                    data = new DataCash
+                    {
+                        totalerrores = 1,
+                        errores = new List<errors>
+                        {
+                            new errors
+                            {
+                                codError = "109",
+                                errorMessage = "Método de pago en efectivo no válido, unicamnete soportados: efecty, gana, redservi, puntored, sured"
+                            }
+                        }
+                    }
+                };
+                return cash;
+            }
+            ENDPOINT = Constants.url_cash + type;
+            
             PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
                 invoice, description, value, tax, tax_base, ico, currency, type_person, doc_type, doc_number, name,
                 last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation,  extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
@@ -741,6 +767,29 @@ namespace EpaycoSdk
 
             safetypayModel payment = JsonConvert.DeserializeObject<safetypayModel>(content);
             return payment;
+        }
+
+        private bool GetEntitiesCash(string type)
+        {
+            ENDPOINT = Constants.url_entities_cash;
+          
+            string content = _requestApify.Execute(
+                ENDPOINT,
+                "GET",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY));
+            EntitiesCashModel response = JsonConvert.DeserializeObject<EntitiesCashModel>(content);
+
+            if (!response.success)
+            {
+                return false;
+            }
+            var data = response.data.Select(item => item.name.ToLower()).ToArray();
+            if (data.Contains(type.ToLower()))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         #endregion

@@ -6,6 +6,7 @@
 - Se mapea los extras en las respuesta de crear transaccion de los medios de pago
 - Se encripta parametros IP y test para transaccion con PSE splitpayment
 - se corrgie error de mapeo de receivers para cash y efectivo
+- Se consultan los medios de pagos pagos activos para Efectivo
 
 ## [v1.0.13 (2021-02-23)](https://github.com/epayco/sdk-.net/compare/v1.0.11...v1.0.13)
 

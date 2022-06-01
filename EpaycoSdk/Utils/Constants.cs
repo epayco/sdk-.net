@@ -43,16 +43,12 @@ namespace EpaycoSdk.Utils
          * BANK CREATE
          */
         public static string url_pagos_debitos = entorno + "/pagos/debitos.json";
-        public static string url_get_transaction = entorno + "/restpagos/pse/transactioninfomation.json";
-        public static string url_get_banks = entorno + "/restpagos/pse/bancos.json";
+        public static string url_get_transaction = entorno + "/pse/transactioninfomation.json";
+        public static string url_get_banks = entorno + "/pse/bancos.json";
         
         /*CASH*/
-        public static string url_cash_efecty = entorno + "/v2/efectivo/efecty";
-        public static string url_cash_baloto = entorno + "/v2/efectivo/baloto";
-        public static string url_cash_gana = entorno + "/v2/efectivo/gana";
-        public static string url_cash_redservi = entorno + "/v2/efectivo/redservi";
-        public static string url_cash_puntored = entorno + "/v2/efectivo/puntored";
-        public static string url_cash_sured = entorno + "/v2/efectivo/sured";
+        public static string url_cash = entorno + "/v2/efectivo/";
+        public static string url_entities_cash = "/payment/cash/entities";
         public static string url_cash_transaction = entorno + "/transaction/response.json?";
 
         /*DAVIPLATA*/

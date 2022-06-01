@@ -501,19 +501,16 @@ namespace EpaycoSdk
         {
             CashModel cash;
             string content;
-            bool isCorrect = this.GetEntitiesCash(type);
-            if (!isCorrect)
+            CashModel invalid = new CashModel
             {
-                cash = new CashModel
+                success = false,
+                title_response = "Error",
+                text_response = "Método de pago en efectivo no válido, unicamnete soportados: efecty, gana, redservi, puntored, sured",
+                last_action = "validation transaction",
+                data = new DataCash
                 {
-                    success = false,
-                    title_response = "Error",
-                    text_response = "Método de pago en efectivo no válido, unicamnete soportados: efecty, gana, redservi, puntored, sured",
-                    last_action = "validation transaction",
-                    data = new DataCash
-                    {
-                        totalerrores = 1,
-                        errores = new List<errors>
+                    totalerrores = 1,
+                    errores = new List<errors>
                         {
                             new errors
                             {
@@ -521,9 +518,17 @@ namespace EpaycoSdk
                                 errorMessage = "Método de pago en efectivo no válido, unicamnete soportados: efecty, gana, redservi, puntored, sured"
                             }
                         }
-                    }
-                };
-                return cash;
+                }
+            };
+            string medio = type.ToLower();
+            if(medio == "baloto")
+            {
+                return invalid;
+            }
+            bool isCorrect = this.GetEntitiesCash(type);
+            if (!isCorrect)
+            {
+                return invalid;
             }
             ENDPOINT = Constants.url_cash + type;
             
@@ -783,8 +788,8 @@ namespace EpaycoSdk
             {
                 return false;
             }
-            var data = response.data.Select(item => item.name.ToLower()).ToArray();
-            if (data.Contains(type.ToLower()))
+            var data = response.data.Select(item => item.name.ToLower().Replace(" ", String.Empty)).ToArray();
+            if (data.Contains(type))
             {
                 return true;
             }

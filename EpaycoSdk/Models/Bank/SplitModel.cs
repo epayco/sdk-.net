@@ -23,6 +23,6 @@ namespace EpaycoSdk.Models.Bank
         public string split_rule { get; set; }
         public string split_primary_receiver { get; set; }
         public string split_primary_receiver_fee { get; set; }
-        public string split_receivers { get; set; }
+        public dynamic split_receivers { get; set; }
     }
 }

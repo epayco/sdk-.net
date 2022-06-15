@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
+using System.Linq;
 using EpaycoSdk.Models;
 using EpaycoSdk.Models.Bank;
 using EpaycoSdk.Models.Cash;
@@ -339,19 +340,21 @@ namespace EpaycoSdk
             string url_response,
             string url_confirmation,
             string method_confirmation,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "")
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A")
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreate(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
                 tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country,
-                cell_phone, url_response, url_confirmation, method_confirmation, extra1, extra2, extra3,
-                extra4, extra5, extra6, extra7);
+                cell_phone, url_response, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             string content = _restRequest.Execute(
                 ENDPOINT, 
                 "POST",
@@ -389,20 +392,23 @@ namespace EpaycoSdk
             string split_primary_receiver,
             string split_primary_receiver_fee,
             List<SplitReceivers> split_receivers,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "")
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A")
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
                 tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country,
                 cell_phone, url_response, url_confirmation, method_confirmation, splitpayment, split_app_id, split_merchant_id,
                 split_type, split_rule, split_primary_receiver, split_primary_receiver_fee, split_receivers, extra1, extra2, extra3,
-                extra4, extra5, extra6, extra7);
+                extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             string content = _restRequest.Execute(
                 ENDPOINT, 
                 "POST",
@@ -481,17 +487,57 @@ namespace EpaycoSdk
             string url_response,
             string url_confirmation,
             string method_confirmation,
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A",
             SplitModel split_details = null)
         {
             CashModel cash;
             string content;
-            ENDPOINT = body.getQueryCash(type);
+            CashModel invalid = new CashModel
+            {
+                success = false,
+                title_response = "Error",
+                text_response = "Método de pago en efectivo no válido, unicamnete soportados: efecty, gana, redservi, puntored, sured",
+                last_action = "validation transaction",
+                data = new DataCash
+                {
+                    totalerrores = 1,
+                    errores = new List<errors>
+                        {
+                            new errors
+                            {
+                                codError = "109",
+                                errorMessage = "Método de pago en efectivo no válido, unicamnete soportados: efecty, gana, redservi, puntored, sured"
+                            }
+                        }
+                }
+            };
+            string medio = type.ToLower();
+            if(medio == "baloto")
+            {
+                return invalid;
+            }
+            bool isCorrect = this.GetEntitiesCash(type);
+            if (!isCorrect)
+            {
+                return invalid;
+            }
+            ENDPOINT = Constants.url_cash + type;
+            
             PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
                 invoice, description, value, tax, tax_base, ico, currency, type_person, doc_type, doc_number, name,
-                last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation);
+                last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation,  extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             
             if(split_details != null){
-                string split_req_body = body.getBodySplitPayments(split_details);
+                string split_req_body = body.getBodySplitPayments(split_details, true);
                PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, split_req_body);
             }
             content = _restRequest.Execute(
@@ -559,7 +605,7 @@ namespace EpaycoSdk
                 url_confirmation, method_confirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             
             if(split_details != null){
-                string split_req_body = body.getBodySplitPayments(split_details);
+                string split_req_body = body.getBodySplitPayments(split_details, false);
                 PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, split_req_body);
             }
             
@@ -607,7 +653,7 @@ namespace EpaycoSdk
          * DAVIPLATA
          */
 
-        public DaviplataModel daviplataCreate(
+        public DaviplataModel DaviplataCreate(
             string doc_type,
             string document,
             string name,
@@ -627,15 +673,25 @@ namespace EpaycoSdk
             decimal tax_base = 0,
             decimal ico = 0,
             bool test = false,
-            string url_response = "",
-            string url_confirmation = "",
-            string method_confirmation = "" 
+            string url_response = "N/A",
+            string url_confirmation = "N/A",
+            string method_confirmation = "N/A",
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A"
             )
         {
             ENDPOINT = Constants.url_daviplata;
             PARAMETER = body.getBodyDaviplata(doc_type, document, name, last_name,
                 email, ind_country, phone, country, city, address, ip, currency, invoice, description, value, tax, tax_base, ico, test,
-                url_response, url_confirmation, method_confirmation );
+                url_response, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
 
             string content = _requestApify.Execute(
                 ENDPOINT,
@@ -648,7 +704,7 @@ namespace EpaycoSdk
         }
 
 
-        public DaviplataConfirmModel daviplataConfirm(
+        public DaviplataConfirmModel DaviplataConfirm(
             string ref_payco,
             string id_session_token,
             string otp
@@ -667,7 +723,7 @@ namespace EpaycoSdk
             return payment;
         }
 
-        public safetypayModel safetypayCreate(string cash,
+        public safetypayModel SafetypayCreate(string cash,
             string end_date,
             string doc_type,
             string document,
@@ -688,15 +744,25 @@ namespace EpaycoSdk
             decimal tax_base = 0,
             decimal ico = 0,
             bool test = false,
-            string url_response = "",
-            string url_confirmation = "",
-            string url_response_pointer = "",
-            string method_confirmation = "")
+            string url_response = "N/A",
+            string url_confirmation = "N/A",
+            string url_response_pointer = "N/A",
+            string method_confirmation = "N/A",
+            string extra1 = "N/A",
+            string extra2 = "N/A",
+            string extra3 = "N/A",
+            string extra4 = "N/A",
+            string extra5 = "N/A",
+            string extra6 = "N/A",
+            string extra7 = "N/A",
+            string extra8 = "N/A",
+            string extra9 = "N/A",
+            string extra10 = "N/A")
         {
             ENDPOINT = Constants.url_safetypay;
             PARAMETER = body.getBodySafetypayCreate(cash,end_date,doc_type,document,name,last_name,email,
                 ind_country,phone,country,city,address,ip,currency,invoice,description,value,tax,tax_base,ico,
-                test,url_response, url_response_pointer, url_confirmation, method_confirmation);
+                test,url_response, url_response_pointer, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
 
             string content = _requestApify.Execute(
                 ENDPOINT,
@@ -706,6 +772,29 @@ namespace EpaycoSdk
 
             safetypayModel payment = JsonConvert.DeserializeObject<safetypayModel>(content);
             return payment;
+        }
+
+        private bool GetEntitiesCash(string type)
+        {
+            ENDPOINT = Constants.url_entities_cash;
+          
+            string content = _requestApify.Execute(
+                ENDPOINT,
+                "GET",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY));
+            EntitiesCashModel response = JsonConvert.DeserializeObject<EntitiesCashModel>(content);
+
+            if (!response.success)
+            {
+                return false;
+            }
+            var data = response.data.Select(item => item.name.ToLower().Replace(" ", String.Empty)).ToArray();
+            if (data.Contains(type))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         #endregion

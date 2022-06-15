@@ -69,4 +69,20 @@ namespace EpaycoSdk.Models.Cash
         public int totalerrores { get; set; }
         public dynamic errores { get; set; }
     }
+    
+    public class EntitiesCashModel
+    {
+        public bool success { get; set; }
+        public string titleResponse { get; set; }
+        public string textResponse { get; set; }
+        public string lastAction { get; set; }
+        public List<DataEntities> data { get; set; }
+    }
+
+    public class DataEntities
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+
+    }
 }

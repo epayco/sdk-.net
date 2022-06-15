@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ePayco.Net</id>
-    <version>1.0.14</version>
+    <version>1.1.1</version>
     <title>ePayco SDK .Net</title>
     <authors>ePayco</authors>
     <owners>ePayco</owners>
@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/pruebasepayco</projectUrl>
     <iconUrl>https://cdn-images-1.medium.com/max/1200/1*izqjJI7RKr76dOPRvpolug.jpeg</iconUrl>
     <description>SDK para conectarse a todos los servicios de la pasarela de pagos ePayco</description>
-    <releaseNotes>Se agrega metodos faltantes</releaseNotes>
+    <releaseNotes>Se corrigue readme para agregar parametro ICO y arreglar los SPLIT_RECEIVERS, se agregan los extras a los responses</releaseNotes>
     <copyright>Copyright 2021</copyright>
     <tags>ePayco sdk .Net</tags>
     <dependencies>

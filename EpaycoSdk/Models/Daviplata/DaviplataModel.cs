@@ -44,6 +44,7 @@ namespace EpaycoSdk.Models.Daviplata
         public string indCountry { get; set; }
         public string idSessionToken { get; set; }
         public string tokenExpirationDate { get; set; }
+        public string daviplataOtpLab { get; set; }
         public Extras extras { get; set; }
 
         public int totalErrors { get; set; }

@@ -71,7 +71,7 @@ namespace EpaycoSdk.Models.Daviplata
         public decimal tax { get; set; }
         public decimal taxBase { get; set; }
         public decimal ico { get; set; }
-        public bool test { get; set; }
+        public bool testMode { get; set; }
         public string urlResponse { get; set; }
         public string urlConfirmation { get; set; }
         public string methodConfirmation { get; set; }

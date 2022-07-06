@@ -336,6 +336,7 @@ namespace EpaycoSdk
             string last_name,
             string email,
             string country,
+            string city,
             string cell_phone,
             string url_response,
             string url_confirmation,
@@ -353,7 +354,7 @@ namespace EpaycoSdk
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreate(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
-                tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country,
+                tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country, city,
                 cell_phone, url_response, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             string content = _restRequest.Execute(
                 ENDPOINT, 
@@ -380,6 +381,7 @@ namespace EpaycoSdk
             string last_name,
             string email,
             string country,
+            string city,
             string cell_phone,
             string url_response,
             string url_confirmation,
@@ -405,7 +407,7 @@ namespace EpaycoSdk
         {
             ENDPOINT = Constants.url_pagos_debitos;
             PARAMETER = body.getBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
-                tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country,
+                tax_base, ico, currency, type_person, doc_type, doc_number, name, last_name, email, country, city,
                 cell_phone, url_response, url_confirmation, method_confirmation, splitpayment, split_app_id, split_merchant_id,
                 split_type, split_rule, split_primary_receiver, split_primary_receiver_fee, split_receivers, extra1, extra2, extra3,
                 extra4, extra5, extra6, extra7, extra8, extra9, extra10);
@@ -484,6 +486,8 @@ namespace EpaycoSdk
             string email,
             string cell_phone,
             string end_date,
+            string country,
+            string city,
             string url_response,
             string url_confirmation,
             string method_confirmation,
@@ -534,7 +538,7 @@ namespace EpaycoSdk
             
             PARAMETER = body.getBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
                 invoice, description, value, tax, tax_base, ico, currency, type_person, doc_type, doc_number, name,
-                last_name, email, cell_phone, end_date, url_response, url_confirmation, method_confirmation,  extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
+                last_name, email, cell_phone, end_date, country, city, url_response, url_confirmation, method_confirmation,  extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             
             if(split_details != null){
                 string split_req_body = body.getBodySplitPayments(split_details, true);
@@ -580,6 +584,8 @@ namespace EpaycoSdk
             string currency,
             string dues,
             string address,
+            string country,
+            string city,
             string phone,
             string cell_phone,
             string url_response,
@@ -600,7 +606,7 @@ namespace EpaycoSdk
         {
             ENDPOINT = Constants.url_charge;
             PARAMETER = body.getBodyChargeCreate(token_card, customer_id, doc_type, doc_number, name, last_name,
-                email, bill, description, value, tax, tax_base, ico, currency, dues, address, phone, cell_phone,
+                email, bill, description, value, tax, tax_base, ico, currency, dues, address, country, city, phone, cell_phone,
                 url_response,
                 url_confirmation, method_confirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
             
@@ -692,13 +698,13 @@ namespace EpaycoSdk
             PARAMETER = body.getBodyDaviplata(doc_type, document, name, last_name,
                 email, ind_country, phone, country, city, address, ip, currency, invoice, description, value, tax, tax_base, ico, test,
                 url_response, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
-
+            Console.WriteLine(PARAMETER);
             string content = _requestApify.Execute(
                 ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-
+            Console.WriteLine(content);
             DaviplataModel payment = JsonConvert.DeserializeObject<DaviplataModel>(content);
             return payment;
         }

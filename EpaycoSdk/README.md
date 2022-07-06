@@ -168,6 +168,7 @@ PseModel response = epayco.BankCreate(
   "last_name",
   "email",
   "country",
+  "city",
   "cell_phone",
   "url_response",
   "url_confirmation",
@@ -197,6 +198,7 @@ PseModel response = epayco.BankCreateSplit(
   "last_name",
   "email",
   "country",
+  "city"
   "cell_phone",
   "url_response",
   "url_confirmation",
@@ -245,6 +247,8 @@ CashModel response = epayco.CashCreate(
     "email",
     "cell_phone",
     "end_date",
+    "country",
+    "city",
     "url_response",
     "url_confirmation",
     "metodoconfirmacion");
@@ -329,6 +333,8 @@ ChargeModel response = epayco.ChargeCreate(
     "currency",
     "dues",
     "address",
+    "country",
+    "city",
     "phone",
     "cell_phone",
     "url_response",

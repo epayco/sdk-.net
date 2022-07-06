@@ -217,6 +217,7 @@ namespace EpaycoSdk.Utils
             string last_name,
             string email,
             string country,
+            string city,
             string cell_phone,
             string url_response,
             string url_confirmation,
@@ -250,6 +251,7 @@ namespace EpaycoSdk.Utils
                    "\n\"apellidos\": \""+Auxiliars.AESEncrypt(last_name, private_key)+"\",\r" +
                    "\n\"email\": \""+Auxiliars.AESEncrypt(email, private_key)+"\",\r" +
                    "\n\"pais\": \""+Auxiliars.AESEncrypt(country, private_key)+"\",\r" +
+                   "\n\"ciudad\": \"" + Auxiliars.AESEncrypt(city, private_key)+"\",\r" +
                    "\n\"celular\": \""+Auxiliars.AESEncrypt(cell_phone, private_key)+"\",\r" +
                    "\n\"url_respuesta\": \""+Auxiliars.AESEncrypt(url_response, private_key)+"\",\r" +
                    "\n\"url_confirmacion\": \""+Auxiliars.AESEncrypt(url_confirmation, private_key)+"\",\r" +
@@ -291,6 +293,7 @@ namespace EpaycoSdk.Utils
            string last_name,
            string email,
            string country,
+           string city,
            string cell_phone,
            string url_response,
            string url_confirmation,
@@ -334,6 +337,7 @@ namespace EpaycoSdk.Utils
                   "\n\"apellidos\": \""+Auxiliars.AESEncrypt(last_name, private_key)+"\",\r" +
                   "\n\"email\": \""+Auxiliars.AESEncrypt(email, private_key)+"\",\r" +
                   "\n\"pais\": \""+Auxiliars.AESEncrypt(country, private_key)+"\",\r" +
+                  "\n\"ciudad\": \""+ Auxiliars.AESEncrypt(city, private_key)+"\",\r" +
                   "\n\"celular\": \""+Auxiliars.AESEncrypt(cell_phone, private_key)+"\",\r" +
                   "\n\"url_respuesta\": \""+Auxiliars.AESEncrypt(url_response, private_key)+"\",\r" +
                   "\n\"url_confirmacion\": \""+Auxiliars.AESEncrypt(url_confirmation, private_key)+"\",\r" +
@@ -425,6 +429,8 @@ namespace EpaycoSdk.Utils
             string email,
             string cell_phone,
             string end_date,
+            string country,
+            string city,
             string url_response,
             string url_confirmation,
             string method_confirmation,
@@ -457,7 +463,9 @@ namespace EpaycoSdk.Utils
                    "\n\"email\": \""+email+"\",\r" +
                    "\n\"celular\": \""+cell_phone+"\",\r" +
                    "\n\"fechaexpiracion\": \""+end_date+"\",\r" +
-                   "\n\"url_respuesta\": \""+url_response+"\",\r" +
+                   "\n\"pais\": \""+country+"\",\r" +
+                   "\n\"ciudad\": \""+city+"\",\r" +
+                   "\n\"url_respuesta\": \"" +url_response+"\",\r" +
                    "\n\"url_confirmacion\": \""+url_confirmation+"\",\r" +
                    "\n\"metodoconfirmacion\": \""+method_confirmation+"\",\r" +
                    "\n\"extra1\": \""+extra1+"\",\r" +
@@ -502,6 +510,8 @@ namespace EpaycoSdk.Utils
              string currency,
              string dues,
              string address,
+             string country,
+             string city,
              string phone,
              string cell_phone,
              string url_response,
@@ -535,7 +545,9 @@ namespace EpaycoSdk.Utils
                     "\n\"currency\": \""+currency+"\",\r" +
                     "\n\"dues\": \""+dues+"\",\r" +
                     "\n\"address\": \""+address+"\",\r" +
-                    "\n\"phone\": \""+phone+"\",\r" +
+                    "\n\"country\": \""+country+"\",\r" +
+                    "\n\"city\": \""+city+"\",\r" +
+                    "\n\"phone\": \"" +phone+"\",\r" +
                     "\n\"cell_phone\": \""+cell_phone+"\",\r" +
                     "\n\"url_response\": \""+url_response+"\",\r" +
                     "\n\"url_confirmation\": \""+url_confirmation+"\",\r" +
@@ -608,7 +620,7 @@ namespace EpaycoSdk.Utils
                 tax = tax,
                 taxBase = tax_base,
                 ico = ico,
-                test = test,
+                testMode = test,
                 urlResponse = url_response,
                 urlConfirmation = url_confirmation,
                 methodConfirmation = method_confirmation,

@@ -38,6 +38,7 @@ namespace EpaycoSdk.Models.Bank
         public string moneda { get; set; }
         public string respuesta { get; set; }
         public string autorizacion { get; set; }
+        public string ciudad { get; set; }
         public string recibo { get; set; }
         public string fecha { get; set; }
         public string urlbanco { get; set; }

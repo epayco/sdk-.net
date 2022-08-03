@@ -23,6 +23,8 @@ namespace EpaycoSdk.Models.Safetypay
         public decimal ico { get; set; }
         public decimal taxBase { get; set; }
         public string currency { get; set; }
+        public string country { get; set; }
+        public string city { get; set; }
         public string status { get; set; }
         public string response { get; set; }
         public string autorization { get; set; }
@@ -73,7 +75,6 @@ namespace EpaycoSdk.Models.Safetypay
         public string extra8 { get; set; }
         public string extra9 { get; set; }
         public string extra10 { get; set; }
-
         public string typeIntegration { get; set; }
     }   
 

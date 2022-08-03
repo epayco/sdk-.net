@@ -39,6 +39,7 @@ namespace EpaycoSdk.Models.Daviplata
         public string name { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
+        public string country { get; set; }
         public string city { get; set; }
         public string address { get; set; }
         public string indCountry { get; set; }

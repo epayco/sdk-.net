@@ -39,11 +39,13 @@ namespace EpaycoSdk.Models.Daviplata
         public string name { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
+        public string country { get; set; }
         public string city { get; set; }
         public string address { get; set; }
         public string indCountry { get; set; }
         public string idSessionToken { get; set; }
         public string tokenExpirationDate { get; set; }
+        public string daviplataOtpLab { get; set; }
         public Extras extras { get; set; }
 
         public int totalErrors { get; set; }
@@ -70,7 +72,7 @@ namespace EpaycoSdk.Models.Daviplata
         public decimal tax { get; set; }
         public decimal taxBase { get; set; }
         public decimal ico { get; set; }
-        public bool test { get; set; }
+        public bool testMode { get; set; }
         public string urlResponse { get; set; }
         public string urlConfirmation { get; set; }
         public string methodConfirmation { get; set; }

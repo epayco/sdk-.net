@@ -22,6 +22,7 @@ namespace EpaycoSdk.Models.Cash
         public decimal x_amount_country { get; set; }
         public decimal x_amount_ok { get; set; }
         public double x_tax { get; set; }
+        public double x_ico { get; set; }
         public decimal x_amount_base { get; set; }
         public string x_currency_code { get; set; }
         public string x_bank_name { get; set; }
@@ -67,5 +68,21 @@ namespace EpaycoSdk.Models.Cash
         public string x_extra10 { get; set; }
         public int totalerrores { get; set; }
         public dynamic errores { get; set; }
+    }
+    
+    public class EntitiesCashModel
+    {
+        public bool success { get; set; }
+        public string titleResponse { get; set; }
+        public string textResponse { get; set; }
+        public string lastAction { get; set; }
+        public List<DataEntities> data { get; set; }
+    }
+
+    public class DataEntities
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+
     }
 }

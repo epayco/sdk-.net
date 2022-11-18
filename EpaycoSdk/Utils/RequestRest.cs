@@ -65,7 +65,8 @@ namespace EpaycoSdk.Utils
             request.AddHeader("authorization", auth);
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
-            request.AddHeader("type", "sdk");
+            request.AddHeader("type", "sdk-jwt");
+            request.AddHeader("lang", ".NET");
             request.RequestFormat = DataFormat.Json;
             request.AddParameter("application/json", PARAMETER, ParameterType.RequestBody);
             

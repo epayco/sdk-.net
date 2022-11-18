@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using EpaycoSdk.Models.Bank;
 using EpaycoSdk.Models.Cash;
+using EpaycoSdk.Models.Daviplata;
+using EpaycoSdk.Models.Safetypay;
 using Newtonsoft;
 
 namespace EpaycoSdk.Utils
@@ -83,7 +85,21 @@ namespace EpaycoSdk.Utils
                    "\n\"mask\":\"" + mask + "\"," +
                    "\n\"customer_id\":\"" + customer_id + "\"\n}";
         }
-        
+
+        public string getBodyAddNewToken(string token_card, string customer_id)
+        {
+            return "{\n\"token_card\":\"" + token_card + "\"," +
+                   "\n\"customer_id\":\"" + customer_id + "\"\n}";
+        }
+        public string getBodySetDefaultToken(string token, string customer_id, string franchise, string mask)
+        {
+            return "{\n\"franchise\":\"" + franchise + "\"," +
+                   "\n\"token\":\"" + token + "\"," +
+                   "\n\"mask\":\"" + mask + "\"," +
+                   "\n\"customer_id\":\"" + customer_id + "\"\n}";
+        }
+
+
         /*
          * PLANS QUERYS AND BODY
          */
@@ -192,6 +208,7 @@ namespace EpaycoSdk.Utils
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string type_person,
             string doc_type,
@@ -200,17 +217,21 @@ namespace EpaycoSdk.Utils
             string last_name,
             string email,
             string country,
+            string city,
             string cell_phone,
             string url_response,
             string url_confirmation,
             string method_confirmation,
-            string extra1 = "",
-            string extra2 = "",
-            string extra3 = "",
-            string extra4 = "",
-            string extra5 = "",
-            string extra6 = "",
-            string extra7 = "")
+            string extra1,
+            string extra2,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
         {
             var localIP = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -221,6 +242,7 @@ namespace EpaycoSdk.Utils
                    "\n\"valor\": \""+Auxiliars.AESEncrypt(value, private_key)+"\",\r" +
                    "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, private_key)+"\",\r" +
                    "\n\"baseiva\": \""+Auxiliars.AESEncrypt(tax_base, private_key)+"\",\r" +
+                   "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, private_key)+"\",\r" +
                    "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, private_key)+"\",\r" +
                    "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(type_person, private_key)+"\",\r" +
                    "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(doc_type, private_key)+"\",\r" +
@@ -229,6 +251,7 @@ namespace EpaycoSdk.Utils
                    "\n\"apellidos\": \""+Auxiliars.AESEncrypt(last_name, private_key)+"\",\r" +
                    "\n\"email\": \""+Auxiliars.AESEncrypt(email, private_key)+"\",\r" +
                    "\n\"pais\": \""+Auxiliars.AESEncrypt(country, private_key)+"\",\r" +
+                   "\n\"ciudad\": \"" + Auxiliars.AESEncrypt(city, private_key)+"\",\r" +
                    "\n\"celular\": \""+Auxiliars.AESEncrypt(cell_phone, private_key)+"\",\r" +
                    "\n\"url_respuesta\": \""+Auxiliars.AESEncrypt(url_response, private_key)+"\",\r" +
                    "\n\"url_confirmacion\": \""+Auxiliars.AESEncrypt(url_confirmation, private_key)+"\",\r" +
@@ -240,6 +263,9 @@ namespace EpaycoSdk.Utils
                    "\n\"extra5\": \""+Auxiliars.AESEncrypt(extra5, private_key)+"\",\r" +
                    "\n\"extra6\": \""+Auxiliars.AESEncrypt(extra6, private_key)+"\",\r" +
                    "\n\"extra7\": \""+Auxiliars.AESEncrypt(extra7, private_key)+"\",\r" +
+                   "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, private_key)+"\",\r" +
+                   "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, private_key)+"\",\r" +
+                   "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, private_key)+"\",\r" +
                    "\n\"public_key\": \""+public_key+"\",\r" +
                    "\n\"enpruebas\": \""+Auxiliars.AESEncrypt(test.ToString(), private_key)+"\",\r" +
                    "\n\"ip\": \""+Auxiliars.AESEncrypt(localIP, private_key)+"\",\r" +
@@ -258,6 +284,7 @@ namespace EpaycoSdk.Utils
            string value,
            string tax,
            string tax_base,
+           string ico,
            string currency,
            string type_person,
            string doc_type,
@@ -266,6 +293,7 @@ namespace EpaycoSdk.Utils
            string last_name,
            string email,
            string country,
+           string city,
            string cell_phone,
            string url_response,
            string url_confirmation,
@@ -274,50 +302,33 @@ namespace EpaycoSdk.Utils
            string split_app_id,
            string split_merchant_id,
            string split_type,
+           string split_rule,
            string split_primary_receiver,
            string split_primary_receiver_fee,
            List<SplitReceivers> split_receivers,
-           string extra1 = "",
-           string extra2 = "",
-           string extra3 = "",
-           string extra4 = "",
-           string extra5 = "",
-           string extra6 = "",
-           string extra7 = "")
+            string extra1,
+            string extra2,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
         {
            var localIP = "";
+           var split_receivers_json = Newtonsoft.Json.JsonConvert.SerializeObject(split_receivers);
            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
            localIP = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
-           string split_data = "";
-           int count = 0;
-           foreach (var split in split_receivers)
-           {
-               if (count == 0)
-               {
-                   split_data += "[{" + split.id + "," + split.fee + "," + split.fee_type + "";
-               }
-               else
-               {
-                   split_data += ",{" + split.id + "," + split.fee + "," + split.fee_type + "";
-               }
 
-               if (count == split_receivers.Count - 1)
-               {
-                   split_data += "}]";
-               }
-               else
-               {
-                   split_data += "}";
-               }
-               count++;
-              
-           }
-           return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, private_key)+"\",\r" +
+            return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, private_key)+"\",\r" +
                   "\n\"factura\": \""+Auxiliars.AESEncrypt(invoice, private_key)+"\",\r" +
                   "\n\"descripcion\": \""+Auxiliars.AESEncrypt(description, private_key)+"\",\r" +
                   "\n\"valor\": \""+Auxiliars.AESEncrypt(value, private_key)+"\",\r" +
                   "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, private_key)+"\",\r" +
                   "\n\"baseiva\": \""+Auxiliars.AESEncrypt(tax_base, private_key)+"\",\r" +
+                  "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, private_key)+"\",\r" +
                   "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, private_key)+"\",\r" +
                   "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(type_person, private_key)+"\",\r" +
                   "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(doc_type, private_key)+"\",\r" +
@@ -326,6 +337,7 @@ namespace EpaycoSdk.Utils
                   "\n\"apellidos\": \""+Auxiliars.AESEncrypt(last_name, private_key)+"\",\r" +
                   "\n\"email\": \""+Auxiliars.AESEncrypt(email, private_key)+"\",\r" +
                   "\n\"pais\": \""+Auxiliars.AESEncrypt(country, private_key)+"\",\r" +
+                  "\n\"ciudad\": \""+ Auxiliars.AESEncrypt(city, private_key)+"\",\r" +
                   "\n\"celular\": \""+Auxiliars.AESEncrypt(cell_phone, private_key)+"\",\r" +
                   "\n\"url_respuesta\": \""+Auxiliars.AESEncrypt(url_response, private_key)+"\",\r" +
                   "\n\"url_confirmacion\": \""+Auxiliars.AESEncrypt(url_confirmation, private_key)+"\",\r" +
@@ -334,9 +346,10 @@ namespace EpaycoSdk.Utils
                   "\n\"split_app_id\": \"" + Auxiliars.AESEncrypt(split_app_id, private_key) + "\",\r" +
                   "\n\"split_merchant_id\": \"" + Auxiliars.AESEncrypt(split_merchant_id, private_key) + "\",\r" +
                   "\n\"split_type\": \"" + Auxiliars.AESEncrypt(split_type, private_key) + "\",\r" +
+                  "\n\"split_rule\": \"" + Auxiliars.AESEncrypt(split_rule, private_key) + "\",\r" +
                   "\n\"split_primary_receiver\": \"" + Auxiliars.AESEncrypt(split_primary_receiver, private_key) + "\",\r" +
                   "\n\"split_primary_receiver_fee\": \"" + Auxiliars.AESEncrypt(split_primary_receiver_fee, private_key) + "\",\r" +
-                  "\n\"split_receivers\": \""+Auxiliars.AESEncrypt(split_data, private_key)+"\",\r" +
+                  "\n\"split_receivers\": \""+Auxiliars.AESEncrypt(split_receivers_json, private_key)+"\",\r" +
                   "\n\"extra1\": \""+Auxiliars.AESEncrypt(extra1, private_key)+"\",\r" +
                   "\n\"extra2\": \""+Auxiliars.AESEncrypt(extra2, private_key)+"\",\r" +
                   "\n\"extra3\": \""+Auxiliars.AESEncrypt(extra3, private_key)+"\",\r" +
@@ -344,61 +357,57 @@ namespace EpaycoSdk.Utils
                   "\n\"extra5\": \""+Auxiliars.AESEncrypt(extra5, private_key)+"\",\r" +
                   "\n\"extra6\": \""+Auxiliars.AESEncrypt(extra6, private_key)+"\",\r" +
                   "\n\"extra7\": \""+Auxiliars.AESEncrypt(extra7, private_key)+"\",\r" +
+                  "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, private_key)+"\",\r" +
+                  "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, private_key)+"\",\r" +
+                  "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, private_key)+"\",\r" +
                   "\n\"public_key\": \""+public_key+"\",\r" +
-                  "\n\"enpruebas\": \""+test+"\",\r" +
-                  "\n\"ip\": \""+localIP+"\",\r" +
+                  "\n\"enpruebas\": \""+ Auxiliars.AESEncrypt(test.ToString(), private_key) +"\",\r" +
+                  "\n\"ip\": \""+ Auxiliars.AESEncrypt(localIP, private_key) +"\",\r" +
                   "\n\"i\": \""+I+"\",\r" +
                   "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
  
-        public string getBodySplitPayments(SplitModel split_details)
+        public string getBodySplitPayments(SplitModel split_details,bool cash = false)
         {
-           List<SplitReceivers> split_receivers = split_details.split_receivers;
-           return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);
-        }
-        
-        public string getQueryGetTransaction(string publicKey, string transactionId)
-        {
-            return Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
-        }
-        
-        public string getQueryGetBanks(string publicKey)
-        {
-            return Constants.url_get_banks + "?public_key=" + publicKey ;
-        }
-        
-        /*
-         * CASH
-         */
-        public string getQueryCash(string type)
-        {
-            var endpoint = "";
-            switch (type)
+            SplitModelRest split = new SplitModelRest
             {
-                case "efecty":
-                    endpoint = Constants.url_cash_efecty;
-                    break;
-                case "baloto":
-                    endpoint = Constants.url_cash_baloto;
-                    break;
-                case "gana":
-                    endpoint = Constants.url_cash_gana;
-                    break;
-                case "redservi":
-                    endpoint = Constants.url_cash_redservi;
-                    break;
-                case "puntored":
-                    endpoint = Constants.url_cash_puntored;
-                    break;
-                case "sured":
-                    endpoint = Constants.url_cash_sured;
-                    break;
-                default:
-                    return "";
-            }
+                splitpayment = split_details.splitpayment,
+                split_app_id = split_details.split_app_id,
+                split_merchant_id = split_details.split_merchant_id,
+                split_primary_receiver = split_details.split_primary_receiver,
+                split_primary_receiver_fee = split_details.split_primary_receiver_fee,
+                split_rule = split_details.split_rule,
+                split_type = split_details.split_type
+            };
 
-            return endpoint;
-        }
+            if (cash)
+            {
+                split.split_receivers = Newtonsoft.Json.JsonConvert.SerializeObject(split_details.split_receivers);
+            }else
+            {
+                split.split_receivers = split_details.split_receivers;
+            }
+            return Newtonsoft.Json.JsonConvert.SerializeObject(split);
+         }
+
+         public string getQueryGetTransaction(string publicKey, string transactionId)
+         {
+             return Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
+         }
+
+         public string getQueryGetBanks(string publicKey, bool test)
+         {
+             string pruebas = "2";
+             if (test)
+             {
+                 pruebas = "1";
+             }
+             return Constants.url_get_banks + "?public_key=" + publicKey + "&test=" + pruebas;
+         }
+
+         /*
+          * CASH
+          */
         
          public string getBodyCashCreate(
             string I,
@@ -410,6 +419,7 @@ namespace EpaycoSdk.Utils
             string value,
             string tax,
             string tax_base,
+            string ico,
             string currency,
             string type_person,
             string doc_type,
@@ -419,9 +429,21 @@ namespace EpaycoSdk.Utils
             string email,
             string cell_phone,
             string end_date,
+            string country,
+            string city,
             string url_response,
             string url_confirmation,
-            string method_confirmation)
+            string method_confirmation,
+            string extra1,
+            string extra2,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
         {
             var localIP = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -431,6 +453,7 @@ namespace EpaycoSdk.Utils
                    "\n\"valor\": \""+value+"\",\r" +
                    "\n\"iva\": \""+tax+"\",\r" +
                    "\n\"baseiva\": \""+tax_base+"\",\r" +
+                   "\n\"ico\": \""+ico+"\",\r" +
                    "\n\"moneda\": \""+currency+"\",\r" +
                    "\n\"tipo_persona\": \""+type_person+"\",\r" +
                    "\n\"tipo_doc\": \""+doc_type+"\",\r" +
@@ -440,9 +463,21 @@ namespace EpaycoSdk.Utils
                    "\n\"email\": \""+email+"\",\r" +
                    "\n\"celular\": \""+cell_phone+"\",\r" +
                    "\n\"fechaexpiracion\": \""+end_date+"\",\r" +
-                   "\n\"url_respuesta\": \""+url_response+"\",\r" +
+                   "\n\"pais\": \""+country+"\",\r" +
+                   "\n\"ciudad\": \""+city+"\",\r" +
+                   "\n\"url_respuesta\": \"" +url_response+"\",\r" +
                    "\n\"url_confirmacion\": \""+url_confirmation+"\",\r" +
                    "\n\"metodoconfirmacion\": \""+method_confirmation+"\",\r" +
+                   "\n\"extra1\": \""+extra1+"\",\r" +
+                   "\n\"extra2\": \""+extra2+"\",\r" +
+                   "\n\"extra3\": \""+extra3+"\",\r" +
+                   "\n\"extra4\": \""+extra4+"\",\r" +
+                   "\n\"extra5\": \""+extra5+"\",\r" +
+                   "\n\"extra6\": \""+extra6+"\",\r" +
+                   "\n\"extra7\": \""+extra7+"\",\r" +
+                   "\n\"extra8\": \""+extra8+"\",\r" +
+                   "\n\"extra9\": \""+extra9+"\",\r" +
+                   "\n\"extra10\": \""+extra10+"\",\r" +
                    "\n\"public_key\": \""+public_key+"\",\r" +
                    "\n\"enpruebas\": \""+test+"\",\r" +
                    "\n\"ip\": \""+localIP+"\",\r" +
@@ -471,13 +506,17 @@ namespace EpaycoSdk.Utils
              string value,
              string tax,
              string tax_base,
+             string ico,
              string currency,
              string dues,
              string address,
+             string country,
+             string city,
              string phone,
              string cell_phone,
              string url_response,
              string url_confirmation,
+             string method_confirmation,
              string ip,
              string extra1,
              string extra2,
@@ -502,13 +541,17 @@ namespace EpaycoSdk.Utils
                     "\n\"value\": \""+value+"\",\r" +
                     "\n\"tax\": \""+tax+"\",\r" +
                     "\n\"tax_base\": \""+tax_base+"\",\r" +
+                    "\n\"ico\": \""+ico+"\",\r" +
                     "\n\"currency\": \""+currency+"\",\r" +
                     "\n\"dues\": \""+dues+"\",\r" +
                     "\n\"address\": \""+address+"\",\r" +
-                    "\n\"phone\": \""+phone+"\",\r" +
+                    "\n\"country\": \""+country+"\",\r" +
+                    "\n\"city\": \""+city+"\",\r" +
+                    "\n\"phone\": \"" +phone+"\",\r" +
                     "\n\"cell_phone\": \""+cell_phone+"\",\r" +
                     "\n\"url_response\": \""+url_response+"\",\r" +
                     "\n\"url_confirmation\": \""+url_confirmation+"\",\r" +
+                    "\n\"method_confirmation\": \"" + method_confirmation + "\",\r" +
                     "\n\"extras\": {\r" +
                     "\n\"extra1\": \""+extra1+"\",\r" +
                     "\n\"extra2\": \""+extra2+"\",\r" +
@@ -522,6 +565,178 @@ namespace EpaycoSdk.Utils
                     "\n\"extra10\": \""+extra10+"\"\r },\r" +
                     "\n\"ip\": \""+ip+"\"\r\n}";
          }
+
+        public string getBodyDaviplata(
+            string doc_type,
+            string document,
+            string name,
+            string last_name,
+            string email,
+            string ind_country,
+            string phone,
+            string country,
+            string city,
+            string address,
+            string ip,
+            string currency,
+            string invoice,
+            string description,
+            decimal value,
+            decimal tax,
+            decimal tax_base,
+            decimal ico,
+            bool test,
+            string url_response,
+            string url_confirmation,
+            string method_confirmation,
+            string extra1,
+            string extra2,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
+        {
+            bodyDaviplata body = new bodyDaviplata
+            {
+                docType = doc_type,
+                document = document,
+                name = name,
+                lastName = last_name,
+                email = email,
+                indCountry = ind_country,
+                phone = phone,
+                country = country,
+                city = city,
+                address = address,
+                ip = ip,
+                currency = currency,
+                invoice = invoice,
+                description = description,
+                value = value,
+                tax = tax,
+                taxBase = tax_base,
+                ico = ico,
+                testMode = test,
+                urlResponse = url_response,
+                urlConfirmation = url_confirmation,
+                methodConfirmation = method_confirmation,
+                extra1 = extra1,
+                extra2 = extra2,
+                extra3 = extra3,
+                extra4 = extra4,
+                extra5 = extra5,
+                extra6 = extra6,
+                extra7 = extra7,
+                extra8 = extra8,
+                extra9 = extra9,
+                extra10 = extra10,
+                typeIntegration = ".NET"
+            };
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
+
+        }
+
+        public string getBodyConfirmDaviplata(
+            string ref_payco,
+            string id_session_token,
+            string otp)
+        {
+            bodyConfirmDaviplata body = new bodyConfirmDaviplata
+            {
+                refPayco = ref_payco,
+                idSessionToken = id_session_token,
+                otp = otp,
+            };
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
+
+        }
+
+        public string getBodySafetypayCreate(
+            string cash,
+            string end_date,
+            string doc_type,
+            string document,
+            string name,
+            string last_name,
+            string email,
+            string ind_country,
+            string phone,
+            string country,
+            string city,
+            string address,
+            string ip,
+            string currency,
+            string invoice,
+            string description,
+            decimal value,
+            decimal tax,
+            decimal tax_base,
+            decimal ico,
+            bool test,
+            string url_response,
+            string url_response_pointer,
+            string url_confirmation,
+            string method_confirmation,
+            string extra1,
+            string extra2,
+            string extra3,
+            string extra4,
+            string extra5,
+            string extra6,
+            string extra7,
+            string extra8,
+            string extra9,
+            string extra10)
+
+        {
+
+            bodySafetypay body = new bodySafetypay
+            {
+                cash                = cash,
+                expirationDate      = end_date,
+                docType             = doc_type,
+                document            = document,
+                name                = name,
+                lastName            = last_name,
+                email               = email,
+                indCountry          = ind_country,
+                phone               = phone,
+                country             = country,
+                city                = city,
+                address             = address,
+                ip                  = ip,
+                currency            = currency,
+                invoice             = invoice,
+                description         = description,
+                value               = value,
+                tax                 = tax,
+                ico                 = ico,
+                taxBase             = tax_base,
+                testMode            = test,
+                urlResponse         = url_response,
+                urlResponsePointer  = url_response_pointer,
+                urlConfirmation     = url_confirmation,
+                methodConfirmation  = method_confirmation,
+                extra1 = extra1,
+                extra2 = extra2,
+                extra3 = extra3,
+                extra4 = extra4,
+                extra5 = extra5,
+                extra6 = extra6,
+                extra7 = extra7,
+                extra8 = extra8,
+                extra9 = extra9,
+                extra10 = extra10,
+                typeIntegration     = ".NET"
+            };
+            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
+        }
         #endregion
     }
 }

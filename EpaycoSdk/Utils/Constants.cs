@@ -5,6 +5,8 @@ namespace EpaycoSdk.Utils
         public const string url_base = "https://api.secure.payco.co";
 
         public const string base_url_secure = "https://secure.payco.co";
+
+        public const string base_url_apify = "https://apify.epayco.co";
         /*
         * CUSTOMER
         */
@@ -14,7 +16,9 @@ namespace EpaycoSdk.Utils
         public const string url_find_all_customer = "/payment/v1/customers/";
         public const string url_update_customer = "/payment/v1/customer/edit/";
         public const string url_token_delete = "/v1/remove/token";
-        
+        public const string url_add_new_token = "/v1/customer/add/token";
+        public const string url_set_default_token = "/payment/v1/customer/reasign/card/default";
+
         /*
          * PLANS
          */
@@ -41,12 +45,15 @@ namespace EpaycoSdk.Utils
         public const string url_get_banks = "/restpagos/pse/bancos.json";
         
         /*CASH*/
-        public const string url_cash_efecty = "/restpagos/v2/efectivo/efecty";
-        public const string url_cash_baloto = "/restpagos/v2/efectivo/baloto";
-        public const string url_cash_gana = "/restpagos/v2/efectivo/gana";
-        public const string url_cash_redservi = "/restpagos/v2/efectivo/redservi";
-        public const string url_cash_puntored = "/restpagos/v2/efectivo/puntored";
-        public const string url_cash_sured = "/restpagos/v2/efectivo/sured";
-        public const string url_cash_transaction = "/restpagos/transaction/response.json?";
+        public static string url_cash = "/restpagos/v2/efectivo/";
+        public static string url_entities_cash = "/payment/cash/entities";
+        public static string url_cash_transaction = "/restpagos/transaction/response.json?";
+
+        /*DAVIPLATA*/
+        public const string url_daviplata = "/payment/process/daviplata";
+        public const string url_daviplata_confirm = "/payment/confirm/daviplata";
+
+        /*SAFETYPAY*/
+        public const string url_safetypay = "/payment/process/safetypay";
     }
 }

@@ -698,13 +698,11 @@ namespace EpaycoSdk
             PARAMETER = body.getBodyDaviplata(doc_type, document, name, last_name,
                 email, ind_country, phone, country, city, address, ip, currency, invoice, description, value, tax, tax_base, ico, test,
                 url_response, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
-            Console.WriteLine(PARAMETER);
             string content = _requestApify.Execute(
                 ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-            Console.WriteLine(content);
             DaviplataModel payment = JsonConvert.DeserializeObject<DaviplataModel>(content);
             return payment;
         }

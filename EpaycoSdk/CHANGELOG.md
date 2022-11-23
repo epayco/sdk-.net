@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v1.1.3 (2022-11-04)](https://github.com/epayco/sdk-.net/compare/v1.1.2...v1.1.3)
+- Se cambia tipo de atributos de splitpayment a string para que reciba decimales sin problemas
+## [v1.1.2 (2022-08-05)](https://github.com/epayco/sdk-.net/compare/v1.1.1...v1.1.2)
+- Se añade parametros city y country al request y response de medios de pagos que no lo tengan.
+- Se añade optLab al response de crear transaccion con daviplata.
 ## [v1.1.1 (2022-05-10)](https://github.com/epayco/sdk-.net/compare/v1.1.0...v1.1.1)
 
 - Se corrgie readme para agregar parametros ICO y receivers 

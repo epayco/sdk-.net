@@ -369,7 +369,26 @@ namespace EpaycoSdk.Utils
  
         public string getBodySplitPayments(SplitType split_details,bool cash = false)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(split_details);
+            SplitModelRest split = new SplitModelRest
+            {
+                splitpayment = split_details.splitpayment,
+                split_app_id = split_details.split_app_id,
+                split_merchant_id = split_details.split_merchant_id,
+                split_primary_receiver = split_details.split_primary_receiver,
+                split_primary_receiver_fee = split_details.split_primary_receiver_fee,
+                split_rule = split_details.split_rule,
+                split_type = split_details.split_type
+            };
+
+            if (cash)
+            {
+                split.split_receivers = Newtonsoft.Json.JsonConvert.SerializeObject(split_details.split_receivers);
+            }
+            else
+            {
+                split.split_receivers = split_details.split_receivers;
+            }
+            return Newtonsoft.Json.JsonConvert.SerializeObject(split);
          }
 
          public string getQueryGetTransaction(string publicKey, string transactionId)

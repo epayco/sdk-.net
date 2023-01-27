@@ -367,7 +367,7 @@ namespace EpaycoSdk.Utils
                   "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
  
-        public string getBodySplitPayments(SplitType split_details,bool cash = false)
+        public string getBodySplitPayments(SplitModel split_details,bool cash = false)
         {
             SplitModelRest split = new SplitModelRest
             {

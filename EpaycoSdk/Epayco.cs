@@ -51,9 +51,9 @@ namespace EpaycoSdk
         /*
          * METODOS RELACIONADOS CON EL CUSTOMER
          */
-        public TokenModel CreateToken(string cardNumber, string expYear, string expMonth, string cvc)
+        public TokenModel CreateToken(string cardNumber, string expYear, string expMonth, string cvc, bool hasCvv = false)
         {
-            PARAMETER = body.getBodyCreateToken(cardNumber, expYear, expMonth, cvc);
+            PARAMETER = body.getBodyCreateToken(cardNumber, expYear, expMonth, cvc, hasCvv);
             ENDPOINT = Constants.url_create_token;
             string content = _request.Execute(
                 ENDPOINT, 

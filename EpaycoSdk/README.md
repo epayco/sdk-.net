@@ -22,7 +22,8 @@ TokenModel token = epayco.CreateToken(
   "4575623182290326", //cardNumber
   "2019", //expYear
   "12", //expMonth
-  "123" //cvc
+  "123", //cvc
+  true // hasCvv: validar codigo de seguridad en la transacción
 );
 ```
 

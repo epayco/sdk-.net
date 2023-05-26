@@ -1,5 +1,7 @@
 # Release Notes
 
+## [v1.1.5 (2023-26-05)](https://github.com/epayco/sdk-.net/compare/v1.1.4...v1.1.5)
+- Se implementa atributo hasCvv para metodo de token
 ## [v1.1.3 (2022-11-04)](https://github.com/epayco/sdk-.net/compare/v1.1.2...v1.1.3)
 - Se cambia tipo de atributos de splitpayment a string para que reciba decimales sin problemas
 ## [v1.1.2 (2022-08-05)](https://github.com/epayco/sdk-.net/compare/v1.1.1...v1.1.2)

@@ -33,7 +33,7 @@ namespace EpaycoSdk.Utils
                    "\n\"card[exp_year]\":\"" + expYear + "\"," +
                    "\n\"card[exp_month]\":\"" + expMonth + "\"," +
                    "\n\"card[cvc]\":\"" + cvc + "\","+
-                   "\n\"hasCvv\":\"" + hasCVV + "\"\n}";
+                   "\n\"hasCvv\":\"" + hasCvv + "\"\n}";
         }
 
         public string getBodyCreateCustomer(

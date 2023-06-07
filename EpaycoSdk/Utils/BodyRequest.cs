@@ -27,12 +27,13 @@ namespace EpaycoSdk.Utils
             return "{\n\"public_key\":\"" + publicKey + "\"," +
                    "\n\"private_key\":\"" + privateKey + "\"\n}";
         }
-        public string getBodyCreateToken(string cardNumber, string expYear, string expMonth, string cvc)
+        public string getBodyCreateToken(string cardNumber, string expYear, string expMonth, string cvc, bool hasCvv)
         {
             return "{\n\"card[number]\":\"" + cardNumber + "\"," +
                    "\n\"card[exp_year]\":\"" + expYear + "\"," +
                    "\n\"card[exp_month]\":\"" + expMonth + "\"," +
-                   "\n\"card[cvc]\":\"" + cvc + "\"\n}";
+                   "\n\"card[cvc]\":\"" + cvc + "\","+
+                   "\n\"hasCvv\":\"" + hasCvv + "\"\n}";
         }
 
         public string getBodyCreateCustomer(

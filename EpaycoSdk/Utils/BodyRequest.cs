@@ -179,20 +179,21 @@ namespace EpaycoSdk.Utils
             string token_card,
             string doc_type,
             string doc_number,
-            string ip,
+            string ip = null,
             string address = null,
             string phone = null,
-            string cell_phone = null)
+            string cell_phone = null,
+            bool test =  false
+            )
         {
+            var TEST = test ? "TRUE" : "FALSE";
             return "{\r\n\"id_plan\": \""+id_plan+"\",\r" +
                   "\n\"customer\": \""+customer_id+"\",\r" +
                   "\n\"token_card\": \""+token_card+"\",\r" +
                   "\n\"doc_type\": \""+doc_type+"\",\r" +
-                  "\n\"ip\": \""+ip+"\",\r" +
-                  "\n\"address\": \""+address+"\",\r" +
-                  "\n\"phone\": \""+phone+"\",\r" +
-                  "\n\"cell_phone\": \""+cell_phone+"\",\r" +
-                  "\n\"doc_number\": \""+doc_number+"\"\r\n}";
+                  "\n\"doc_number\": \"" + doc_number + "\",\r" +
+                  "\n\"ip\": \"" +ip+"\",\r" +
+                  "\n\"test\": \"" + TEST + "\"\r\n}";
         }
         
         /*
@@ -384,7 +385,8 @@ namespace EpaycoSdk.Utils
             if (cash)
             {
                 split.split_receivers = Newtonsoft.Json.JsonConvert.SerializeObject(split_details.split_receivers);
-            }else
+            }
+            else
             {
                 split.split_receivers = split_details.split_receivers;
             }

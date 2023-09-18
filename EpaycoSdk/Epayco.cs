@@ -300,14 +300,14 @@ namespace EpaycoSdk
             string token_card,
             string doc_type,
             string doc_number,
-            string ip,
+            string ip = null,
             string address = null,
             string phone = null,
             string cell_phone = null
             )
         {
             ENDPOINT = Constants.url_chage_subscription;
-            PARAMETER = body.getBodyChargeSubscription(id_plan, customer_id, token_card, doc_type, doc_number, ip, address, phone, cell_phone);
+            PARAMETER = body.getBodyChargeSubscription(id_plan, customer_id, token_card, doc_type, doc_number, ip, address, phone, cell_phone, _TEST);
             string content = _request.Execute(
                 ENDPOINT, 
                 "POST",

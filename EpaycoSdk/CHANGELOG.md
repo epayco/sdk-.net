@@ -1,5 +1,9 @@
 # Release Notes
 
+## [v1.1.5 (2023-17-09)](https://github.com/epayco/sdk-.net/compare/v1.1.4...v1.1.5)
+- Se corrige metodo para retornar datos en suscripciones pagadas
+## [v1.1.4 (2023-25-01)](https://github.com/epayco/sdk-.net/compare/v1.1.3...v1.1.4)
+- Se corrige metodo para recibir entero y decimales en splitpayment
 ## [v1.1.3 (2022-11-04)](https://github.com/epayco/sdk-.net/compare/v1.1.2...v1.1.3)
 - Se cambia tipo de atributos de splitpayment a string para que reciba decimales sin problemas
 ## [v1.1.2 (2022-08-05)](https://github.com/epayco/sdk-.net/compare/v1.1.1...v1.1.2)

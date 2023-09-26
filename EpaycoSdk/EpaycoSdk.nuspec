@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ePayco.Net</id>
-    <version>1.1.4</version>
+    <version>1.1.5</version>
     <title>ePayco SDK .Net</title>
     <authors>ePayco</authors>
     <owners>ePayco</owners>
@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/pruebasepayco</projectUrl>
     <iconUrl>https://cdn-images-1.medium.com/max/1200/1*izqjJI7RKr76dOPRvpolug.jpeg</iconUrl>
     <description>SDK para conectarse a todos los servicios de la pasarela de pagos ePayco</description>
-    <releaseNotes>Se corrige metodo para recibir entero y decimales en splitpayment</releaseNotes>
+    <releaseNotes>Se corrige metodo para retornar datos en suscripciones pagadas</releaseNotes>
     <copyright>Copyright 2022</copyright>
     <tags>ePayco sdk .Net</tags>
     <dependencies>

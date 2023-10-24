@@ -3,6 +3,7 @@ namespace EpaycoSdk.Models.Subscriptions
     public class ChargeSubscriptionModel
     {
         public bool success { get; set; }
+        public string status { get; set; }
         public string message { get; set; }
         public string title_response { get; set; }
         public string text_response { get; set; }
@@ -10,9 +11,13 @@ namespace EpaycoSdk.Models.Subscriptions
         public DataPayment data { get; set; }
         public SubscriptionData subscription { get; set; }
         public string idPlan { get; set; }
+        public string periodEnd { get; set; }
+        public string nextVerificationDate { get; set; }
+        public bool first { get; set; }
+        public string idCustomer { get; set; }
+        public string tokenCard { get; set; }
 
     }
-
     public class DataPayment
     {
         public string ref_payco { get; set; }
@@ -51,11 +56,7 @@ namespace EpaycoSdk.Models.Subscriptions
         public string interval { get; set; }
         public int interval_count { get; set; }
         public int trialDays { get; set; }
-        public string periodEnd { get; set; }
-        public string nextVerificationDate { get; set; }
-        public bool first { get; set; }
-        public string idCustomer { get; set; }
-        public string tokenCard { get; set; }
+
         public string url_confirmation { get; set; }
 
     }

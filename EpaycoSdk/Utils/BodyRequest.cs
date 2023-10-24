@@ -193,7 +193,9 @@ namespace EpaycoSdk.Utils
                   "\n\"doc_type\": \""+doc_type+"\",\r" +
                   "\n\"doc_number\": \"" + doc_number + "\",\r" +
                   "\n\"ip\": \"" +ip+"\",\r" +
-                  "\n\"test\": \"" + TEST + "\"\r\n}";
+                  "\n\"test\": \"" + TEST + "\"\r\n}"+
+                  "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r";
+
         }
         
         /*
@@ -268,7 +270,8 @@ namespace EpaycoSdk.Utils
                    "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, private_key)+"\",\r" +
                    "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, private_key)+"\",\r" +
                    "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, private_key)+"\",\r" +
-                   "\n\"public_key\": \""+public_key+"\",\r" +
+                   "\n\"extras_epayco\": {\"extra5\": \"" + Auxiliars.AESEncrypt("P46", private_key) + "\"},\r" +
+                   "\n\"public_key\": \"" +public_key+"\",\r" +
                    "\n\"enpruebas\": \""+Auxiliars.AESEncrypt(test.ToString(), private_key)+"\",\r" +
                    "\n\"ip\": \""+Auxiliars.AESEncrypt(localIP, private_key)+"\",\r" +
                    "\n\"i\": \""+I+"\",\r" +
@@ -362,7 +365,8 @@ namespace EpaycoSdk.Utils
                   "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, private_key)+"\",\r" +
                   "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, private_key)+"\",\r" +
                   "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, private_key)+"\",\r" +
-                  "\n\"public_key\": \""+public_key+"\",\r" +
+                  "\n\"extras_epayco\": {\"extra5\": \"" + Auxiliars.AESEncrypt("P46", private_key) + "\"},\r" +
+                  "\n\"public_key\": \"" +public_key+"\",\r" +
                   "\n\"enpruebas\": \""+ Auxiliars.AESEncrypt(test.ToString(), private_key) +"\",\r" +
                   "\n\"ip\": \""+ Auxiliars.AESEncrypt(localIP, private_key) +"\",\r" +
                   "\n\"i\": \""+I+"\",\r" +
@@ -481,7 +485,8 @@ namespace EpaycoSdk.Utils
                    "\n\"extra8\": \""+extra8+"\",\r" +
                    "\n\"extra9\": \""+extra9+"\",\r" +
                    "\n\"extra10\": \""+extra10+"\",\r" +
-                   "\n\"public_key\": \""+public_key+"\",\r" +
+                   "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r" +
+                   "\n\"public_key\": \"" +public_key+"\",\r" +
                    "\n\"enpruebas\": \""+test+"\",\r" +
                    "\n\"ip\": \""+localIP+"\",\r" +
                    "\n\"i\": \""+I+"\",\r" +
@@ -532,7 +537,7 @@ namespace EpaycoSdk.Utils
              string extra9,
              string extra10)
          {
-             return "{\r\n\"token_card\": \""+token_card+"\",\r" +
+             return "{\r\n\"token_card\": \"" + token_card+"\",\r" +
                     "\n\"customer_id\": \""+customer_id+"\",\r" +
                     "\n\"doc_type\": \""+doc_type+"\",\r" +
                     "\n\"doc_number\": \""+doc_number+"\",\r" +
@@ -566,7 +571,8 @@ namespace EpaycoSdk.Utils
                     "\n\"extra8\": \""+extra8+"\",\r" +
                     "\n\"extra9\": \""+extra9+"\",\r" +
                     "\n\"extra10\": \""+extra10+"\"\r },\r" +
-                    "\n\"ip\": \""+ip+"\"\r\n}";
+                    "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r" +
+                    "\n\"ip\": \"" +ip+"\"\r\n}";
          }
 
         public string getBodyDaviplata(

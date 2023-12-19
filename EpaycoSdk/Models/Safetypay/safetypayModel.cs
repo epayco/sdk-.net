@@ -60,7 +60,7 @@ namespace EpaycoSdk.Models.Safetypay
         public decimal tax { get; set; }
         public decimal ico { get; set; }
         public decimal taxBase { get; set; }
-        public bool testMode { get; set; }
+        public string testMode { get; set; }
         public string urlResponse { get; set; }
         public string urlResponsePointer { get; set; }
         public string urlConfirmation { get; set; }
@@ -76,6 +76,7 @@ namespace EpaycoSdk.Models.Safetypay
         public string extra9 { get; set; }
         public string extra10 { get; set; }
         public string typeIntegration { get; set; }
+        public string extras_epayco { get; set; }
     }   
 
 

@@ -594,7 +594,7 @@ namespace EpaycoSdk.Utils
             decimal tax,
             decimal tax_base,
             decimal ico,
-            bool test,
+            string test,
             string url_response,
             string url_confirmation,
             string method_confirmation,
@@ -607,48 +607,52 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string extras_epayco
+            )
         {
-            bodyDaviplata body = new bodyDaviplata
-            {
-                docType = doc_type,
-                document = document,
-                name = name,
-                lastName = last_name,
-                email = email,
-                indCountry = ind_country,
-                phone = phone,
-                country = country,
-                city = city,
-                address = address,
-                ip = ip,
-                currency = currency,
-                invoice = invoice,
-                description = description,
-                value = value,
-                tax = tax,
-                taxBase = tax_base,
-                ico = ico,
-                testMode = test,
-                urlResponse = url_response,
-                urlConfirmation = url_confirmation,
-                methodConfirmation = method_confirmation,
-                extra1 = extra1,
-                extra2 = extra2,
-                extra3 = extra3,
-                extra4 = extra4,
-                extra5 = extra5,
-                extra6 = extra6,
-                extra7 = extra7,
-                extra8 = extra8,
-                extra9 = extra9,
-                extra10 = extra10,
-                typeIntegration = ".NET"
-            };
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
-
+          var body  = "{\r\n\"docType\": \"" + doc_type + "\",\r" +
+                    "\n\"document\": \"" + document + "\",\r" +
+                    "\n\"lastName\": \"" + last_name + "\",\r" +
+                    "\n\"name\": \"" + name + "\",\r" +
+                    "\n\"last_name\": \"" + last_name + "\",\r" +
+                    "\n\"email\": \"" + email + "\",\r" +
+                    "\n\"indCountry\": \"" + ind_country + "\",\r" +
+                    "\n\"phone\": \"" + phone + "\",\r" +
+                    "\n\"country\": \"" + country + "\",\r" +
+                    "\n\"city\": \"" + city + "\",\r" +
+                    "\n\"address\": \"" + address + "\",\r" +
+                    "\n\"ip\": \"" + ip + "\",\r" +
+                    "\n\"currency\": \"" + currency + "\",\r" +
+                    "\n\"invoice\": \"" + invoice + "\",\r" +
+                    "\n\"description\": \"" + description + "\",\r" +
+                    "\n\"value\": \"" + value + "\",\r" +
+                    "\n\"tax\": \"" + tax + "\",\r" +
+                    "\n\"taxBase\": \"" + tax_base + "\",\r" +
+                    "\n\"ico\": \"" + ico + "\",\r" +
+                    "\n\"testMode\": " + test + ",\r" +
+                    "\n\"urlResponse\": \"" + url_response + "\",\r" +
+                    "\n\"urlConfirmation\": \"" + url_confirmation + "\",\r" +
+                    "\n\"methodConfirmation\": \"" + method_confirmation + "\",\r" +
+                    "\n\"extras\": {\r" +
+                    "\n\"extra1\": \"" + extra1 + "\",\r" +
+                    "\n\"extra2\": \"" + extra2 + "\",\r" +
+                    "\n\"extra3\": \"" + extra3 + "\",\r" +
+                    "\n\"extra4\": \"" + extra4 + "\",\r" +
+                    "\n\"extra5\": \"" + extra5 + "\",\r" +
+                    "\n\"extra6\": \"" + extra6 + "\",\r" +
+                    "\n\"extra7\": \"" + extra7 + "\",\r" +
+                    "\n\"extra8\": \"" + extra8 + "\",\r" +
+                    "\n\"extra9\": \"" + extra9 + "\",\r" +
+                    "\n\"extra10\": \"" + extra10 + "\"\r },\r" +
+                    "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r" +
+                    "\n\"typeIntegration\": \"" + ".NET" + "\"\r\n}";
+            return body;
         }
+
+           
+
+
 
         public string getBodyConfirmDaviplata(
             string ref_payco,
@@ -687,7 +691,7 @@ namespace EpaycoSdk.Utils
             decimal tax,
             decimal tax_base,
             decimal ico,
-            bool test,
+            string test,
             string url_response,
             string url_response_pointer,
             string url_confirmation,
@@ -701,50 +705,50 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string extras_epayco
+            )
 
         {
-
-            bodySafetypay body = new bodySafetypay
-            {
-                cash                = cash,
-                expirationDate      = end_date,
-                docType             = doc_type,
-                document            = document,
-                name                = name,
-                lastName            = last_name,
-                email               = email,
-                indCountry          = ind_country,
-                phone               = phone,
-                country             = country,
-                city                = city,
-                address             = address,
-                ip                  = ip,
-                currency            = currency,
-                invoice             = invoice,
-                description         = description,
-                value               = value,
-                tax                 = tax,
-                ico                 = ico,
-                taxBase             = tax_base,
-                testMode            = test,
-                urlResponse         = url_response,
-                urlResponsePointer  = url_response_pointer,
-                urlConfirmation     = url_confirmation,
-                methodConfirmation  = method_confirmation,
-                extra1 = extra1,
-                extra2 = extra2,
-                extra3 = extra3,
-                extra4 = extra4,
-                extra5 = extra5,
-                extra6 = extra6,
-                extra7 = extra7,
-                extra8 = extra8,
-                extra9 = extra9,
-                extra10 = extra10,
-                typeIntegration     = ".NET"
-            };
-            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
+            var body = "{\r\n\"cash\": \"" + cash + "\",\r" +
+                    "\n\"expirationDate\": \"" + end_date + "\",\r" +
+                    "\n\"docType\": \"" + doc_type + "\",\r" +
+                    "\n\"document\": \"" + document + "\",\r" +
+                    "\n\"name\": \"" + name + "\",\r" +
+                    "\n\"lastName\": \"" + last_name + "\",\r" +
+                    "\n\"email\": \"" + email + "\",\r" +
+                    "\n\"indCountry\": \"" + ind_country + "\",\r" +
+                    "\n\"phone\": \"" + phone + "\",\r" +
+                    "\n\"country\": \"" + country + "\",\r" +
+                    "\n\"city\": \"" + city + "\",\r" +
+                    "\n\"address\": \"" + address + "\",\r" +
+                    "\n\"ip\": \"" + ip + "\",\r" +
+                    "\n\"currency\": \"" + currency + "\",\r" +
+                    "\n\"invoice\": \"" + invoice + "\",\r" +
+                    "\n\"description\": \"" + description + "\",\r" +
+                    "\n\"value\": \"" + value + "\",\r" +
+                    "\n\"tax\": \"" + tax + "\",\r" +
+                    "\n\"taxBase\": \"" + tax_base + "\",\r" +
+                    "\n\"ico\": \"" + ico + "\",\r" +
+                    "\n\"testMode\": " + test + ",\r" +
+                    "\n\"urlResponse\": \"" + url_response + "\",\r" +
+                    "\n\"urlResponsePointer\": \"" + url_response_pointer + "\",\r" +
+                    "\n\"urlConfirmation\": \"" + url_confirmation + "\",\r" +
+                    "\n\"methodConfirmation\": \"" + method_confirmation + "\",\r" +
+                    "\n\"extras\": {\r" +
+                    "\n\"extra1\": \"" + extra1 + "\",\r" +
+                    "\n\"extra2\": \"" + extra2 + "\",\r" +
+                    "\n\"extra3\": \"" + extra3 + "\",\r" +
+                    "\n\"extra4\": \"" + extra4 + "\",\r" +
+                    "\n\"extra5\": \"" + extra5 + "\",\r" +
+                    "\n\"extra6\": \"" + extra6 + "\",\r" +
+                    "\n\"extra7\": \"" + extra7 + "\",\r" +
+                    "\n\"extra8\": \"" + extra8 + "\",\r" +
+                    "\n\"extra9\": \"" + extra9 + "\",\r" +
+                    "\n\"extra10\": \"" + extra10 + "\"\r },\r" +
+                    "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r" +
+                    "\n\"typeIntegration\": \"" + ".NET" + "\"\r\n}";
+            return body;
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Remoting.Contexts;
@@ -678,7 +678,7 @@ namespace EpaycoSdk
             decimal tax = 0, 
             decimal tax_base = 0,
             decimal ico = 0,
-            bool test = false,
+            string test = "false",
             string url_response = "N/A",
             string url_confirmation = "N/A",
             string method_confirmation = "N/A",
@@ -697,7 +697,7 @@ namespace EpaycoSdk
             ENDPOINT = Constants.url_daviplata;
             PARAMETER = body.getBodyDaviplata(doc_type, document, name, last_name,
                 email, ind_country, phone, country, city, address, ip, currency, invoice, description, value, tax, tax_base, ico, test,
-                url_response, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
+                url_response, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, "{extra5: "+"P46"+"}");
             string content = _requestApify.Execute(
                 ENDPOINT,
                 "POST",
@@ -747,7 +747,7 @@ namespace EpaycoSdk
             decimal tax = 0,
             decimal tax_base = 0,
             decimal ico = 0,
-            bool test = false,
+            string test = "false",
             string url_response = "N/A",
             string url_confirmation = "N/A",
             string url_response_pointer = "N/A",
@@ -766,9 +766,9 @@ namespace EpaycoSdk
             ENDPOINT = Constants.url_safetypay;
             PARAMETER = body.getBodySafetypayCreate(cash,end_date,doc_type,document,name,last_name,email,
                 ind_country,phone,country,city,address,ip,currency,invoice,description,value,tax,tax_base,ico,
-                test,url_response, url_response_pointer, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
-
-            string content = _requestApify.Execute(
+                test,url_response, url_response_pointer, url_confirmation, method_confirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, "{extra5: " +"P46" +"}");
+    
+             string content = _requestApify.Execute(
                 ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),

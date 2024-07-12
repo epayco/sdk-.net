@@ -9,7 +9,7 @@ namespace EpaycoSdk.Models.Subscriptions
         public bool success { get; set; }
         public string type { get; set; }
         public List<Data> data { get; set; }
-        public string message { get; set; }
+        public string? message { get; set; }
     }
 
     public class Data
@@ -31,7 +31,7 @@ namespace EpaycoSdk.Models.Subscriptions
     public class SubscriptionStatus
     {
         public bool status { get; set; }
-        public string message { get; set; }
+        public string? message { get; set; }
     }
 
 }

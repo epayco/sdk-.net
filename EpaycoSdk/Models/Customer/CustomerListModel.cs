@@ -5,13 +5,13 @@ namespace EpaycoSdk.Models
     class StatusConsult
     {
         public bool status { get; set; }
-        public string message { get; set; }
+        public string? message { get; set; }
     }
     
     public class CustomerListModel
     {
         public bool status { get; set; }
-        public string message { get; set; }
+        public string? message { get; set; }
         public bool success { get; set; }
         public string type { get; set; }
         public List<Customer> data { get; set; }

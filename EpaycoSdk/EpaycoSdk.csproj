@@ -1,111 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6DCBF575-4187-4956-8571-1D49D8C42447}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EpaycoSdk</RootNamespace>
-    <AssemblyName>epayco.net</AssemblyName>
-    <!-- <TargetFrameworkVersion>v4.8</TargetFrameworkVersion> -->
-    <TargetFrameworks>net45;net48</TargetFrameworks>
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>epayco-icon.ico</ApplicationIcon>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+     <Version>1.1.5</Version>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>True</SpecificVersion>
-    </Reference>
-    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\RestSharp.105.2.3\lib\net4\RestSharp.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>True</SpecificVersion>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RestSharp" Version="111.4.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Epayco.cs" />
-    <Compile Include="Models\Auth\AuthModel.cs" />
-    <Compile Include="Models\Bank\BanksModel.cs" />
-    <Compile Include="Models\Bank\PseModel.cs" />
-    <Compile Include="Models\Bank\SplitReceivers.cs" />
-    <Compile Include="Models\Bank\SplitModel.cs" />
-    <Compile Include="Models\Bank\TransactionModel.cs" />
-    <Compile Include="Models\Cash\CashModel.cs" />
-    <Compile Include="Models\Cash\CashTransactionModel.cs" />
-    <Compile Include="Models\Charge\ChargeModel.cs" />
-    <Compile Include="Models\Charge\ChargeTransactionModel.cs" />
-    <Compile Include="Models\Customer\CustomerCreateModel.cs" />
-    <Compile Include="Models\Customer\CustomerEditModel.cs" />
-    <Compile Include="Models\Customer\CustomerFindModel.cs" />
-    <Compile Include="Models\Customer\CustomerListModel.cs" />
-    <Compile Include="Models\Customer\CustomerTokenDeleteModel.cs" />
-    <Compile Include="Models\Customer\TokenModel.cs" />
-    <Compile Include="Models\Plans\CreatePlanModel.cs" />
-    <Compile Include="Models\Plans\FindAllPlansModel.cs" />
-    <Compile Include="Models\Plans\FindPlanModel.cs" />
-    <Compile Include="Models\Plans\RemovePlanModel.cs" />
-    <Compile Include="Models\Safetypay\safetypayModel.cs" />
-    <Compile Include="Models\Subscriptions\AllSubscriptionModel.cs" />
-    <Compile Include="Models\Subscriptions\CancelSubscriptionModel.cs" />
-    <Compile Include="Models\Subscriptions\ChargeSubscriptionModel.cs" />
-    <Compile Include="Models\Subscriptions\CreateSubscriptionModel.cs" />
-    <Compile Include="Models\Subscriptions\FindSusbscriptionModel.cs" />
-    <Compile Include="Models\Daviplata\DaviplataModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Auxiliars.cs" />
-    <Compile Include="Utils\BodyRequest.cs" />
-    <Compile Include="Utils\Constants.cs" />
-    <Compile Include="Utils\Request.cs" />
-    <Compile Include="Utils\RequestRest.cs" />
-	  <Compile Include="Utils\RequestApify.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include=".gitignore" />
-    <Content Include="epayco-icon.ico" />
-    <Content Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
+
 </Project>

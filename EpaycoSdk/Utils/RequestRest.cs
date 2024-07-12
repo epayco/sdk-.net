@@ -5,7 +5,7 @@ namespace EpaycoSdk.Utils
 {
     public class RequestRest
     {
-        RestClient client = new RestClient(BASE_URL);
+        readonly RestClient _client = new RestClient(BaseUrl);
         // ResponseModel response = new ResponseModel();
         #region Constructor
 
@@ -18,60 +18,60 @@ namespace EpaycoSdk.Utils
 
          #region Atributes
 
-        const string BASE_URL = Constants.base_url_secure;
-        private string END_POINT = string.Empty;
-        private string TYPE = string.Empty;
-        private string PUBLIC_KEY_BASE64 = string.Empty;
-        private string PARAMETER = string.Empty;
-        private string RESPONSE = string.Empty;
+        const string BaseUrl = Constants.BaseUrlSecure;
+        private string _endPoint = string.Empty;
+        private string _type = string.Empty;
+        private string _publicKeyBase64 = string.Empty;
+        private string _parameter = string.Empty;
+        private string? _response = string.Empty;
         #endregion
 
         #region Methods
 
-        public string Execute(string endPoint, string type, string publicKeyBase64, string parameter = "")
+        public string? Execute(string endPoint, string type, string publicKeyBase64, string parameter = "")
         {
-            PARAMETER = parameter;
-            END_POINT = endPoint;
-            TYPE = type;
-            PUBLIC_KEY_BASE64 = publicKeyBase64;
-            if (TYPE == "POST")
+            _parameter = parameter;
+            _endPoint = endPoint;
+            _type = type;
+            _publicKeyBase64 = publicKeyBase64;
+            if (_type == "POST")
             {
-                RESPONSE = Post();
+                _response = Post();
             }
             else
             {
-                RESPONSE = Get();
+                _response = Get();
             }
-            return RESPONSE;
+            return _response;
         }
         
-        private string Get()
+        private string? Get()
         {
-            var request = new RestRequest(END_POINT);
-            string auth = "Basic " + PUBLIC_KEY_BASE64;
+            var request = new RestRequest(_endPoint);
+            string auth = "Basic " + _publicKeyBase64;
             request.AddHeader("authorization", auth);
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
             request.AddHeader("type", "sdk");
             // request.RequestFormat = DataFormat.Json;
-            var response = client.Get<dynamic>(request);
-            return response.Content;
+            var response = _client.Get<dynamic>(request);
+            return response?.ToString();
         }
         
-        private string Post()
+        private string? Post()
         {
-            var request = new RestRequest(END_POINT);
-            string auth = "Basic " + PUBLIC_KEY_BASE64;
+            var request = new RestRequest(_endPoint);
+            string auth = "Basic " + _publicKeyBase64;
             request.AddHeader("authorization", auth);
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
             request.AddHeader("type", "sdk-jwt");
             request.AddHeader("lang", ".NET");
             request.RequestFormat = DataFormat.Json;
-            request.AddParameter("application/json", PARAMETER, ParameterType.RequestBody);
+            request.AddParameter("application/json", _parameter, ParameterType.RequestBody);
             
-            var response = client.Post<dynamic>(request);
-            return response.Content;
+            var response = _client.Post<dynamic>(request);
+            return response?.ToString();
         }
 
         #endregion

@@ -51,13 +51,13 @@ namespace EpaycoSdk.Utils
             }
         }
 
-        public static string ConcatBodyStrings(string body_string1, string body_string2)
+        public static string ConcatBodyStrings(string bodyString1, string bodyString2)
         {
-            string body_substring1 = body_string1.Remove(body_string1.Length - 3);
-            string body_substring2 = body_string2.Substring(1);
-            string concatenated_strings = body_substring1 + "," + body_substring2;
+            string bodySubstring1 = bodyString1.Remove(bodyString1.Length - 3);
+            string bodySubstring2 = bodyString2.Substring(1);
+            string concatenatedStrings = bodySubstring1 + "," + bodySubstring2;
 
-            return concatenated_strings;
+            return concatenatedStrings;
         }
         #endregion
     }

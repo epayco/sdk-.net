@@ -26,9 +26,9 @@ namespace EpaycoSdk.Models.Charge
 
     public class ChargeDataError
     {
-        public string status { get; set; }
-        public string description { get; set; }
-        public List<errors> errors { get; set; }
+        public string? status { get; set; }
+        public string? description { get; set; }
+        public List<errors>? errors { get; set; }
     }
     public class ChargeData
     {
@@ -58,10 +58,10 @@ namespace EpaycoSdk.Models.Charge
         public string ciudad { get; set; }
         public string direccion { get; set; }
         public string ind_pais { get; set; }
-        public string status { get; set; }
-        public string description { get; set; }
+        public string? status { get; set; }
+        public string? description { get; set; }
         public Extras extras { get; set; }
 
-        public dynamic errors { get; set; }
+        public dynamic? errors { get; set; }
     }
 }

@@ -1,16 +1,34 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EpaycoSdk</RootNamespace>
+    <AssemblyName>epayco.net</AssemblyName>
+    <!-- <TargetFrameworkVersion>v4.8</TargetFrameworkVersion> -->
     <TargetFramework>net8.0</TargetFramework>
-     <Version>1.1.5</Version>
+    <Version>1.1.5</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <ApplicationIcon>epayco-icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Build" Version="17.10.4" />
+    <Reference Include="Microsoft.CSharp" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="111.4.0" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="epayco-icon.ico" />
+    <Content Include="README.md" />
+  </ItemGroup>
 </Project>

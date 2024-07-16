@@ -4,4 +4,5 @@ obj/
 EpaycoSdk/packages/
 .vs/
 .vs/EpaycoSdk/v16/.suo
-ePayco.Net.*.nupkg
+EpaycoSdk/ePayco.Net.*.nupkg
+.idea

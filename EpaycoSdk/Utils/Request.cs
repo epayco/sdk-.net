@@ -62,35 +62,58 @@ namespace EpaycoSdk.Utils
 
         private string Get()
         {
-            var request = new RestRequest(_endPoint);
-            // string auth = "Basic " + PUBLIC_KEY_BASE64;
-            string auth = "Bearer " + _bearerToken;
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("type", "sdk-jwt");
-            request.AddHeader("lang", ".NET");
-            request.AddHeader("authorization", auth);
-            // request.RequestFormat = DataFormat.Json;
-            var response = _client.Get<dynamic>(request);
-            return response.ToString();
+            try
+            {
+                var request = new RestRequest(_endPoint);
+                // string auth = "Basic " + PUBLIC_KEY_BASE64;
+                string auth = "Bearer " + _bearerToken;
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.AddHeader("type", "sdk-jwt");
+                request.AddHeader("lang", ".NET");
+                request.AddHeader("authorization", auth);
+                // request.RequestFormat = DataFormat.Json;
+                if (string.IsNullOrEmpty(_parameter))
+                {
+                }
+                else
+                {
+                    request.RequestFormat = DataFormat.Json;
+                    request.AddParameter("application/json", _parameter, ParameterType.RequestBody);
+                }
+
+                var response = _client.Get<dynamic>(request);
+                return response.ToString();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+                return null;
+            }
         }
         
-        private string Post()
+        private dynamic Post()
         {
-            var request = new RestRequest(_endPoint);
-            // string auth = "Basic " + PUBLIC_KEY_BASE64;
-            string auth = "Bearer " + _bearerToken;
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("type", "sdk-jwt");
-            request.AddHeader("lang", ".NET");
-            request.AddHeader("authorization", auth);
-            request.RequestFormat = DataFormat.Json;
-            request.AddParameter("application/json", _parameter, ParameterType.RequestBody);
-            
-            var response = _client.Post<dynamic>(request);
-            return response.ToString();
-           
+            try
+            {
+                var request = new RestRequest(_endPoint);
+                // string auth = "Basic " + PUBLIC_KEY_BASE64;
+                string auth = "Bearer " + _bearerToken;
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Accept", "application/json");
+                request.AddHeader("type", "sdk-jwt");
+                request.AddHeader("lang", ".NET");
+                request.AddHeader("authorization", auth);
+                request.RequestFormat = DataFormat.Json;
+                request.AddParameter("application/json", _parameter, ParameterType.RequestBody);
+
+                var response = _client.Post<dynamic>(request);
+                return response.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+                return null;
+            }
         }
         
         private AuthModel GetBearerToken()

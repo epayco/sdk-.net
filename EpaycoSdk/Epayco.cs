@@ -93,13 +93,18 @@ namespace EpaycoSdk
             return customer;
         }
         
-        public CustomerListModel? CustomerGetList()
+        public CustomerListModel? CustomerGetList(
+            int? page, int? perPage
+            )
         {
-            ENDPOINT = body.GetQueryFindAllCustomers(_PUBLIC_KEY);
+            PARAMETER = body.GetQueryFindAllCustomers(page, perPage);
+            ENDPOINT = Constants.UrlFindAllCustomer;
             string content = _request.Execute(
                 ENDPOINT, 
                 "GET",
-                _auxiliars.ConvertToBase64(_PUBLIC_KEY));
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER
+                );
             StatusConsult? customer = JsonConvert.DeserializeObject<StatusConsult>(content);
             CustomerListModel? custom = new CustomerListModel();
             if (customer != null && customer.status)
@@ -172,10 +177,57 @@ namespace EpaycoSdk
         /*
          * METODOS RELACIONADOS CON PLANS
          */
-        public CreatePlanModel? PlanCreate(string idPlan, string name, string description, decimal amount, string currency, string interval, int intervalCount, int trialDays)
+        public CreatePlanModel? PlanCreate(
+            string idPlan, 
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip = default,
+            decimal? iva = default,
+            decimal? ico = default,
+            string? planLink = default,
+            string? greetMessage = default,
+            string? linkExpirationDate = default,
+            string? afterPayment = default,
+            int? subscriptionLimit = default,
+            string? imgUrl = default,
+            decimal? discountValue = default,
+            int? discountPercentage = default,
+            int? transactionalLimit = default,
+            decimal? additionalChargePercentage= default,
+            decimal? firstPaymentAdditionalCost = default
+            
+            )
         {
             ENDPOINT = Constants.UrlCreatePlan;
-            PARAMETER = body.GetBodyCreatePlan(idPlan, name, description, amount, currency, interval, intervalCount, trialDays);
+            PARAMETER = body.GetBodyCreatePlan(
+                idPlan, 
+                name, 
+                description, 
+                amount, 
+                currency, 
+                interval, 
+                intervalCount, 
+                trialDays,
+                ip,
+                iva,
+                ico,
+                planLink,
+                greetMessage,
+                linkExpirationDate, 
+                afterPayment, 
+                subscriptionLimit, 
+                imgUrl, 
+                discountValue, 
+                discountPercentage, 
+                transactionalLimit, 
+                additionalChargePercentage, 
+                firstPaymentAdditionalCost
+                );
             string content = _request.Execute(
                 ENDPOINT, 
                 "POST",
@@ -214,6 +266,48 @@ namespace EpaycoSdk
                 plan.status = false;
                 plan.message = status?.message;
             }
+            return plan;
+        }
+        
+        public UpdatePlanModel? PlanUpdate(
+            string idPlan,
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip = default,
+            decimal? iva = default,
+            decimal? ico = default,
+            string? afterPayment = default,
+            int? transactionalLimit = default,
+            decimal? additionalChargePercentage= default
+            )
+        {
+            ENDPOINT = Constants.UrlUpdatePlan+idPlan;
+            PARAMETER = body.UpdateBodyPlan(
+                name, 
+                description, 
+                amount, 
+                currency, 
+                interval, 
+                intervalCount, 
+                trialDays,
+                ip,
+                iva,
+                ico,
+                afterPayment, 
+                transactionalLimit, 
+                additionalChargePercentage
+                );
+            string content = _request.Execute(
+                ENDPOINT, 
+                "POST",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER);
+            UpdatePlanModel? plan = JsonConvert.DeserializeObject<UpdatePlanModel>(content);
             return plan;
         }
         
@@ -664,7 +758,6 @@ namespace EpaycoSdk
         /* 
          * DAVIPLATA
          */
-
         public DaviplataModel? DaviplataCreate(
             string docType,
             string document,

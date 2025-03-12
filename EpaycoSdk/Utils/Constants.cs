@@ -2,18 +2,18 @@ namespace EpaycoSdk.Utils
 {
     public class Constants
     {
-        public const string UrlBase = "https://api.secure.payco.co";
+        public const string UrlBase = "https://api.secure.epayco.io";
 
-        public const string BaseUrlSecure = "https://secure.payco.co";
+        public const string BaseUrlSecure = "https://secure2.epayco.io";
 
-        public const string BaseUrlApify = "https://apify.epayco.co";
+        public const string BaseUrlApify = "https://apify.epayco.io";
         /*
         * CUSTOMER
         */
         public const string UrlCreateToken = "/v1/tokens";
         public const string UrlCreateCustomer = "/payment/v1/customer/create";
         public const string UrlFindCustomer = "/payment/v1/customer/";
-        public const string UrlFindAllCustomer = "/payment/v1/customers/";
+        public const string UrlFindAllCustomer = "/payment/v1/customers";
         public const string UrlUpdateCustomer = "/payment/v1/customer/edit/";
         public const string UrlTokenDelete = "/v1/remove/token";
         public const string UrlAddNewToken = "/v1/customer/add/token";
@@ -25,6 +25,7 @@ namespace EpaycoSdk.Utils
         public const string UrlCreatePlan = "/recurring/v1/plan/create";
         public const string UrlGetPlan = "/recurring/v1/plan/";
         public const string UrlGetAllPlans = "/recurring/v1/plans/";
+        public const string UrlUpdatePlan = "/recurring/v1/plan/edit/";
         public const string UrlRemovePlan = "/recurring/v1/plan/remove/";
         
         /*

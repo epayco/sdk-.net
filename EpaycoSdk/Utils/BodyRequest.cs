@@ -22,12 +22,12 @@ namespace EpaycoSdk.Utils
 
         #region Methods
 
-        public string getBodyAuthBearer(string publicKey, string privateKey)
+        public string GetBodyAuthBearer(string publicKey, string privateKey)
         {
             return "{\n\"public_key\":\"" + publicKey + "\"," +
                    "\n\"private_key\":\"" + privateKey + "\"\n}";
         }
-        public string getBodyCreateToken(string cardNumber, string expYear, string expMonth, string cvc, bool hasCvv)
+        public string GetBodyCreateToken(string cardNumber, string expYear, string expMonth, string cvc, bool hasCvv)
         {
             return "{\n\"card[number]\":\"" + cardNumber + "\"," +
                    "\n\"card[exp_year]\":\"" + expYear + "\"," +
@@ -36,196 +36,268 @@ namespace EpaycoSdk.Utils
                    "\n\"hasCvv\":\"" + hasCvv + "\"\n}";
         }
 
-        public string getBodyCreateCustomer(
-            string token_card, 
+        public string GetBodyCreateCustomer(
+            string tokenCard, 
             string name, 
-            string last_name, 
+            string lastName, 
             string email, 
             bool isDefault,
             string city,
             string address,
             string phone,
-            string cell_phone)
+            string cellPhone)
         {
             return
-                "{\n\"token_card\":\"" + token_card + "\"," +
+                "{\n\"token_card\":\"" + tokenCard + "\"," +
                 "\n\"name\":\"" + name + "\"," +
-                "\n\"last_name\":\"" + last_name + "\"," +
+                "\n\"last_name\":\"" + lastName + "\"," +
                 "\n\"email\":\"" + email + "\"," +
                 "\n\"default\":\"" + isDefault + "\"," +
                 "\n\"city\":\"" + city + "\"," +
                 "\n\"address\":\"" + address + "\"," +
                 "\n\"phone\":\"" + phone + "\"," +
-                "\n\"cell_phone\":\"" + cell_phone + "\"\n}";
+                "\n\"cell_phone\":\"" + cellPhone + "\"\n}";
                
         }
 
-        public string getQueryFindCustomer(string publicKey, string id_customer)
+        public string GetQueryFindCustomer(string publicKey, string idCustomer)
         {
-            return Constants.url_find_customer + publicKey + "/" + id_customer;
+            return Constants.UrlFindCustomer + publicKey + "/" + idCustomer;
         }
         
-        public string getQueryFindAllCustomers(string publicKey)
+        public string GetQueryFindAllCustomers(int? page, int? perPage)
         {
-            return Constants.url_find_all_customer + publicKey;
+            return "{\n\"page\":\"" + page + "\"," +
+                   "\n\"perPage\":\"" + perPage + "\"\n}";
         }
         
-        public string getQueryUpdateCustomer(string publicKey, string customer_id)
+        public string GetQueryUpdateCustomer(string publicKey, string customerId)
         {
-            return Constants.url_update_customer + publicKey + "/" + customer_id;
+            return Constants.UrlUpdateCustomer + publicKey + "/" + customerId;
         }
         
-        public string getBodyUpdateCustomer(string name)
+        public string GetBodyUpdateCustomer(string name)
         {
             return "{\r\n\"name\":\""+name+"\"\r\n}";
         }
         
-        public string getBodyDeleteTokenCustomer(string franchise, string mask, string customer_id)
+        public string GetBodyDeleteTokenCustomer(string franchise, string mask, string customerId)
         {
             return "{\n\"franchise\":\"" + franchise + "\"," +
                    "\n\"mask\":\"" + mask + "\"," +
-                   "\n\"customer_id\":\"" + customer_id + "\"\n}";
+                   "\n\"customer_id\":\"" + customerId + "\"\n}";
         }
 
-        public string getBodyAddNewToken(string token_card, string customer_id)
+        public string GetBodyAddNewToken(string tokenCard, string customerId)
         {
-            return "{\n\"token_card\":\"" + token_card + "\"," +
-                   "\n\"customer_id\":\"" + customer_id + "\"\n}";
+            return "{\n\"token_card\":\"" + tokenCard + "\"," +
+                   "\n\"customer_id\":\"" + customerId + "\"\n}";
         }
-        public string getBodySetDefaultToken(string token, string customer_id, string franchise, string mask)
+        public string GetBodySetDefaultToken(string token, string customerId, string franchise, string mask)
         {
             return "{\n\"franchise\":\"" + franchise + "\"," +
                    "\n\"token\":\"" + token + "\"," +
                    "\n\"mask\":\"" + mask + "\"," +
-                   "\n\"customer_id\":\"" + customer_id + "\"\n}";
+                   "\n\"customer_id\":\"" + customerId + "\"\n}";
         }
 
 
         /*
          * PLANS QUERYS AND BODY
          */
-        public string getBodyCreatePlan(string id_plan, string name, string description, decimal amount, string currency, string interval, int interval_count, int trial_days)
+        public string GetBodyCreatePlan(
+            string idPlan, 
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip,
+            decimal? iva,
+            decimal? ico,
+            string? planLink,
+            string? greetMessage,
+            string? linkExpirationDate,
+            string? afterPayment,
+            int? subscriptionLimit,
+            string? imgUrl,
+            decimal? discountValue,
+            int? discountPercentage,
+            int? transactionalLimit,
+            decimal? additionalChargePercentage,
+            decimal? firstPaymentAdditionalCost
+            )
         {
-            return "{\r\n\"id_plan\":\""+id_plan+"\",\r" +
+            return "{\r\n\"id_plan\":\""+idPlan+"\",\r" +
                    "\n\"name\":\""+name+"\",\r" +
                    "\n\"description\":\""+description+"\",\r" +
                    "\n\"amount\": "+amount+",\r" +
                    "\n\"currency\": \""+currency+"\",\r" +
                    "\n\"interval\": \""+interval+"\",\r" +
-                   "\n\"interval_count\": "+interval_count+",\r" +
-                   "\n\"trial_days\":"+trial_days+"\r\n}";
+                   "\n\"interval_count\": "+intervalCount+",\r" +
+                   "\n\"trial_days\": "+trialDays+",\r" +
+                   (ip.Equals(null)?"":"\n\"ip\":\""+ip+"\",\r") +
+                   (iva.Equals(null)?"":"\n\"iva\": "+iva+",\r") +
+                   (ico.Equals(null)?"":"\n\"ico\": "+ico+",\r") +
+                   (planLink.Equals(null)?"":"\n\"planLink\":\""+planLink+"\",\r") +
+                   (greetMessage.Equals(null)?"":"\n\"greetMessage\":\""+greetMessage+"\",\r") +
+                   (linkExpirationDate.Equals(null)?"":"\n\"linkExpirationDate\":\""+linkExpirationDate+"\",\r") +
+                   (afterPayment.Equals(null)?"":"\n\"afterPayment\":\""+afterPayment+"\",\r" )+
+                   (subscriptionLimit.Equals(null)?"": "\n\"subscriptionLimit\": "+subscriptionLimit+",\r") +
+                   (imgUrl.Equals(null)?"": "\n\"imgUrl\":\""+imgUrl+"\",\r" )+
+                   (discountPercentage.Equals(null)?"":"\n\"discountValue\": "+discountValue+",\r") +
+                   (discountPercentage.Equals(null)?"":"\n\"discountPercentage\": "+discountPercentage+",\r" )+
+                   (transactionalLimit.Equals(null)?"":"\n\"transactionalLimit\": "+transactionalLimit+",\r") +
+                   (additionalChargePercentage.Equals(null)?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage+",\r") +
+                   (firstPaymentAdditionalCost.Equals(null)?"":"\n\"firstPaymentAdditionalCost\":"+firstPaymentAdditionalCost)+"\r\n}";
         }
         
-        public string getQueryGetPlan(string id_plan, string publicKey)
+        public string GetQueryGetPlan(string idPlan, string publicKey)
         {
-            return Constants.url_get_plan + publicKey + "/" + id_plan;
+            return Constants.UrlGetPlan + publicKey + "/" + idPlan;
         }
         
-        public string getQueryGetAllPlans(string publicKey)
+        public string GetQueryGetAllPlans(string publicKey)
         {
-            return Constants.url_get_all_plans + publicKey;
+            return Constants.UrlGetAllPlans + publicKey;
         }
         
-        public string getQueryRemovePlan(string publicKey, string id_plan)
+        public string UpdateBodyPlan(
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip,
+            decimal? iva,
+            decimal? ico,
+            string? afterPayment,
+            int? transactionalLimit,
+            decimal? additionalChargePercentage
+            )
         {
-            return Constants.url_remove_plan + publicKey + "/" + id_plan;
+            return "{\r\n\"name\":\""+name+"\",\r" +
+                   "\n\"description\":\""+description+"\",\r" +
+                   "\n\"amount\": "+amount+",\r" +
+                   "\n\"currency\": \""+currency+"\",\r" +
+                   "\n\"interval\": \""+interval+"\",\r" +
+                   "\n\"interval_count\": "+intervalCount+",\r" +
+                   "\n\"trial_days\": "+trialDays+",\r" +
+                   (ip.Equals(null)?"":"\n\"ip\":\""+ip+"\",\r") +
+                   (iva.Equals(null)?"":"\n\"iva\": "+iva+",\r") +
+                   (ico.Equals(null)?"":"\n\"ico\": "+ico+",\r") +
+                   (afterPayment.Equals(null)?"":"\n\"afterPayment\":\""+afterPayment+"\"" )+
+                   (transactionalLimit.Equals(null)?"":",\r\n\"transactionalLimit\": "+transactionalLimit+",\r") +
+                   (additionalChargePercentage.Equals(null)?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage)+"\r\n}";
+        }
+        
+        public string GetQueryRemovePlan(string publicKey, string idPlan)
+        {
+            return Constants.UrlRemovePlan + publicKey + "/" + idPlan;
         }
         
         /*
          * SUBSCRIPTIONS
          */
-        public string getBodyCreateSubscription(string id_plan, string customer_id, string token_card, string doc_type,
-            string doc_number, string url_confirmation = null, string method_confirmation = null)
+        public static string GetBodyCreateSubscription(string idPlan, string customerId, string tokenCard, string docType,
+            string docNumber, string? urlConfirmation = null, string? methodConfirmation = null)
         {
             string body = "";
-            if (url_confirmation != null && method_confirmation != null)
+            if (urlConfirmation != null && methodConfirmation != null)
             {
-                body = "{\r\n\"id_plan\": \""+id_plan+"\",\r" +
-                       "\n\"customer\": \""+customer_id+"\",\r" +
-                       "\n\"token_card\": \""+token_card+"\",\r" +
-                       "\n\"doc_type\": \""+doc_type+"\",\r" +
-                       "\n\"url_confirmation\": \""+url_confirmation+"\",\r" +
-                       "\n\"method_confirmation\": \""+method_confirmation+"\",\r" +
-                       "\n\"doc_number\": \""+doc_number+"\"\r\n}";
+                body = "{\r\n\"id_plan\": \""+idPlan+"\",\r" +
+                       "\n\"customer\": \""+customerId+"\",\r" +
+                       "\n\"token_card\": \""+tokenCard+"\",\r" +
+                       "\n\"doc_type\": \""+docType+"\",\r" +
+                       "\n\"url_confirmation\": \""+urlConfirmation+"\",\r" +
+                       "\n\"method_confirmation\": \""+methodConfirmation+"\",\r" +
+                       "\n\"doc_number\": \""+docNumber+"\"\r\n}";
             }
             else
             {
-                body = "{\r\n\"id_plan\": \""+id_plan+"\",\r" +
-                       "\n\"customer\": \""+customer_id+"\",\r" +
-                       "\n\"token_card\": \""+token_card+"\",\r" +
-                       "\n\"doc_type\": \""+doc_type+"\",\r" +
-                       "\n\"doc_number\": \""+doc_number+"\"\r\n}";
+                body = "{\r\n\"id_plan\": \""+idPlan+"\",\r" +
+                       "\n\"customer\": \""+customerId+"\",\r" +
+                       "\n\"token_card\": \""+tokenCard+"\",\r" +
+                       "\n\"doc_type\": \""+docType+"\",\r" +
+                       "\n\"doc_number\": \""+docNumber+"\"\r\n}";
             }
 
             return body;
         }
-        public string getQueryFindSubscription(string publicKey, string id)
+        public string GetQueryFindSubscription(string publicKey, string id)
         {
-            return Constants.url_get_subscription + id + "/" + publicKey;
+            return Constants.UrlGetSubscription + id + "/" + publicKey;
         }
         
-        public string getQueryFindAllSubscription(string publicKey)
+        public string GetQueryFindAllSubscription(string publicKey)
         {
-            return Constants.url_get_all_subscriptions + publicKey;
+            return Constants.UrlGetAllSubscriptions + publicKey;
         }
         
-        public string getBodyCancelSubscription(string subscriptionId)
+        public string GetBodyCancelSubscription(string subscriptionId)
         {
             return "{\r\n\"id\":\""+subscriptionId+"\"\r\n}";
         }
         
-        public string getBodyChargeSubscription(string id_plan, 
-            string customer_id, 
-            string token_card,
-            string doc_type,
-            string doc_number,
-            string ip = null,
-            string address = null,
-            string phone = null,
-            string cell_phone = null,
+        public string GetBodyChargeSubscription(string idPlan, 
+            string customerId, 
+            string tokenCard,
+            string docType,
+            string docNumber,
+            string? ip = null,
+            string? address = null,
+            string? phone = null,
+            string? cellPhone = null,
             bool test =  false
             )
         {
             var TEST = test ? "TRUE" : "FALSE";
-            return "{\r\n\"id_plan\": \""+id_plan+"\",\r" +
-                  "\n\"customer\": \""+customer_id+"\",\r" +
-                  "\n\"token_card\": \""+token_card+"\",\r" +
-                  "\n\"doc_type\": \""+doc_type+"\",\r" +
-                  "\n\"doc_number\": \"" + doc_number + "\",\r" +
+            return "{\r\n\"id_plan\": \""+idPlan+"\",\r" +
+                  "\n\"customer\": \""+customerId+"\",\r" +
+                  "\n\"token_card\": \""+tokenCard+"\",\r" +
+                  "\n\"doc_type\": \""+docType+"\",\r" +
+                  "\n\"doc_number\": \"" + docNumber + "\",\r" +
                   "\n\"ip\": \"" +ip+"\",\r" +
-                  "\n\"test\": \"" + TEST + "\"\r\n}"+
-                  "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r";
+                  "\n\"address\": \"" +address+"\",\r" +
+                  "\n\"phone\": \"" +phone+"\",\r" +
+                  "\n\"cell_phone\": \"" +cellPhone+"\",\r" +
+                  "\n\"test\": \"" + TEST + "\",\r" +
+                  "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"}\r\n}";
 
         }
         
         /*
          * PSE
          */
-        public string getBodyBankCreate(
+        public string GetBodyBankCreate(
             string I,
             bool test,
-            string public_key,
-            string private_key,
+            string publicKey,
+            string privateKey,
             string bank, 
             string invoice, 
             string description,
             string value,
             string tax,
-            string tax_base,
+            string taxBase,
             string ico,
             string currency,
-            string type_person,
-            string doc_type,
-            string doc_number,
+            string typePerson,
+            string docType,
+            string docNumber,
             string name,
-            string last_name,
+            string lastName,
             string email,
             string country,
             string city,
-            string cell_phone,
-            string url_response,
-            string url_confirmation,
-            string method_confirmation,
+            string cellPhone,
+            string urlResponse,
+            string urlConfirmation,
+            string methodConfirmation,
             string extra1,
             string extra2,
             string extra3,
@@ -237,80 +309,80 @@ namespace EpaycoSdk.Utils
             string extra9,
             string extra10)
         {
-            var localIP = "";
+            var localIp = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-            localIP = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
-            return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, private_key)+"\",\r" +
-                   "\n\"factura\": \""+Auxiliars.AESEncrypt(invoice, private_key)+"\",\r" +
-                   "\n\"descripcion\": \""+Auxiliars.AESEncrypt(description, private_key)+"\",\r" +
-                   "\n\"valor\": \""+Auxiliars.AESEncrypt(value, private_key)+"\",\r" +
-                   "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, private_key)+"\",\r" +
-                   "\n\"baseiva\": \""+Auxiliars.AESEncrypt(tax_base, private_key)+"\",\r" +
-                   "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, private_key)+"\",\r" +
-                   "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, private_key)+"\",\r" +
-                   "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(type_person, private_key)+"\",\r" +
-                   "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(doc_type, private_key)+"\",\r" +
-                   "\n\"documento\": \""+Auxiliars.AESEncrypt(doc_number, private_key)+"\",\r" +
-                   "\n\"nombres\": \""+Auxiliars.AESEncrypt(name, private_key)+"\",\r" +
-                   "\n\"apellidos\": \""+Auxiliars.AESEncrypt(last_name, private_key)+"\",\r" +
-                   "\n\"email\": \""+Auxiliars.AESEncrypt(email, private_key)+"\",\r" +
-                   "\n\"pais\": \""+Auxiliars.AESEncrypt(country, private_key)+"\",\r" +
-                   "\n\"ciudad\": \"" + Auxiliars.AESEncrypt(city, private_key)+"\",\r" +
-                   "\n\"celular\": \""+Auxiliars.AESEncrypt(cell_phone, private_key)+"\",\r" +
-                   "\n\"url_respuesta\": \""+Auxiliars.AESEncrypt(url_response, private_key)+"\",\r" +
-                   "\n\"url_confirmacion\": \""+Auxiliars.AESEncrypt(url_confirmation, private_key)+"\",\r" +
-                   "\n\"metodoconfirmacion\": \""+Auxiliars.AESEncrypt(method_confirmation, private_key)+"\",\r" +
-                   "\n\"extra1\": \""+Auxiliars.AESEncrypt(extra1, private_key)+"\",\r" +
-                   "\n\"extra2\": \""+Auxiliars.AESEncrypt(extra2, private_key)+"\",\r" +
-                   "\n\"extra3\": \""+Auxiliars.AESEncrypt(extra3, private_key)+"\",\r" +
-                   "\n\"extra4\": \""+Auxiliars.AESEncrypt(extra4, private_key)+"\",\r" +
-                   "\n\"extra5\": \""+Auxiliars.AESEncrypt(extra5, private_key)+"\",\r" +
-                   "\n\"extra6\": \""+Auxiliars.AESEncrypt(extra6, private_key)+"\",\r" +
-                   "\n\"extra7\": \""+Auxiliars.AESEncrypt(extra7, private_key)+"\",\r" +
-                   "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, private_key)+"\",\r" +
-                   "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, private_key)+"\",\r" +
-                   "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, private_key)+"\",\r" +
-                   "\n\"extras_epayco\": {\"extra5\": \"" + Auxiliars.AESEncrypt("P46", private_key) + "\"},\r" +
-                   "\n\"public_key\": \"" +public_key+"\",\r" +
-                   "\n\"enpruebas\": \""+Auxiliars.AESEncrypt(test.ToString(), private_key)+"\",\r" +
-                   "\n\"ip\": \""+Auxiliars.AESEncrypt(localIP, private_key)+"\",\r" +
+            localIp = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
+            return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, privateKey)+"\",\r" +
+                   "\n\"factura\": \""+Auxiliars.AESEncrypt(invoice, privateKey)+"\",\r" +
+                   "\n\"descripcion\": \""+Auxiliars.AESEncrypt(description, privateKey)+"\",\r" +
+                   "\n\"valor\": \""+Auxiliars.AESEncrypt(value, privateKey)+"\",\r" +
+                   "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, privateKey)+"\",\r" +
+                   "\n\"baseiva\": \""+Auxiliars.AESEncrypt(taxBase, privateKey)+"\",\r" +
+                   "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, privateKey)+"\",\r" +
+                   "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, privateKey)+"\",\r" +
+                   "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(typePerson, privateKey)+"\",\r" +
+                   "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(docType, privateKey)+"\",\r" +
+                   "\n\"documento\": \""+Auxiliars.AESEncrypt(docNumber, privateKey)+"\",\r" +
+                   "\n\"nombres\": \""+Auxiliars.AESEncrypt(name, privateKey)+"\",\r" +
+                   "\n\"apellidos\": \""+Auxiliars.AESEncrypt(lastName, privateKey)+"\",\r" +
+                   "\n\"email\": \""+Auxiliars.AESEncrypt(email, privateKey)+"\",\r" +
+                   "\n\"pais\": \""+Auxiliars.AESEncrypt(country, privateKey)+"\",\r" +
+                   "\n\"ciudad\": \"" + Auxiliars.AESEncrypt(city, privateKey)+"\",\r" +
+                   "\n\"celular\": \""+Auxiliars.AESEncrypt(cellPhone, privateKey)+"\",\r" +
+                   "\n\"url_respuesta\": \""+Auxiliars.AESEncrypt(urlResponse, privateKey)+"\",\r" +
+                   "\n\"url_confirmacion\": \""+Auxiliars.AESEncrypt(urlConfirmation, privateKey)+"\",\r" +
+                   "\n\"metodoconfirmacion\": \""+Auxiliars.AESEncrypt(methodConfirmation, privateKey)+"\",\r" +
+                   "\n\"extra1\": \""+Auxiliars.AESEncrypt(extra1, privateKey)+"\",\r" +
+                   "\n\"extra2\": \""+Auxiliars.AESEncrypt(extra2, privateKey)+"\",\r" +
+                   "\n\"extra3\": \""+Auxiliars.AESEncrypt(extra3, privateKey)+"\",\r" +
+                   "\n\"extra4\": \""+Auxiliars.AESEncrypt(extra4, privateKey)+"\",\r" +
+                   "\n\"extra5\": \""+Auxiliars.AESEncrypt(extra5, privateKey)+"\",\r" +
+                   "\n\"extra6\": \""+Auxiliars.AESEncrypt(extra6, privateKey)+"\",\r" +
+                   "\n\"extra7\": \""+Auxiliars.AESEncrypt(extra7, privateKey)+"\",\r" +
+                   "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, privateKey)+"\",\r" +
+                   "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, privateKey)+"\",\r" +
+                   "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, privateKey)+"\",\r" +
+                   "\n\"extras_epayco\": {\"extra5\": \"" + Auxiliars.AESEncrypt("P46", privateKey) + "\"},\r" +
+                   "\n\"public_key\": \"" +publicKey+"\",\r" +
+                   "\n\"enpruebas\": \""+Auxiliars.AESEncrypt(test.ToString(), privateKey)+"\",\r" +
+                   "\n\"ip\": \""+Auxiliars.AESEncrypt(localIp, privateKey)+"\",\r" +
                    "\n\"i\": \""+I+"\",\r" +
                    "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
         
-        public string getBodyBankCreateSplit(
+        public string GetBodyBankCreateSplit(
            string I,
            bool test,
-           string public_key,
-           string private_key,
+           string publicKey,
+           string privateKey,
            string bank,
            string invoice,
            string description,
            string value,
            string tax,
-           string tax_base,
+           string taxBase,
            string ico,
            string currency,
-           string type_person,
-           string doc_type,
-           string doc_number,
+           string typePerson,
+           string docType,
+           string docNumber,
            string name,
-           string last_name,
+           string lastName,
            string email,
            string country,
            string city,
-           string cell_phone,
-           string url_response,
-           string url_confirmation,
-           string method_confirmation,
+           string cellPhone,
+           string urlResponse,
+           string urlConfirmation,
+           string methodConfirmation,
            string splitpayment,
-           string split_app_id,
-           string split_merchant_id,
-           string split_type,
-           string split_rule,
-           string split_primary_receiver,
-           string split_primary_receiver_fee,
-           List<SplitReceivers> split_receivers,
+           string splitAppId,
+           string splitMerchantId,
+           string splitType,
+           string splitRule,
+           string splitPrimaryReceiver,
+           string splitPrimaryReceiverFee,
+           List<SplitReceivers> splitReceivers,
             string extra1,
             string extra2,
             string extra3,
@@ -322,125 +394,125 @@ namespace EpaycoSdk.Utils
             string extra9,
             string extra10)
         {
-           var localIP = "";
-           var split_receivers_json = Newtonsoft.Json.JsonConvert.SerializeObject(split_receivers);
+           var localIp = "";
+           var splitReceiversJson = Newtonsoft.Json.JsonConvert.SerializeObject(splitReceivers);
            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-           localIP = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
+           localIp = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
 
-            return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, private_key)+"\",\r" +
-                  "\n\"factura\": \""+Auxiliars.AESEncrypt(invoice, private_key)+"\",\r" +
-                  "\n\"descripcion\": \""+Auxiliars.AESEncrypt(description, private_key)+"\",\r" +
-                  "\n\"valor\": \""+Auxiliars.AESEncrypt(value, private_key)+"\",\r" +
-                  "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, private_key)+"\",\r" +
-                  "\n\"baseiva\": \""+Auxiliars.AESEncrypt(tax_base, private_key)+"\",\r" +
-                  "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, private_key)+"\",\r" +
-                  "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, private_key)+"\",\r" +
-                  "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(type_person, private_key)+"\",\r" +
-                  "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(doc_type, private_key)+"\",\r" +
-                  "\n\"documento\": \""+Auxiliars.AESEncrypt(doc_number, private_key)+"\",\r" +
-                  "\n\"nombres\": \""+Auxiliars.AESEncrypt(name, private_key)+"\",\r" +
-                  "\n\"apellidos\": \""+Auxiliars.AESEncrypt(last_name, private_key)+"\",\r" +
-                  "\n\"email\": \""+Auxiliars.AESEncrypt(email, private_key)+"\",\r" +
-                  "\n\"pais\": \""+Auxiliars.AESEncrypt(country, private_key)+"\",\r" +
-                  "\n\"ciudad\": \""+ Auxiliars.AESEncrypt(city, private_key)+"\",\r" +
-                  "\n\"celular\": \""+Auxiliars.AESEncrypt(cell_phone, private_key)+"\",\r" +
-                  "\n\"url_respuesta\": \""+Auxiliars.AESEncrypt(url_response, private_key)+"\",\r" +
-                  "\n\"url_confirmacion\": \""+Auxiliars.AESEncrypt(url_confirmation, private_key)+"\",\r" +
-                  "\n\"metodoconfirmacion\": \""+Auxiliars.AESEncrypt(method_confirmation, private_key)+"\",\r" +
-                  "\n\"splitpayment\": \"" + Auxiliars.AESEncrypt(splitpayment, private_key) + "\",\r" +
-                  "\n\"split_app_id\": \"" + Auxiliars.AESEncrypt(split_app_id, private_key) + "\",\r" +
-                  "\n\"split_merchant_id\": \"" + Auxiliars.AESEncrypt(split_merchant_id, private_key) + "\",\r" +
-                  "\n\"split_type\": \"" + Auxiliars.AESEncrypt(split_type, private_key) + "\",\r" +
-                  "\n\"split_rule\": \"" + Auxiliars.AESEncrypt(split_rule, private_key) + "\",\r" +
-                  "\n\"split_primary_receiver\": \"" + Auxiliars.AESEncrypt(split_primary_receiver, private_key) + "\",\r" +
-                  "\n\"split_primary_receiver_fee\": \"" + Auxiliars.AESEncrypt(split_primary_receiver_fee, private_key) + "\",\r" +
-                  "\n\"split_receivers\": \""+Auxiliars.AESEncrypt(split_receivers_json, private_key)+"\",\r" +
-                  "\n\"extra1\": \""+Auxiliars.AESEncrypt(extra1, private_key)+"\",\r" +
-                  "\n\"extra2\": \""+Auxiliars.AESEncrypt(extra2, private_key)+"\",\r" +
-                  "\n\"extra3\": \""+Auxiliars.AESEncrypt(extra3, private_key)+"\",\r" +
-                  "\n\"extra4\": \""+Auxiliars.AESEncrypt(extra4, private_key)+"\",\r" +
-                  "\n\"extra5\": \""+Auxiliars.AESEncrypt(extra5, private_key)+"\",\r" +
-                  "\n\"extra6\": \""+Auxiliars.AESEncrypt(extra6, private_key)+"\",\r" +
-                  "\n\"extra7\": \""+Auxiliars.AESEncrypt(extra7, private_key)+"\",\r" +
-                  "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, private_key)+"\",\r" +
-                  "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, private_key)+"\",\r" +
-                  "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, private_key)+"\",\r" +
-                  "\n\"extras_epayco\": {\"extra5\": \"" + Auxiliars.AESEncrypt("P46", private_key) + "\"},\r" +
-                  "\n\"public_key\": \"" +public_key+"\",\r" +
-                  "\n\"enpruebas\": \""+ Auxiliars.AESEncrypt(test.ToString(), private_key) +"\",\r" +
-                  "\n\"ip\": \""+ Auxiliars.AESEncrypt(localIP, private_key) +"\",\r" +
+            return "{\r\n\"banco\": \""+Auxiliars.AESEncrypt(bank, privateKey)+"\",\r" +
+                  "\n\"factura\": \""+Auxiliars.AESEncrypt(invoice, privateKey)+"\",\r" +
+                  "\n\"descripcion\": \""+Auxiliars.AESEncrypt(description, privateKey)+"\",\r" +
+                  "\n\"valor\": \""+Auxiliars.AESEncrypt(value, privateKey)+"\",\r" +
+                  "\n\"iva\": \""+Auxiliars.AESEncrypt(tax, privateKey)+"\",\r" +
+                  "\n\"baseiva\": \""+Auxiliars.AESEncrypt(taxBase, privateKey)+"\",\r" +
+                  "\n\"ico\": \""+Auxiliars.AESEncrypt(ico, privateKey)+"\",\r" +
+                  "\n\"moneda\": \""+Auxiliars.AESEncrypt(currency, privateKey)+"\",\r" +
+                  "\n\"tipo_persona\": \""+Auxiliars.AESEncrypt(typePerson, privateKey)+"\",\r" +
+                  "\n\"tipo_doc\": \""+Auxiliars.AESEncrypt(docType, privateKey)+"\",\r" +
+                  "\n\"documento\": \""+Auxiliars.AESEncrypt(docNumber, privateKey)+"\",\r" +
+                  "\n\"nombres\": \""+Auxiliars.AESEncrypt(name, privateKey)+"\",\r" +
+                  "\n\"apellidos\": \""+Auxiliars.AESEncrypt(lastName, privateKey)+"\",\r" +
+                  "\n\"email\": \""+Auxiliars.AESEncrypt(email, privateKey)+"\",\r" +
+                  "\n\"pais\": \""+Auxiliars.AESEncrypt(country, privateKey)+"\",\r" +
+                  "\n\"ciudad\": \""+ Auxiliars.AESEncrypt(city, privateKey)+"\",\r" +
+                  "\n\"celular\": \""+Auxiliars.AESEncrypt(cellPhone, privateKey)+"\",\r" +
+                  "\n\"url_respuesta\": \""+Auxiliars.AESEncrypt(urlResponse, privateKey)+"\",\r" +
+                  "\n\"url_confirmacion\": \""+Auxiliars.AESEncrypt(urlConfirmation, privateKey)+"\",\r" +
+                  "\n\"metodoconfirmacion\": \""+Auxiliars.AESEncrypt(methodConfirmation, privateKey)+"\",\r" +
+                  "\n\"splitpayment\": \"" + Auxiliars.AESEncrypt(splitpayment, privateKey) + "\",\r" +
+                  "\n\"split_app_id\": \"" + Auxiliars.AESEncrypt(splitAppId, privateKey) + "\",\r" +
+                  "\n\"split_merchant_id\": \"" + Auxiliars.AESEncrypt(splitMerchantId, privateKey) + "\",\r" +
+                  "\n\"split_type\": \"" + Auxiliars.AESEncrypt(splitType, privateKey) + "\",\r" +
+                  "\n\"split_rule\": \"" + Auxiliars.AESEncrypt(splitRule, privateKey) + "\",\r" +
+                  "\n\"split_primary_receiver\": \"" + Auxiliars.AESEncrypt(splitPrimaryReceiver, privateKey) + "\",\r" +
+                  "\n\"split_primary_receiver_fee\": \"" + Auxiliars.AESEncrypt(splitPrimaryReceiverFee, privateKey) + "\",\r" +
+                  "\n\"split_receivers\": \""+Auxiliars.AESEncrypt(splitReceiversJson, privateKey)+"\",\r" +
+                  "\n\"extra1\": \""+Auxiliars.AESEncrypt(extra1, privateKey)+"\",\r" +
+                  "\n\"extra2\": \""+Auxiliars.AESEncrypt(extra2, privateKey)+"\",\r" +
+                  "\n\"extra3\": \""+Auxiliars.AESEncrypt(extra3, privateKey)+"\",\r" +
+                  "\n\"extra4\": \""+Auxiliars.AESEncrypt(extra4, privateKey)+"\",\r" +
+                  "\n\"extra5\": \""+Auxiliars.AESEncrypt(extra5, privateKey)+"\",\r" +
+                  "\n\"extra6\": \""+Auxiliars.AESEncrypt(extra6, privateKey)+"\",\r" +
+                  "\n\"extra7\": \""+Auxiliars.AESEncrypt(extra7, privateKey)+"\",\r" +
+                  "\n\"extra8\": \""+Auxiliars.AESEncrypt(extra8, privateKey)+"\",\r" +
+                  "\n\"extra9\": \""+Auxiliars.AESEncrypt(extra9, privateKey)+"\",\r" +
+                  "\n\"extra10\": \""+Auxiliars.AESEncrypt(extra10, privateKey)+"\",\r" +
+                  "\n\"extras_epayco\": {\"extra5\": \"" + Auxiliars.AESEncrypt("P46", privateKey) + "\"},\r" +
+                  "\n\"public_key\": \"" +publicKey+"\",\r" +
+                  "\n\"enpruebas\": \""+ Auxiliars.AESEncrypt(test.ToString(), privateKey) +"\",\r" +
+                  "\n\"ip\": \""+ Auxiliars.AESEncrypt(localIp, privateKey) +"\",\r" +
                   "\n\"i\": \""+I+"\",\r" +
                   "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
  
-        public string getBodySplitPayments(SplitModel split_details,bool cash = false)
+        public string GetBodySplitPayments(SplitModel? splitDetails,bool cash = false)
         {
             SplitModelRest split = new SplitModelRest
             {
-                splitpayment = split_details.splitpayment,
-                split_app_id = split_details.split_app_id,
-                split_merchant_id = split_details.split_merchant_id,
-                split_primary_receiver = split_details.split_primary_receiver,
-                split_primary_receiver_fee = split_details.split_primary_receiver_fee,
-                split_rule = split_details.split_rule,
-                split_type = split_details.split_type
+                splitpayment = splitDetails?.splitpayment,
+                split_app_id = splitDetails?.split_app_id,
+                split_merchant_id = splitDetails?.split_merchant_id,
+                split_primary_receiver = splitDetails?.split_primary_receiver,
+                split_primary_receiver_fee = splitDetails?.split_primary_receiver_fee,
+                split_rule = splitDetails?.split_rule,
+                split_type = splitDetails?.split_type
             };
 
             if (cash)
             {
-                split.split_receivers = Newtonsoft.Json.JsonConvert.SerializeObject(split_details.split_receivers);
+                split.split_receivers = Newtonsoft.Json.JsonConvert.SerializeObject(splitDetails?.split_receivers);
             }
             else
             {
-                split.split_receivers = split_details.split_receivers;
+                split.split_receivers = splitDetails?.split_receivers;
             }
             return Newtonsoft.Json.JsonConvert.SerializeObject(split);
          }
 
-         public string getQueryGetTransaction(string publicKey, string transactionId)
+         public string GetQueryGetTransaction(string publicKey, string transactionId)
          {
-             return Constants.url_get_transaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
+             return Constants.UrlGetTransaction + "?transactionID=" + transactionId + "&public_key=" + publicKey ;
          }
 
-         public string getQueryGetBanks(string publicKey, bool test)
+         public string GetQueryGetBanks(string publicKey, bool test)
          {
              string pruebas = "2";
              if (test)
              {
                  pruebas = "1";
              }
-             return Constants.url_get_banks + "?public_key=" + publicKey + "&test=" + pruebas;
+             return Constants.UrlGetBanks + "?public_key=" + publicKey + "&test=" + pruebas;
          }
 
          /*
           * CASH
           */
         
-         public string getBodyCashCreate(
+         public string GetBodyCashCreate(
             string I,
             bool test,
-            string public_key,
-            string private_key,
+            string publicKey,
+            string privateKey,
             string invoice, 
             string description,
             string value,
             string tax,
-            string tax_base,
+            string taxBase,
             string ico,
             string currency,
-            string type_person,
-            string doc_type,
-            string doc_number,
+            string typePerson,
+            string docType,
+            string docNumber,
             string name,
-            string last_name,
+            string lastName,
             string email,
-            string cell_phone,
-            string end_date,
+            string cellPhone,
+            string endDate,
             string country,
             string city,
-            string url_response,
-            string url_confirmation,
-            string method_confirmation,
+            string urlResponse,
+            string urlConfirmation,
+            string methodConfirmation,
             string extra1,
             string extra2,
             string extra3,
@@ -452,29 +524,29 @@ namespace EpaycoSdk.Utils
             string extra9,
             string extra10)
         {
-            var localIP = "";
+            var localIp = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-            localIP = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
+            localIp = host.AddressList.First(i => i.AddressFamily.ToString() == "InterNetwork").ToString();
             return "{\r\n\"factura\": \""+invoice+"\",\r" +
                    "\n\"descripcion\": \""+description+"\",\r" +
                    "\n\"valor\": \""+value+"\",\r" +
                    "\n\"iva\": \""+tax+"\",\r" +
-                   "\n\"baseiva\": \""+tax_base+"\",\r" +
+                   "\n\"baseiva\": \""+taxBase+"\",\r" +
                    "\n\"ico\": \""+ico+"\",\r" +
                    "\n\"moneda\": \""+currency+"\",\r" +
-                   "\n\"tipo_persona\": \""+type_person+"\",\r" +
-                   "\n\"tipo_doc\": \""+doc_type+"\",\r" +
-                   "\n\"documento\": \""+doc_number+"\",\r" +
+                   "\n\"tipo_persona\": \""+typePerson+"\",\r" +
+                   "\n\"tipo_doc\": \""+docType+"\",\r" +
+                   "\n\"documento\": \""+docNumber+"\",\r" +
                    "\n\"nombres\": \""+name+"\",\r" +
-                   "\n\"apellidos\": \""+last_name+"\",\r" +
+                   "\n\"apellidos\": \""+lastName+"\",\r" +
                    "\n\"email\": \""+email+"\",\r" +
-                   "\n\"celular\": \""+cell_phone+"\",\r" +
-                   "\n\"fechaexpiracion\": \""+end_date+"\",\r" +
+                   "\n\"celular\": \""+cellPhone+"\",\r" +
+                   "\n\"fechaexpiracion\": \""+endDate+"\",\r" +
                    "\n\"pais\": \""+country+"\",\r" +
                    "\n\"ciudad\": \""+city+"\",\r" +
-                   "\n\"url_respuesta\": \"" +url_response+"\",\r" +
-                   "\n\"url_confirmacion\": \""+url_confirmation+"\",\r" +
-                   "\n\"metodoconfirmacion\": \""+method_confirmation+"\",\r" +
+                   "\n\"url_respuesta\": \"" +urlResponse+"\",\r" +
+                   "\n\"url_confirmacion\": \""+urlConfirmation+"\",\r" +
+                   "\n\"metodoconfirmacion\": \""+methodConfirmation+"\",\r" +
                    "\n\"extra1\": \""+extra1+"\",\r" +
                    "\n\"extra2\": \""+extra2+"\",\r" +
                    "\n\"extra3\": \""+extra3+"\",\r" +
@@ -486,34 +558,34 @@ namespace EpaycoSdk.Utils
                    "\n\"extra9\": \""+extra9+"\",\r" +
                    "\n\"extra10\": \""+extra10+"\",\r" +
                    "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r" +
-                   "\n\"public_key\": \"" +public_key+"\",\r" +
+                   "\n\"public_key\": \"" +publicKey+"\",\r" +
                    "\n\"enpruebas\": \""+test+"\",\r" +
-                   "\n\"ip\": \""+localIP+"\",\r" +
+                   "\n\"ip\": \""+localIp+"\",\r" +
                    "\n\"i\": \""+I+"\",\r" +
                    "\n\"lenguaje\": \""+".net"+"\"\r\n}";
         }
          
-         public string getQueryCashTransaction(string ref_payco, string publicKey)
+         public string GetQueryCashTransaction(string refPayco, string publicKey)
          {
-             return Constants.url_cash_transaction + "ref_payco=" + ref_payco + "&public_key=" + publicKey;
+             return Constants.UrlCashTransaction + "ref_payco=" + refPayco + "&public_key=" + publicKey;
          }
          
          /*
           * PAYMENT
           */
-         public string getBodyChargeCreate(
-             string token_card,
-             string customer_id, 
-             string doc_type,
-             string doc_number,
+         public string GetBodyChargeCreate(
+             string tokenCard,
+             string customerId, 
+             string docType,
+             string docNumber,
              string name,
-             string last_name,
+             string lastName,
              string email,
              string bill,
              string description,
              string value,
              string tax,
-             string tax_base,
+             string taxBase,
              string ico,
              string currency,
              string dues,
@@ -521,10 +593,10 @@ namespace EpaycoSdk.Utils
              string country,
              string city,
              string phone,
-             string cell_phone,
-             string url_response,
-             string url_confirmation,
-             string method_confirmation,
+             string cellPhone,
+             string urlResponse,
+             string urlConfirmation,
+             string methodConfirmation,
              string ip,
              string extra1,
              string extra2,
@@ -537,18 +609,18 @@ namespace EpaycoSdk.Utils
              string extra9,
              string extra10)
          {
-             return "{\r\n\"token_card\": \"" + token_card+"\",\r" +
-                    "\n\"customer_id\": \""+customer_id+"\",\r" +
-                    "\n\"doc_type\": \""+doc_type+"\",\r" +
-                    "\n\"doc_number\": \""+doc_number+"\",\r" +
+             return "{\r\n\"token_card\": \"" + tokenCard+"\",\r" +
+                    "\n\"customer_id\": \""+customerId+"\",\r" +
+                    "\n\"doc_type\": \""+docType+"\",\r" +
+                    "\n\"doc_number\": \""+docNumber+"\",\r" +
                     "\n\"name\": \""+name+"\",\r" +
-                    "\n\"last_name\": \""+last_name+"\",\r" +
+                    "\n\"last_name\": \""+lastName+"\",\r" +
                     "\n\"email\": \""+email+"\",\r" +
                     "\n\"bill\": \""+bill+"\",\r" +
                     "\n\"description\": \""+description+"\",\r" +
                     "\n\"value\": \""+value+"\",\r" +
                     "\n\"tax\": \""+tax+"\",\r" +
-                    "\n\"tax_base\": \""+tax_base+"\",\r" +
+                    "\n\"tax_base\": \""+taxBase+"\",\r" +
                     "\n\"ico\": \""+ico+"\",\r" +
                     "\n\"currency\": \""+currency+"\",\r" +
                     "\n\"dues\": \""+dues+"\",\r" +
@@ -556,10 +628,10 @@ namespace EpaycoSdk.Utils
                     "\n\"country\": \""+country+"\",\r" +
                     "\n\"city\": \""+city+"\",\r" +
                     "\n\"phone\": \"" +phone+"\",\r" +
-                    "\n\"cell_phone\": \""+cell_phone+"\",\r" +
-                    "\n\"url_response\": \""+url_response+"\",\r" +
-                    "\n\"url_confirmation\": \""+url_confirmation+"\",\r" +
-                    "\n\"method_confirmation\": \"" + method_confirmation + "\",\r" +
+                    "\n\"cell_phone\": \""+cellPhone+"\",\r" +
+                    "\n\"url_response\": \""+urlResponse+"\",\r" +
+                    "\n\"url_confirmation\": \""+urlConfirmation+"\",\r" +
+                    "\n\"method_confirmation\": \"" + methodConfirmation + "\",\r" +
                     "\n\"extras\": {\r" +
                     "\n\"extra1\": \""+extra1+"\",\r" +
                     "\n\"extra2\": \""+extra2+"\",\r" +
@@ -575,13 +647,13 @@ namespace EpaycoSdk.Utils
                     "\n\"ip\": \"" +ip+"\"\r\n}";
          }
 
-        public string getBodyDaviplata(
-            string doc_type,
+        public string GetBodyDaviplata(
+            string docType,
             string document,
             string name,
-            string last_name,
+            string lastName,
             string email,
-            string ind_country,
+            string indCountry,
             string phone,
             string country,
             string city,
@@ -592,12 +664,12 @@ namespace EpaycoSdk.Utils
             string description,
             decimal value,
             decimal tax,
-            decimal tax_base,
+            decimal taxBase,
             decimal ico,
-            bool test,
-            string url_response,
-            string url_confirmation,
-            string method_confirmation,
+            string test,
+            string urlResponse,
+            string urlConfirmation,
+            string methodConfirmation,
             string extra1,
             string extra2,
             string extra3,
@@ -607,58 +679,62 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string extrasEpayco
+            )
         {
-            bodyDaviplata body = new bodyDaviplata
-            {
-                docType = doc_type,
-                document = document,
-                name = name,
-                lastName = last_name,
-                email = email,
-                indCountry = ind_country,
-                phone = phone,
-                country = country,
-                city = city,
-                address = address,
-                ip = ip,
-                currency = currency,
-                invoice = invoice,
-                description = description,
-                value = value,
-                tax = tax,
-                taxBase = tax_base,
-                ico = ico,
-                testMode = test,
-                urlResponse = url_response,
-                urlConfirmation = url_confirmation,
-                methodConfirmation = method_confirmation,
-                extra1 = extra1,
-                extra2 = extra2,
-                extra3 = extra3,
-                extra4 = extra4,
-                extra5 = extra5,
-                extra6 = extra6,
-                extra7 = extra7,
-                extra8 = extra8,
-                extra9 = extra9,
-                extra10 = extra10,
-                typeIntegration = ".NET"
-            };
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
-
+          var body  = "{\r\n\"docType\": \"" + docType + "\",\r" +
+                    "\n\"document\": \"" + document + "\",\r" +
+                    "\n\"lastName\": \"" + lastName + "\",\r" +
+                    "\n\"name\": \"" + name + "\",\r" +
+                    "\n\"last_name\": \"" + lastName + "\",\r" +
+                    "\n\"email\": \"" + email + "\",\r" +
+                    "\n\"indCountry\": \"" + indCountry + "\",\r" +
+                    "\n\"phone\": \"" + phone + "\",\r" +
+                    "\n\"country\": \"" + country + "\",\r" +
+                    "\n\"city\": \"" + city + "\",\r" +
+                    "\n\"address\": \"" + address + "\",\r" +
+                    "\n\"ip\": \"" + ip + "\",\r" +
+                    "\n\"currency\": \"" + currency + "\",\r" +
+                    "\n\"invoice\": \"" + invoice + "\",\r" +
+                    "\n\"description\": \"" + description + "\",\r" +
+                    "\n\"value\": \"" + value + "\",\r" +
+                    "\n\"tax\": \"" + tax + "\",\r" +
+                    "\n\"taxBase\": \"" + taxBase + "\",\r" +
+                    "\n\"ico\": \"" + ico + "\",\r" +
+                    "\n\"testMode\": " + test + ",\r" +
+                    "\n\"urlResponse\": \"" + urlResponse + "\",\r" +
+                    "\n\"urlConfirmation\": \"" + urlConfirmation + "\",\r" +
+                    "\n\"methodConfirmation\": \"" + methodConfirmation + "\",\r" +
+                    "\n\"extras\": {\r" +
+                    "\n\"extra1\": \"" + extra1 + "\",\r" +
+                    "\n\"extra2\": \"" + extra2 + "\",\r" +
+                    "\n\"extra3\": \"" + extra3 + "\",\r" +
+                    "\n\"extra4\": \"" + extra4 + "\",\r" +
+                    "\n\"extra5\": \"" + extra5 + "\",\r" +
+                    "\n\"extra6\": \"" + extra6 + "\",\r" +
+                    "\n\"extra7\": \"" + extra7 + "\",\r" +
+                    "\n\"extra8\": \"" + extra8 + "\",\r" +
+                    "\n\"extra9\": \"" + extra9 + "\",\r" +
+                    "\n\"extra10\": \"" + extra10 + "\"\r },\r" +
+                    "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r" +
+                    "\n\"typeIntegration\": \"" + ".NET" + "\"\r\n}";
+            return body;
         }
 
-        public string getBodyConfirmDaviplata(
-            string ref_payco,
-            string id_session_token,
+           
+
+
+
+        public string GetBodyConfirmDaviplata(
+            string refPayco,
+            string idSessionToken,
             string otp)
         {
             bodyConfirmDaviplata body = new bodyConfirmDaviplata
             {
-                refPayco = ref_payco,
-                idSessionToken = id_session_token,
+                refPayco = refPayco,
+                idSessionToken = idSessionToken,
                 otp = otp,
             };
 
@@ -666,15 +742,15 @@ namespace EpaycoSdk.Utils
 
         }
 
-        public string getBodySafetypayCreate(
+        public string GetBodySafetypayCreate(
             string cash,
-            string end_date,
-            string doc_type,
+            string endDate,
+            string docType,
             string document,
             string name,
-            string last_name,
+            string lastName,
             string email,
-            string ind_country,
+            string indCountry,
             string phone,
             string country,
             string city,
@@ -685,13 +761,13 @@ namespace EpaycoSdk.Utils
             string description,
             decimal value,
             decimal tax,
-            decimal tax_base,
+            decimal taxBase,
             decimal ico,
-            bool test,
-            string url_response,
-            string url_response_pointer,
-            string url_confirmation,
-            string method_confirmation,
+            string test,
+            string urlResponse,
+            string urlResponsePointer,
+            string urlConfirmation,
+            string methodConfirmation,
             string extra1,
             string extra2,
             string extra3,
@@ -701,50 +777,50 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string extrasEpayco
+            )
 
         {
-
-            bodySafetypay body = new bodySafetypay
-            {
-                cash                = cash,
-                expirationDate      = end_date,
-                docType             = doc_type,
-                document            = document,
-                name                = name,
-                lastName            = last_name,
-                email               = email,
-                indCountry          = ind_country,
-                phone               = phone,
-                country             = country,
-                city                = city,
-                address             = address,
-                ip                  = ip,
-                currency            = currency,
-                invoice             = invoice,
-                description         = description,
-                value               = value,
-                tax                 = tax,
-                ico                 = ico,
-                taxBase             = tax_base,
-                testMode            = test,
-                urlResponse         = url_response,
-                urlResponsePointer  = url_response_pointer,
-                urlConfirmation     = url_confirmation,
-                methodConfirmation  = method_confirmation,
-                extra1 = extra1,
-                extra2 = extra2,
-                extra3 = extra3,
-                extra4 = extra4,
-                extra5 = extra5,
-                extra6 = extra6,
-                extra7 = extra7,
-                extra8 = extra8,
-                extra9 = extra9,
-                extra10 = extra10,
-                typeIntegration     = ".NET"
-            };
-            return Newtonsoft.Json.JsonConvert.SerializeObject(body);
+            var body = "{\r\n\"cash\": \"" + cash + "\",\r" +
+                    "\n\"expirationDate\": \"" + endDate + "\",\r" +
+                    "\n\"docType\": \"" + docType + "\",\r" +
+                    "\n\"document\": \"" + document + "\",\r" +
+                    "\n\"name\": \"" + name + "\",\r" +
+                    "\n\"lastName\": \"" + lastName + "\",\r" +
+                    "\n\"email\": \"" + email + "\",\r" +
+                    "\n\"indCountry\": \"" + indCountry + "\",\r" +
+                    "\n\"phone\": \"" + phone + "\",\r" +
+                    "\n\"country\": \"" + country + "\",\r" +
+                    "\n\"city\": \"" + city + "\",\r" +
+                    "\n\"address\": \"" + address + "\",\r" +
+                    "\n\"ip\": \"" + ip + "\",\r" +
+                    "\n\"currency\": \"" + currency + "\",\r" +
+                    "\n\"invoice\": \"" + invoice + "\",\r" +
+                    "\n\"description\": \"" + description + "\",\r" +
+                    "\n\"value\": \"" + value + "\",\r" +
+                    "\n\"tax\": \"" + tax + "\",\r" +
+                    "\n\"taxBase\": \"" + taxBase + "\",\r" +
+                    "\n\"ico\": \"" + ico + "\",\r" +
+                    "\n\"testMode\": " + test + ",\r" +
+                    "\n\"urlResponse\": \"" + urlResponse + "\",\r" +
+                    "\n\"urlResponsePointer\": \"" + urlResponsePointer + "\",\r" +
+                    "\n\"urlConfirmation\": \"" + urlConfirmation + "\",\r" +
+                    "\n\"methodConfirmation\": \"" + methodConfirmation + "\",\r" +
+                    "\n\"extras\": {\r" +
+                    "\n\"extra1\": \"" + extra1 + "\",\r" +
+                    "\n\"extra2\": \"" + extra2 + "\",\r" +
+                    "\n\"extra3\": \"" + extra3 + "\",\r" +
+                    "\n\"extra4\": \"" + extra4 + "\",\r" +
+                    "\n\"extra5\": \"" + extra5 + "\",\r" +
+                    "\n\"extra6\": \"" + extra6 + "\",\r" +
+                    "\n\"extra7\": \"" + extra7 + "\",\r" +
+                    "\n\"extra8\": \"" + extra8 + "\",\r" +
+                    "\n\"extra9\": \"" + extra9 + "\",\r" +
+                    "\n\"extra10\": \"" + extra10 + "\"\r },\r" +
+                    "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r" +
+                    "\n\"typeIntegration\": \"" + ".NET" + "\"\r\n}";
+            return body;
         }
         #endregion
     }

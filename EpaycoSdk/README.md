@@ -64,7 +64,10 @@ Ejemplo de la petición:
 ### Customer List
 Ejemplo de la petición:
 ```
- CustomerListModel customer = epayco.CustomerGetList();
+ CustomerListModel customer = epayco.CustomerGetList(
+    page, // int
+    perPage // int
+ );
 ```
 ### PLANS
 ### Plan Create 
@@ -78,7 +81,21 @@ CreatePlanModel plan = epayco.PlanCreate(
     "currency", /string ej: COP
     "interval", /string
     interval_count, //int
-    trial_days // int
+    trial_days, // int
+    "ip", //string
+    iva, //decimal
+    ico, //decimal
+    planLink, //string
+    greetMessage, //string
+    linkExpirationDate, //string  YYYY-MM-DD
+    afterPayment, //string
+    subscriptionLimit, // int
+    imgUrl, //string
+    discountValue, //decimal
+    discountPercentage, // int
+    transactionalLimit, // int
+    additionalChargePercentage, //decimal
+    firstPaymentAdditionalCost //decimal
 );
 ```
 ### Get Plan
@@ -91,6 +108,26 @@ FindPlanModel plan = epayco.GetPlan("id_plan");
 Ejemplo de la petición:
 ```
 FindAllPlansModel plan = epayco.GetAllPlans();
+```
+
+### Plan Update
+Ejemplo de la petición:
+```
+UpdatePlanModel plan = epayco.PlanCreate(
+    "name", //string
+    "description", //string
+    amount, //decimal
+    "currency", /string ej: COP
+    "interval", /string
+    interval_count, //int
+    trial_days, // int
+    "ip", //string
+    iva, //decimal
+    ico, //decimal
+    afterPayment, //string
+    transactionalLimit, // int
+    additionalChargePercentage //decimal
+);
 ```
 
 ### Plan Remove
@@ -129,7 +166,7 @@ AllSubscriptionModel subscription = epayco.getAllSubscription();
 ### Cancel Subscription
 Ejemplo de la petición:
 ```
-CancelSubscriptionModel subscription = epayco.cancelSubscription("subscription_id");
+CancelSubscriptionModel subscription = epayco.CancelSubscription("subscription_id");
 ```
 
 ### Pay Subscription

@@ -113,7 +113,7 @@ FindAllPlansModel plan = epayco.GetAllPlans();
 ### Plan Update
 Ejemplo de la petición:
 ```
-UpdatePlanModel plan = epayco.PlanCreate(
+UpdatePlanModel plan = epayco.PlanUpdate(
     "name", //string
     "description", //string
     amount, //decimal

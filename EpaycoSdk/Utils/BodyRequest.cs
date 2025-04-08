@@ -130,28 +130,28 @@ namespace EpaycoSdk.Utils
             decimal? firstPaymentAdditionalCost
             )
         {
-            return "{\r\n\"id_plan\":\""+idPlan+"\",\r" +
-                   "\n\"name\":\""+name+"\",\r" +
-                   "\n\"description\":\""+description+"\",\r" +
-                   "\n\"amount\": "+amount+",\r" +
-                   "\n\"currency\": \""+currency+"\",\r" +
-                   "\n\"interval\": \""+interval+"\",\r" +
-                   "\n\"interval_count\": "+intervalCount+",\r" +
-                   "\n\"trial_days\": "+trialDays+",\r" +
-                   (ip.Equals(null)?"":"\n\"ip\":\""+ip+"\",\r") +
-                   (iva.Equals(null)?"":"\n\"iva\": "+iva+",\r") +
-                   (ico.Equals(null)?"":"\n\"ico\": "+ico+",\r") +
-                   (planLink.Equals(null)?"":"\n\"planLink\":\""+planLink+"\",\r") +
-                   (greetMessage.Equals(null)?"":"\n\"greetMessage\":\""+greetMessage+"\",\r") +
-                   (linkExpirationDate.Equals(null)?"":"\n\"linkExpirationDate\":\""+linkExpirationDate+"\",\r") +
-                   (afterPayment.Equals(null)?"":"\n\"afterPayment\":\""+afterPayment+"\",\r" )+
-                   (subscriptionLimit.Equals(null)?"": "\n\"subscriptionLimit\": "+subscriptionLimit+",\r") +
-                   (imgUrl.Equals(null)?"": "\n\"imgUrl\":\""+imgUrl+"\",\r" )+
-                   (discountPercentage.Equals(null)?"":"\n\"discountValue\": "+discountValue+",\r") +
-                   (discountPercentage.Equals(null)?"":"\n\"discountPercentage\": "+discountPercentage+",\r" )+
-                   (transactionalLimit.Equals(null)?"":"\n\"transactionalLimit\": "+transactionalLimit+",\r") +
-                   (additionalChargePercentage.Equals(null)?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage+",\r") +
-                   (firstPaymentAdditionalCost.Equals(null)?"":"\n\"firstPaymentAdditionalCost\":"+firstPaymentAdditionalCost)+"\r\n}";
+            return "{\n\"id_plan\":\""+idPlan+"\"," +
+                   "\n\"name\":\""+name+"\"," +
+                   "\n\"description\":\""+description+"\"," +
+                   "\n\"amount\": "+amount+"," +
+                   "\n\"currency\": \""+currency+"\"," +
+                   "\n\"interval\": \""+interval+"\"," +
+                   "\n\"interval_count\": "+intervalCount+"," +
+                   "\n\"trial_days\": "+trialDays+"," +
+                   (ip == null ?"":"\n\"ip\":\""+ip+"\",") +
+                   (iva == null?"":"\n\"iva\": "+iva+",") +
+                   (ico==null?"":"\n\"ico\": "+ico+",") +
+                   (planLink == null?"":"\n\"planLink\":\""+planLink+"\",") +
+                   (greetMessage==null?"":"\n\"greetMessage\":\""+greetMessage+"\",") +
+                   (linkExpirationDate==null?"":"\n\"linkExpirationDate\":\""+linkExpirationDate+"\",") +
+                   (afterPayment == null?"":"\n\"afterPayment\":\""+afterPayment+"\"," )+
+                   (subscriptionLimit == null?"": "\n\"subscriptionLimit\": "+subscriptionLimit+",") +
+                   (imgUrl == null?"": "\n\"imgUrl\":\""+imgUrl+"\"," )+
+                   (discountPercentage == null?"":"\n\"discountValue\": "+discountValue+",") +
+                   (discountPercentage == null?"":"\n\"discountPercentage\": "+discountPercentage+"," )+
+                   (transactionalLimit == null?"":"\n\"transactionalLimit\": "+transactionalLimit+",") +
+                   (additionalChargePercentage == null?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage+",") +
+                   (firstPaymentAdditionalCost == null?"":"\n\"firstPaymentAdditionalCost\":"+firstPaymentAdditionalCost)+"\n}";
         }
         
         public string GetQueryGetPlan(string idPlan, string publicKey)
@@ -187,12 +187,12 @@ namespace EpaycoSdk.Utils
                    "\n\"interval\": \""+interval+"\",\r" +
                    "\n\"interval_count\": "+intervalCount+",\r" +
                    "\n\"trial_days\": "+trialDays+",\r" +
-                   (ip.Equals(null)?"":"\n\"ip\":\""+ip+"\",\r") +
-                   (iva.Equals(null)?"":"\n\"iva\": "+iva+",\r") +
-                   (ico.Equals(null)?"":"\n\"ico\": "+ico+",\r") +
-                   (afterPayment.Equals(null)?"":"\n\"afterPayment\":\""+afterPayment+"\"" )+
-                   (transactionalLimit.Equals(null)?"":",\r\n\"transactionalLimit\": "+transactionalLimit+",\r") +
-                   (additionalChargePercentage.Equals(null)?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage)+"\r\n}";
+                   (ip == null?"":"\n\"ip\":\""+ip+"\",\r") +
+                   (iva == null?"":"\n\"iva\": "+iva+",\r") +
+                   (ico == null?"":"\n\"ico\": "+ico+",\r") +
+                   (afterPayment == null?"":"\n\"afterPayment\":\""+afterPayment+"\"" )+
+                   (transactionalLimit == null?"":",\r\n\"transactionalLimit\": "+transactionalLimit+",\r") +
+                   (additionalChargePercentage == null?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage)+"\r\n}";
         }
         
         public string GetQueryRemovePlan(string publicKey, string idPlan)

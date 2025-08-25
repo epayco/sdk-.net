@@ -1,4 +1,4 @@
-namespace EpaycoSdk.Models.Subscriptions
+﻿namespace EpaycoSdk.Models.Subscriptions
 {
     public class ChargeSubscriptionModel
     {
@@ -47,8 +47,7 @@ namespace EpaycoSdk.Models.Subscriptions
         public string ind_pais { get; set; }
         public string status { get; set; }
         public string description { get; set; }
-        public string errors { get; set; }
-
+        public object  errors { get; set; }
         public string idClient { get; set; }
         public string name { get; set; }
         public decimal amount { get; set; }
@@ -60,7 +59,7 @@ namespace EpaycoSdk.Models.Subscriptions
         public string url_confirmation { get; set; }
 
     }
-   
+
 
     public class SubscriptionData
     {

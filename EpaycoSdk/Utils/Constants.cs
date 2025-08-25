@@ -2,11 +2,17 @@ namespace EpaycoSdk.Utils
 {
     public class Constants
     {
-        public const string UrlBase = "https://api.secure.payco.co";
+        public const string UrlBase = "https://eks-subscription-api-lumen-service.epayco.io";
 
-        public const string BaseUrlSecure = "https://secure.payco.co";
+        public const string BaseUrlSecure = "https://eks-rest-pagos-service.epayco.io";
 
-        public const string BaseUrlApify = "https://apify.epayco.co";
+        public const string BaseUrlApify = "https://eks-apify-service.epayco.io";
+
+        //public const string UrlBase = "https://api.secure.payco.co";
+
+        //public const string BaseUrlSecure = "https://secure.payco.co";
+
+        //public const string BaseUrlApify = "https://apify.epayco.co";
         /*
         * CUSTOMER
         */
@@ -35,6 +41,8 @@ namespace EpaycoSdk.Utils
         public const string UrlGetAllSubscriptions = "/recurring/v1/subscriptions/";
         public const string UrlCancelSubscription = "/recurring/v1/subscription/cancel";
         public const string UrlChageSubscription = "/payment/v1/charge/subscription/create";
+
+
         public const string UrlCharge = "/payment/v1/charge/create";
         
         /*

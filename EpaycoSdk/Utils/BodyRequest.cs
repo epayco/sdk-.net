@@ -238,7 +238,8 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string extras_epayco)
         {
             var localIp = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -538,7 +539,9 @@ namespace EpaycoSdk.Utils
              string extra7,
              string extra8,
              string extra9,
-             string extra10)
+             string extra10,
+             string? extras_epayco
+             )
          {
              return "{\r\n\"token_card\": \"" + tokenCard+"\",\r" +
                     "\n\"customer_id\": \""+customerId+"\",\r" +
@@ -574,8 +577,8 @@ namespace EpaycoSdk.Utils
                     "\n\"extra8\": \""+extra8+"\",\r" +
                     "\n\"extra9\": \""+extra9+"\",\r" +
                     "\n\"extra10\": \""+extra10+"\"\r },\r" +
-                    "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r" +
-                    "\n\"ip\": \"" +ip+"\"\r\n}";
+                   "\n\"extras_epayco\": {\"extra5\": \"P46\"},\r" +
+                    "\n\"ip\": \"" + ip+"\"\r\n}";
          }
 
         public string GetBodyDaviplata(
@@ -611,7 +614,7 @@ namespace EpaycoSdk.Utils
             string extra8,
             string extra9,
             string extra10,
-            string extrasEpayco
+            string extras_epayco
             )
         {
           var body  = "{\r\n\"docType\": \"" + docType + "\",\r" +
@@ -709,7 +712,7 @@ namespace EpaycoSdk.Utils
             string extra8,
             string extra9,
             string extra10,
-            string extrasEpayco
+            string extras_epayco
             )
 
         {

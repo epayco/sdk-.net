@@ -12,15 +12,17 @@ namespace EpaycoSdk.Models
         public Card card { get; set; }
     }
 
-    public partial class Data
+    public class Data
     {
         public string status { get; set; }
         public string id { get; set; }
         public string created { get; set; }
         public bool livemode { get; set; }
         public string description { get; set; }
-        public string errors { get; set; }
-        
+
+        // Aquí siempre podrás setear errores
+        public int totalerrores { get; set; }
+        public List<EpaycoSdk.Models.errors> errorestoken { get; set; }
     }
 
     public class Card
@@ -29,6 +31,12 @@ namespace EpaycoSdk.Models
         public string exp_year { get; set; }
         public string name { get; set; }
         public string mask { get; set; }
+    }
+
+    public class errors
+    {
+        public string codError { get; set; }
+        public string errorMessage { get; set; }
     }
 
     public class TokenMessage
@@ -43,6 +51,5 @@ namespace EpaycoSdk.Models
         public bool status { get; set; }
         public string message { get; set; }
         public List<Cards> cars { get; set; }
-
     }
 }

@@ -76,7 +76,7 @@ namespace EpaycoSdk.Models.Safetypay
         public string extra9 { get; set; }
         public string extra10 { get; set; }
         public string typeIntegration { get; set; }
-        public string extras_epayco { get; set; }
+       
     }   
 
 

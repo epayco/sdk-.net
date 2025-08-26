@@ -25,11 +25,7 @@ namespace EpaycoSdk.Models.Bank
         public string extra9 { get; set; }
         public string extra10 { get; set; }
 
-
     }
-
-   
-
 
     public class errors
     {

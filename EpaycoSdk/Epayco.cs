@@ -295,11 +295,12 @@ namespace EpaycoSdk
              string? ip = null,
              string? address = null,
              string? phone = null,
-             string? cellPhone = null
+             string? cellPhone = null,
+             string? extras_epayco = "P46"
              )
         {
             ENDPOINT = Constants.UrlChageSubscription;
-            PARAMETER = body.GetBodyChargeSubscription(idPlan, customerId, tokenCard, docType, docNumber, ip, address, phone, cellPhone, _TEST);
+            PARAMETER = body.GetBodyChargeSubscription(idPlan, customerId, tokenCard, docType, docNumber, ip, address, phone, cellPhone, _TEST, extras_epayco: "P46");
             string content = _request.Execute(
                 ENDPOINT,
                 "POST",
@@ -361,7 +362,7 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-           Console.WriteLine(content);
+      
             PseModel? pse = JsonConvert.DeserializeObject<PseModel>(content);
             return pse;
         }
@@ -404,14 +405,15 @@ namespace EpaycoSdk
             string extra7 = "N/A",
             string extra8 = "N/A",
             string extra9 = "N/A",
-            string extra10 = "N/A")
+            string extra10 = "N/A",
+            string? extras_epayco = "P46")
         {
             ENDPOINT = Constants.UrlPagosDebitos;
             PARAMETER = body.GetBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
                 taxBase, ico, currency, typePerson, docType, docNumber, name, lastName, email, country, city,
                 cellPhone, urlResponse, urlConfirmation, methodConfirmation, splitpayment, splitAppId, splitMerchantId,
                 splitType, splitRule, splitPrimaryReceiver, splitPrimaryReceiverFee, splitReceivers, extra1, extra2, extra3,
-                extra4, extra5, extra6, extra7, extra8, extra9, extra10);
+                extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
             string? content = _restRequest.Execute(
                 ENDPOINT, 
                 "POST",
@@ -533,7 +535,7 @@ namespace EpaycoSdk
             
             PARAMETER = body.GetBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
                 invoice, description, value, tax, taxBase, ico, currency, typePerson, docType, docNumber, name,
-                lastName, email, cellPhone, endDate, country, city, urlResponse, urlConfirmation, methodConfirmation,  extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10);
+                lastName, email, cellPhone, endDate, country, city, urlResponse, urlConfirmation, methodConfirmation,  extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
             
             if(splitDetails != null){
                 string splitReqBody = body.GetBodySplitPayments(splitDetails, true);
@@ -544,7 +546,7 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-            Console.WriteLine(content);
+            
             cash = JsonConvert.DeserializeObject<CashModel>(content);
             return cash;
         }
@@ -628,7 +630,7 @@ namespace EpaycoSdk
                 {
                     status = response?.data.status,
                     description = response?.data.description,
-                    errors = response?.data.errors // Change this line to use the fully qualified name, e.g. EpaycoSdk.Models.Cash.errors or EpaycoSdk.Models.errors
+                    errors = response?.data.errors 
                 };
                 if (response != null)
                 {
@@ -701,13 +703,13 @@ namespace EpaycoSdk
             PARAMETER = body.GetBodyDaviplata(docType, document, name, lastName,
                 email, indCountry, phone, country, city, address, ip, currency, invoice, description, value, tax, taxBase, ico, test,
                 urlResponse, urlConfirmation, methodConfirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
-            Console.WriteLine(PARAMETER);
+          
             string? content = _requestApify.Execute(
                 ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-            Console.WriteLine(content);
+           
             DaviplataModel? payment = JsonConvert.DeserializeObject<DaviplataModel>(content);
             return payment;
         }

@@ -20,7 +20,7 @@ namespace EpaycoSdk.Models
         public bool livemode { get; set; }
         public string description { get; set; }
 
-        // Aquí siempre podrás setear errores
+
         public int totalerrores { get; set; }
         public List<EpaycoSdk.Models.errors> errorestoken { get; set; }
     }

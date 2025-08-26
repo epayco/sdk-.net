@@ -183,7 +183,8 @@ namespace EpaycoSdk.Utils
             string? address = null,
             string? phone = null,
             string? cellPhone = null,
-            bool test =  false
+            bool test =  false,
+            string? extras_epayco = "P46" 
             )
         {
             var TEST = test ? "TRUE" : "FALSE";
@@ -324,7 +325,8 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string? extras_epayco)
         {
            var localIp = "";
            var splitReceiversJson = Newtonsoft.Json.JsonConvert.SerializeObject(splitReceivers);
@@ -454,7 +456,8 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string? extras_epayco)
         {
             var localIp = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());

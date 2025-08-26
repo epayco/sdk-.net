@@ -88,7 +88,7 @@ namespace EpaycoSdk.Utils
             request.AddParameter("application/json", _parameter, ParameterType.RequestBody);
 
             var response = _client.Execute(request);
-            //Console.WriteLine(response.Content);
+            
 
             if (!response.IsSuccessful)
             {

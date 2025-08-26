@@ -620,7 +620,7 @@ namespace EpaycoSdk
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
          
-            Console.WriteLine(content);
+            
             ChargeModel? payment = new ChargeModel();
             
             if (content.Contains("errorMessage"))

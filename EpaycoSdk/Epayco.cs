@@ -39,6 +39,7 @@ namespace EpaycoSdk
         private string _PUBLIC_KEY = string.Empty;
         private string _PRIVATE_KEY = string.Empty;
         private string PARAMETER = string.Empty;
+        private string PARAMETERS = string.Empty;
         private string ENDPOINT = string.Empty;
         private string _LANG = string.Empty;
         private bool _TEST = false;
@@ -74,7 +75,26 @@ namespace EpaycoSdk
             string phone = "",
             string cellPhone = "")
         {
-            PARAMETER = body.GetBodyCreateCustomer(tokenCard, name, lastName, email, isDefault, city, address, phone, cellPhone);
+            var customer_ = new
+            {
+                token_card = tokenCard,
+                name = name,
+                last_name = lastName,
+                email = email,
+               //default = isDefault,
+                city = city,
+                address = address,
+                phone = phone,
+                cell_phone = cellPhone
+            };
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented
+            };
+            PARAMETER = JsonConvert.SerializeObject(customer_, settings);
+            
+            //PARAMETER = body.GetBodyCreateCustomer(tokenCard, name, lastName, email, isDefault, city, address, phone, cellPhone);
             ENDPOINT = Constants.UrlCreateCustomer;
             string content = _request.Execute(
                 ENDPOINT, 
@@ -96,13 +116,18 @@ namespace EpaycoSdk
             return customer;
         }
         
-        public CustomerListModel? CustomerGetList()
+        public CustomerListModel? CustomerGetList(
+            int? page, int? perPage
+            )
         {
-            ENDPOINT = body.GetQueryFindAllCustomers(_PUBLIC_KEY);
+            PARAMETER = body.GetQueryFindAllCustomers(page, perPage);
+            ENDPOINT = Constants.UrlFindAllCustomer;
             string content = _request.Execute(
                 ENDPOINT, 
                 "GET",
-                _auxiliars.ConvertToBase64(_PUBLIC_KEY));
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER
+                );
             StatusConsult? customer = JsonConvert.DeserializeObject<StatusConsult>(content);
             CustomerListModel? custom = new CustomerListModel();
             if (customer != null && customer.status)
@@ -176,10 +201,92 @@ namespace EpaycoSdk
         /*
          * METODOS RELACIONADOS CON PLANS
          */
-        public CreatePlanModel? PlanCreate(string idPlan, string name, string description, decimal amount, string currency, string interval, int intervalCount, int trialDays)
+        public CreatePlanModel? PlanCreate(
+            string idPlan, 
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip = null,
+            decimal? iva = null,
+            decimal? ico = null,
+            string? planLink = null,
+            string? greetMessage = null,
+            string? linkExpirationDate = null,
+            string? afterPayment = null,
+            int? subscriptionLimit = null,
+            string? imgUrl = null,
+            decimal? discountValue = null,
+            int? discountPercentage = null,
+            int? transactionalLimit = null,
+            decimal? additionalChargePercentage= null,
+            decimal? firstPaymentAdditionalCost = null
+            
+            )
         {
             ENDPOINT = Constants.UrlCreatePlan;
-            PARAMETER = body.GetBodyCreatePlan(idPlan, name, description, amount, currency, interval, intervalCount, trialDays);
+            /*PARAMETER = body.GetBodyCreatePlan(
+                idPlan, 
+                name, 
+                description, 
+                amount, 
+                currency, 
+                interval, 
+                intervalCount, 
+                trialDays,
+                ip,
+                iva,
+                ico,
+                planLink,
+                greetMessage,
+                linkExpirationDate, 
+                afterPayment, 
+                subscriptionLimit, 
+                imgUrl, 
+                discountValue, 
+                discountPercentage, 
+                transactionalLimit, 
+                additionalChargePercentage, 
+                firstPaymentAdditionalCost
+                );
+            */
+            var plan_ = new
+            {
+                id_plan = idPlan,
+                name = name,
+                description = description,
+                amount = amount,
+                currency = currency,
+                interval = interval,
+                interval_count = intervalCount,
+                trial_days = trialDays,
+                ip = ip,
+                iva = iva,
+                ico = ico,
+                planLink = planLink,
+                greetMessage = greetMessage,
+                linkExpirationDate = linkExpirationDate,
+                afterPayment = afterPayment,
+                subscriptionLimit = subscriptionLimit,
+                imgUrl = imgUrl,
+                discountValue = discountValue,
+                discountPercentage = discountPercentage,
+                transactionalLimit = transactionalLimit,
+                additionalChargePercentage = additionalChargePercentage,
+                firstPaymentAdditionalCost = firstPaymentAdditionalCost
+            };
+
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented
+            };
+            PARAMETER = JsonConvert.SerializeObject(plan_, settings);
+
+            
             string content = _request.Execute(
                 ENDPOINT, 
                 "POST",
@@ -218,6 +325,71 @@ namespace EpaycoSdk
                 plan.status = false;
                 plan.message = status?.message;
             }
+            return plan;
+        }
+        
+        public UpdatePlanModel? PlanUpdate(
+            string idPlan,
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip = default,
+            decimal? iva = default,
+            decimal? ico = default,
+            string? afterPayment = default,
+            int? transactionalLimit = default,
+            decimal? additionalChargePercentage= default
+            )
+        {
+            ENDPOINT = Constants.UrlUpdatePlan+idPlan;
+            /*PARAMETER = body.UpdateBodyPlan(
+                name, 
+                description, 
+                amount, 
+                currency, 
+                interval, 
+                intervalCount, 
+                trialDays,
+                ip,
+                iva,
+                ico,
+                afterPayment, 
+                transactionalLimit, 
+                additionalChargePercentage
+                );*/
+            var plan_ = new
+            {
+                name = name,
+                description = description,
+                amount = amount,
+                currency = currency,
+                interval = interval,
+                interval_count = intervalCount,
+                trial_days = trialDays,
+                ip = ip,
+                iva = iva,
+                ico = ico,
+                afterPayment = afterPayment,
+                transactionalLimit = transactionalLimit,
+                additionalChargePercentage = additionalChargePercentage
+            };
+     
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented
+            };
+            PARAMETER = JsonConvert.SerializeObject(plan_, settings);
+            string content = _request.Execute(
+                ENDPOINT, 
+                "POST",
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+                PARAMETER);
+            UpdatePlanModel? plan = JsonConvert.DeserializeObject<UpdatePlanModel>(content);
             return plan;
         }
         
@@ -662,7 +834,6 @@ namespace EpaycoSdk
         /* 
          * DAVIPLATA
          */
-
         public DaviplataModel? DaviplataCreate(
             string docType,
             string document,

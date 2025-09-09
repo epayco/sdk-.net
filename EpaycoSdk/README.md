@@ -1,13 +1,33 @@
 # EPAYCO SDK .NET
 ## Requirements
+
 To use the SDK, you need to install the following libraries:
 * Microsoft.CSharp
 * Newtonsoft.Json
+* RestSharp
 
 ## Manual Setup
 - Download the SDK from the repository
 - Add the project reference to your solution. Configure the `<OutputType>Exe</OutputType>` tag in the EpaycoSdk.csproj file.
-- Import the library in the class where you want to use it.
+
+## Importing the SDK in your code
+
+After installing and referencing the SDK in your project, you must import the necessary namespaces  This is done using the `using` directive at the top of your file. For example:
+
+```csharp
+using EpaycoSdk; // Main SDK namespace
+using Newtonsoft.Json;
+using EpaycoSdk.Models; // For models like TokenModel, 
+// CustomerCreateModel, etc.
+using EpaycoSdk.Models.Bank; // For bank-related models
+using EpaycoSdk.Models.Cash; // For cash-related models
+// Add other namespaces as needed for your use case
+
+**Note:** Do not import `using System.Xml;` as it is not required for using the Epayco SDK.
+```
+
+This step is required so you can access all the SDK classes and methods for consuming Epayco services in your application.
+
 
 ## SDK Initialization
 It is recommended to initialize the SDK in the controller or main class where you want to implement the methods.
@@ -225,34 +245,34 @@ Example request:
 List<SplitReceivers> splitReceiverses = new List<SplitReceivers>();
 splitReceiverses.Add(new SplitReceivers() { id = "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000", fee = "100" });
 PseModel response = epayco.BankCreateSplit(
-        "Banka", // Bank code
-        "1-J", // Reference
-        "Split", // Description
-        "10000", // Amount
-        "2000", // Tax 
-        "8000", // Tax base
-        "0", // ICO
-        "COP", // Currency
-        "0", // 0=Natural Person, 1=Company
-        "CC", // Document type
-        "256454556", // Document number
-        "Juan", // First name
-        "Garcia", // Last name
-        "juan.pruebas@gmail.com", // Email
-        "CO", // Country
-        "medellin", // City
-        "2254554555", // Mobile
-        "url_response", // Response URL
-        "url_confirmation", // Confirmation URL
-        "POST", // Confirmation method
-        "true", // Enable split payment functionality
-        "split_app_id", // Application ID
-        "split_merchant_id", // Merchant ID
-        "1",  // Split type
-        "1",  // Rule type
-        "split_primary_receiver", // Primary receiver ID
-        "split_primary_receiver_fee", // Primary receiver fee
-        splitReceiverses // Array of SplitReceivers, required if split_rule is sent
+ "Banka", // Bank code
+ "1-J", // Reference
+ "Split", // Description
+ "10000", // Amount
+ "2000", // Tax 
+ "8000", // Tax base
+ "0", // ICO
+ "COP", // Currency
+ "0", // 0=Natural Person, 1=Company
+ "CC", // Document type
+ "256454556", // Document number
+ "Juan", // First name
+ "Garcia", // Last name
+ "juan.pruebas@gmail.com", // Email
+ "CO", // Country
+ "medellin", // City
+ "2254554555", // Mobile
+ "url_response", // Response URL
+ "url_confirmation", // Confirmation URL
+ "POST", // Confirmation method
+ "true", // Enable split payment functionality
+ "split_app_id", // Application ID
+ "split_merchant_id", // Merchant ID
+ "1",  // Split type
+ "1",  // Rule type
+ "split_primary_receiver", // Primary receiver ID
+ "split_primary_receiver_fee", // Primary receiver fee
+ splitReceiverses // Array of SplitReceivers, required if split_rule is sent
 );
 string banksResponse = JsonConvert.SerializeObject(pse, Formatting.Indented);
 Console.WriteLine(banksResponse);
@@ -280,27 +300,27 @@ Console.WriteLine(banksResponse);
 Example request:
 ```csharp
 CashModel response = epayco.CashCreate(
-        "efecty", //efecty, gana, baloto, redservi, puntored, sured
-        "EF-1", //Invoice
-        "Pay test", //Description
-        "20000 ", //Amount
-        "0", //Tax
-        "0", //Tax base
-        "0", //ICO
-        "COP", //Currency
-        "0", //Type person 0=Natural Person, 1=Company
-        "CC", //Document type 
-        "5488787488", //Document number
-        "Juan", // First name
-        "Garcia", //Last name
-        "test@mailinator.com", //Email
-        "3003605859", //Mobile
-        "2025-08-25", //End date YYYY-MM-DD
-        "N/A", //IP
-        "N/A", //Address
-        "https://tudominio.com/respuesta.php", //Response URL
-        "https://tudominio.com/respuesta.php", //Confirmation URL
-        "POST"); //Confirmation method
+"efecty", //efecty, gana, baloto, redservi, puntored, sured
+"EF-1", //Invoice
+"Pay test", //Description
+"20000 ", //Amount
+"0", //Tax
+"0", //Tax base
+"0", //ICO
+"COP", //Currency
+"0", //Type person 0=Natural Person, 1=Company
+"CC", //Document type 
+"5488787488", //Document number
+"Juan", // First name
+"Garcia", //Last name
+"test@mailinator.com", //Email
+"3003605859", //Mobile
+"2025-08-25", //End date YYYY-MM-DD
+"N/A", //IP
+"N/A", //Address
+"https://tudominio.com/respuesta.php", //Response URL
+"https://tudominio.com/respuesta.php", //Confirmation URL
+"POST"); //Confirmation method
 
 string cash = JsonConvert.SerializeObject(response, Formatting.Indented);
 Console.WriteLine(cash);
@@ -322,16 +342,16 @@ Previous requirements: https://docs.epayco.co/tools/split-payment
 Example request:
 ```csharp
 SplitModel splitData = new SplitModel();
-        splitData.splitpayment = "true";
-        splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
-        splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
-        splitData.split_type = "02";
-        splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
-        splitData.split_primary_receiver_fee = "10";
-        splitData.split_rule = "";
-        List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
-        splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
-        splitData.split_receivers = splitReceivers;
+splitData.splitpayment = "true";
+splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
+splitData.split_type = "02";
+splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_primary_receiver_fee = "10";
+splitData.split_rule = "";
+List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
+splitData.split_receivers = splitReceivers;
 
 CashModel response = epayco.CashCreate(
         //Other customary parameters...
@@ -345,18 +365,18 @@ Use the following attributes if you need to disperse to multiple providers
 
 Example request:
 ```csharp
-        SplitModel splitData = new SplitModel();
-        splitData.splitpayment = "true";
-        splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
-        splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
-        splitData.split_type = "02";
-        splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
-        splitData.split_primary_receiver_fee = "0";
-        splitData.split_rule = "multiple"; // If this parameter is sent, splitReceivers becomes mandatory
-        List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
-        splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
-        splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
-        splitData.split_receivers = splitReceivers;
+SplitModel splitData = new SplitModel();
+splitData.splitpayment = "true";
+splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
+splitData.split_type = "02";
+splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_primary_receiver_fee = "0";
+splitData.split_rule = "multiple"; // If this parameter is sent, splitReceivers becomes mandatory
+List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
+splitData.split_receivers = splitReceivers;
 
 CashModel response = epayco.CashCreate(
         //Other customary parameters...
@@ -370,40 +390,40 @@ CashModel response = epayco.CashCreate(
 Example request:
 ```csharp
 ChargeModel response = epayco.ChargeCreate(
-        "token_card", //Token 
-        "customer_id", //Customer
-        "CC", //Document type
-        "1554545", //Document number
-        "juan", //First name
-        "Garcia", //Last name
-        "juan.garcia4@epayco.com", //Email
-        "16-J", //Invoice
-        "Test", //Description
-        "50000", //Amount
-        "8000", //Tax
-        "42000", //Tax base
-        "0", //ICO
-        "COP", //Currency
-        "1", //Dues
-        "calle prueba", //Address
-        "CO", //Country
-        "Medellin", //City
-        "125565566", //Phone
-        "300305254", //Mobile
-        "https://tudominio.com/respuesta.php", //Response URL
-        "https://tudominio.com/respuesta.php",//Confirmation URL
-        "POST", //Confirmation method
-        "179.12.113.12", //IP
-        "extra1", //Extras 
-        "extra2",
-        "extra3",
-        "extra4",
-        "extra5",
-        "extra6",
-        "extra7",
-        "extra8",
-        "extra9",
-        "extra10");
+"token_card", //Token 
+"customer_id", //Customer
+"CC", //Document type
+"1554545", //Document number
+"juan", //First name
+"Garcia", //Last name
+"juan.garcia4@epayco.com", //Email
+"16-J", //Invoice
+"Test", //Description
+"50000", //Amount
+"8000", //Tax
+"42000", //Tax base
+"0", //ICO
+"COP", //Currency
+"1", //Dues
+"calle prueba", //Address
+"CO", //Country
+"Medellin", //City
+"125565566", //Phone
+"300305254", //Mobile
+"https://tudominio.com/respuesta.php", //Response URL
+"https://tudominio.com/respuesta.php",//Confirmation URL
+"POST", //Confirmation method
+"179.12.113.12", //IP
+"extra1", //Extras 
+"extra2",
+"extra3",
+"extra4",
+"extra5",
+"extra6",
+"extra7",
+"extra8",
+"extra9",
+"extra10");
 
 string chargeResponse = JsonConvert.SerializeObject(response, Formatting.Indented);
 Console.WriteLine(chargeResponse);
@@ -426,15 +446,15 @@ Previous requirements: https://docs.epayco.co/tools/split-payment
 Example request:
 ```csharp
 SplitModel splitData = new SplitModel();
-        splitData.splitpayment = "true";
-        splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
-        splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
-        splitData.split_type = "02";
-        splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
-        splitData.split_primary_receiver_fee = "10";
-        splitData.split_rule = "";
-        List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
-        splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
+splitData.splitpayment = "true";
+splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
+splitData.split_type = "02";
+splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_primary_receiver_fee = "10";
+splitData.split_rule = "";
+List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
 splitData.split_receivers = splitReceivers;
 
 ChargeModel response = epayco.ChargeCreate(
@@ -449,18 +469,18 @@ Use the following attributes if you need to disperse to multiple providers
 
 Example request:
 ```csharp
-        SplitModel splitData = new SplitModel();
-        splitData.splitpayment = "true";
-        splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
-        splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
-        splitData.split_type = "02";
-        splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
-        splitData.split_primary_receiver_fee = "0";
-        splitData.split_rule = "multiple"; // If this parameter is sent, splitReceivers becomes mandatory
-        List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
-        splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
-        splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
-        splitData.split_receivers = splitReceivers;
+SplitModel splitData = new SplitModel();
+splitData.splitpayment = "true";
+splitData.split_app_id = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_merchant_id = "P_CUST_ID_CLIENTE COMMERCE";
+splitData.split_type = "02";
+splitData.split_primary_receiver = "P_CUST_ID_CLIENTE APPLICATION";
+splitData.split_primary_receiver_fee = "0";
+splitData.split_rule = "multiple"; // If this parameter is sent, splitReceivers becomes mandatory
+List<EpaycoSdk.Models.Bank.SplitReceivers> splitReceivers = new List<SplitReceivers>();
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
+splitReceivers.Add(new SplitReceivers() { id= "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000",  fee = "100" });
+splitData.split_receivers = splitReceivers;
 
 ChargeModel response = epayco.ChargeCreate(
         //Other customary parameters...
@@ -475,29 +495,29 @@ Creates a transaction in Daviplata
 Example request:
 ```csharp
 DaviplataModel daviplata = epayco.DaviplataCreate(
-        "CC", //Document type
-        "1134568019", //Document number
-        "Juan", //First name
-        "Garcia", //Last name
-        "juan.gaRci05@epayco.com", //Email
-        "57", //Country code
-        "3003602525", //Mobile
-        "CO", //Country
-        "N/A", //City
-        "N/A", //Address
-        "179.12.113.12", //IP
-        "COP", //Currency
-        "50-lo", //Invoice
-        "Pago de pruebas", //Description
-        5000, //Amount
-        0, //Tax
-        0, //Tax base 
-        0, //ICO
-        "true", //Test
-        "https://tudominio.com/respuesta.php", //Response URL
-        "https://tudominio.com/respuesta.php", //Confirmation URL
-        "POST" //Confirmation method
-        );
+"CC", //Document type
+"1134568019", //Document number
+"Juan", //First name
+"Garcia", //Last name
+"juan.gaRci05@epayco.com", //Email
+"57", //Country code
+"3003602525", //Mobile
+"CO", //Country
+"N/A", //City
+"N/A", //Address
+"179.12.113.12", //IP
+"COP", //Currency
+"50-lo", //Invoice
+"Pago de pruebas", //Description
+5000, //Amount
+0, //Tax
+0, //Tax base 
+0, //ICO
+"true", //Test
+"https://tudominio.com/respuesta.php", //Response URL
+"https://tudominio.com/respuesta.php", //Confirmation URL
+"POST" //Confirmation method
+);
 
 string daviplataResponse = JsonConvert.SerializeObject(daviplata, Formatting.Indented);
 Console.WriteLine(daviplataResponse);
@@ -526,31 +546,31 @@ Creates a transaction in Safetypay
 Example request:
 ```csharp
 safetypayModel safetypay = epayco.SafetypayCreate(
-        "1", //bank_code
-        "2025-08-30", //due_date YYYY-MM-DD
-        "CC", //document type
-        "1000204854", //document number
-        "Juan", // First name
-        "Garcia", //Last name
-        "gerson.vasquez5@epayco.com", //Email
-        "57", //Country code
-        "3003003434", //Mobile
-        "CO", //Country
-        "N/A", //City
-        "N/A", //Address
-        "192.168.100.100", //IP
-        "COP", //Currency
-        "fac-05741", //Invoice
-        "Thu Jun 17 2021 11:37:01 GMT-0400 (Venezuela time)", //Description
-        10000, //Amount
-        0, //Tax
-        0, //Tax base
-        0, //ICO
-        "true", //Test
-        "https://tudominio.com/respuesta.php", //Response URL
-        "https://tudominio.com/respuesta.php", //Confirmation URL
-        "https://tudominio.com/respuesta.php", //Success URL
-        "POST" //Confirmation method
+"1", //bank_code
+"2025-08-30", //due_date YYYY-MM-DD
+"CC", //document type
+"1000204854", //document number
+"Juan", // First name
+"Garcia", //Last name
+"gerson.vasquez5@epayco.com", //Email
+"57", //Country code
+"3003003434", //Mobile
+"CO", //Country
+"N/A", //City
+"N/A", //Address
+"192.168.100.100", //IP
+"COP", //Currency
+"fac-05741", //Invoice
+"Thu Jun 17 2021 11:37:01 GMT-0400 (Venezuela time)", //Description
+10000, //Amount
+0, //Tax
+0, //Tax base
+0, //ICO
+"true", //Test
+"https://tudominio.com/respuesta.php", //Response URL
+"https://tudominio.com/respuesta.php", //Confirmation URL
+"https://tudominio.com/respuesta.php", //Success URL
+"POST" //Confirmation method
 );
 
 string safetypayResponse = JsonConvert.SerializeObject(safetypay, Formatting.Indented);

@@ -619,8 +619,6 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-         
-           
             ChargeModel? payment = new ChargeModel();
             
             if (content.Contains("errorMessage"))

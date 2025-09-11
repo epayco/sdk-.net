@@ -14,7 +14,6 @@ After installing and referencing the SDK in your project, you must import the ne
 
 ```csharp
 using EpaycoSdk; // Main SDK namespace
-using EpaycoSdk.Models; // For models like TokenModel, CustomerCreateModel, etc.
 using Newtonsoft.Json;
 using EpaycoSdk.Models; // For models like TokenModel, 
 using EpaycoSdk.Models.Bank; // For bank-related models

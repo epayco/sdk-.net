@@ -1,6 +1,5 @@
 # EPAYCO SDK .NET
 ## Requirements
-
 To use the SDK, you need to install the following libraries:
 * Microsoft.CSharp
 * Newtonsoft.Json
@@ -18,12 +17,9 @@ After installing and referencing the SDK in your project, you must import the ne
 using EpaycoSdk; // Main SDK namespace
 using Newtonsoft.Json;
 using EpaycoSdk.Models; // For models like TokenModel, 
-// CustomerCreateModel, etc.
 using EpaycoSdk.Models.Bank; // For bank-related models
 using EpaycoSdk.Models.Cash; // For cash-related models
 // Add other namespaces as needed for your use case
-
-**Note:** Do not import `using System.Xml;` as it is not required for using the Epayco SDK.
 ```
 
 This step is required so you can access all the SDK classes and methods for consuming Epayco services in your application.
@@ -60,7 +56,7 @@ Console.WriteLine(tokenResponse);
 Example request:
 ```csharp
 CustomerCreateModel customer = epayco.CustomerCreate(
-        token.id, // Token ID
+        "token.id", // Token ID
         "Juan", // First name 
         "Garcia", // Last name
         "juanes99@gmail.com", // Email 
@@ -153,7 +149,7 @@ Console.WriteLine(planResponse);
 #### Create Subscription
 Example request:
 ```csharp
-Console.WriteLine("=== CREATING SUBSCRIPTION ===");
+
 CreateSubscriptionModel subscription = epayco.SubscriptionCreate(
         "id_plan", // Plan ID
         "customer_id", // Customer ID
@@ -206,6 +202,9 @@ ChargeSubscriptionModel subscription = epayco.ChargeSubscription(
         "phone", // Customer phone
         "cell_phone" // Customer mobile
 );
+string subscriptionResponse = JsonConvert.SerializeObject(subscription, Formatting.Indented);
+Console.WriteLine(subscriptionResponse);
+
 ```
 
 ### PSE
@@ -214,27 +213,28 @@ ChargeSubscriptionModel subscription = epayco.ChargeSubscription(
 Example request:
 ```csharp
 PseModel pse = epayco.BankCreate(
-        "banka",                    // bank_code - Bank code
-        "FACTURA_" + DateTime.Now.ToString("yyyyMMdd_HHmmss"), // invoice - Unique invoice number
-        "Pago de prueba PSE",       // description - Payment description
-        "50000",                    // value - Amount to pay (50,000 COP)
-        "0",                        // tax - Taxes
-        "50000",                    // tax_base - Tax base
-        "0",                        // ico - ICO
-        "COP",                      // currency - Currency
-        "0",                        // type_person - 0=Natural Person, 1=Company
-        "CC",                       // doc_type - Document type (CC, CE, NIT)
-        "123456789",                // doc_number - Document number
-        "Juan",                     // name - First name
-        "García",                   // last_name - Last name
-        "juan.garcia@gmail.com",    // email - Email
-        "CO",                       // country - Country (CO=Colombia)
-        "Bogotá",                   // city - City
-        "3001234567",               // cell_phone - Mobile
-        "https:/response.com/index.php", // url_response - Response URL
-        "https://confirmation.com/index.php", // url_confirmation - Confirmation URL
-        "POST"                      // metodoconfirmacion - Confirmation method
+    "1077",                    // bank_code - código del banco
+    "factura_1101", // invoice - número de factura único
+    "pago de prueba pse",       // description - descripción del pago
+    "50000",                      // value - valor a pagar (50,000 cop)
+    "0",                          // tax - impuestos
+    "50000",                      // tax_base - base imponible
+    "0",                          // ico - ico
+    "COP",                      // currency - moneda
+    "0",                        // type_person - 0=persona natural, 1=empresa
+    "CC",                       // doc_type - tipo de documento (cc, ce, nit)
+    "123456789",                // doc_number - número de documento
+    "juan",                     // name - nombre
+    "garcía",                   // last_name - apellido
+    "juan.garcia12@gmail.com",    // email - correo electrónico
+    "co",                       // country - país (co=colombia)
+    "bogotá",                   // city - ciudad
+    "3001234567",               // cell_phone - teléfono celular
+    "https://webhook.site/4924ffa7-4941-4df2-810c-8529480467a6", // url_response - url de respuesta
+    "https://webhook.site/4924ffa7-4941-4df2-810c-8529480467a6", // url_confirmation - url de confirmación
+    "POST"                      // metodoconfirmacion - método de confirmación
 );
+
 string banksResponse = JsonConvert.SerializeObject(pse, Formatting.Indented);
 Console.WriteLine(banksResponse);
 ```

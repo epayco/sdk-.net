@@ -65,10 +65,9 @@ namespace EpaycoSdk.Utils
             return Constants.UrlFindCustomer + publicKey + "/" + idCustomer;
         }
         
-        public string GetQueryFindAllCustomers(int? page, int? perPage)
+        public string GetQueryFindAllCustomers(string publicKey)
         {
-            return "{\n\"page\":\"" + page + "\"," +
-                   "\n\"perPage\":\"" + perPage + "\"\n}";
+            return Constants.UrlFindAllCustomer + publicKey;
         }
         
         public string GetQueryUpdateCustomer(string publicKey, string customerId)
@@ -105,53 +104,16 @@ namespace EpaycoSdk.Utils
         /*
          * PLANS QUERYS AND BODY
          */
-        public string GetBodyCreatePlan(
-            string idPlan, 
-            string name, 
-            string description, 
-            decimal amount, 
-            string currency, 
-            string interval, 
-            int intervalCount, 
-            int trialDays,
-            string? ip,
-            decimal? iva,
-            decimal? ico,
-            string? planLink,
-            string? greetMessage,
-            string? linkExpirationDate,
-            string? afterPayment,
-            int? subscriptionLimit,
-            string? imgUrl,
-            decimal? discountValue,
-            int? discountPercentage,
-            int? transactionalLimit,
-            decimal? additionalChargePercentage,
-            decimal? firstPaymentAdditionalCost
-            )
+        public string GetBodyCreatePlan(string idPlan, string name, string description, decimal amount, string currency, string interval, int intervalCount, int trialDays)
         {
-            return "{\n\"id_plan\":\""+idPlan+"\"," +
-                   "\n\"name\":\""+name+"\"," +
-                   "\n\"description\":\""+description+"\"," +
-                   "\n\"amount\": "+amount+"," +
-                   "\n\"currency\": \""+currency+"\"," +
-                   "\n\"interval\": \""+interval+"\"," +
-                   "\n\"interval_count\": "+intervalCount+"," +
-                   "\n\"trial_days\": "+trialDays+"," +
-                   (ip == null ?"":"\n\"ip\":\""+ip+"\",") +
-                   (iva == null?"":"\n\"iva\": "+iva+",") +
-                   (ico==null?"":"\n\"ico\": "+ico+",") +
-                   (planLink == null?"":"\n\"planLink\":\""+planLink+"\",") +
-                   (greetMessage==null?"":"\n\"greetMessage\":\""+greetMessage+"\",") +
-                   (linkExpirationDate==null?"":"\n\"linkExpirationDate\":\""+linkExpirationDate+"\",") +
-                   (afterPayment == null?"":"\n\"afterPayment\":\""+afterPayment+"\"," )+
-                   (subscriptionLimit == null?"": "\n\"subscriptionLimit\": "+subscriptionLimit+",") +
-                   (imgUrl == null?"": "\n\"imgUrl\":\""+imgUrl+"\"," )+
-                   (discountPercentage == null?"":"\n\"discountValue\": "+discountValue+",") +
-                   (discountPercentage == null?"":"\n\"discountPercentage\": "+discountPercentage+"," )+
-                   (transactionalLimit == null?"":"\n\"transactionalLimit\": "+transactionalLimit+",") +
-                   (additionalChargePercentage == null?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage+",") +
-                   (firstPaymentAdditionalCost == null?"":"\n\"firstPaymentAdditionalCost\":"+firstPaymentAdditionalCost)+"\n}";
+            return "{\r\n\"id_plan\":\""+idPlan+"\",\r" +
+                   "\n\"name\":\""+name+"\",\r" +
+                   "\n\"description\":\""+description+"\",\r" +
+                   "\n\"amount\": "+amount+",\r" +
+                   "\n\"currency\": \""+currency+"\",\r" +
+                   "\n\"interval\": \""+interval+"\",\r" +
+                   "\n\"interval_count\": "+intervalCount+",\r" +
+                   "\n\"trial_days\":"+trialDays+"\r\n}";
         }
         
         public string GetQueryGetPlan(string idPlan, string publicKey)
@@ -162,37 +124,6 @@ namespace EpaycoSdk.Utils
         public string GetQueryGetAllPlans(string publicKey)
         {
             return Constants.UrlGetAllPlans + publicKey;
-        }
-        
-        public string UpdateBodyPlan(
-            string name, 
-            string description, 
-            decimal amount, 
-            string currency, 
-            string interval, 
-            int intervalCount, 
-            int trialDays,
-            string? ip,
-            decimal? iva,
-            decimal? ico,
-            string? afterPayment,
-            int? transactionalLimit,
-            decimal? additionalChargePercentage
-            )
-        {
-            return "{\r\n\"name\":\""+name+"\",\r" +
-                   "\n\"description\":\""+description+"\",\r" +
-                   "\n\"amount\": "+amount+",\r" +
-                   "\n\"currency\": \""+currency+"\",\r" +
-                   "\n\"interval\": \""+interval+"\",\r" +
-                   "\n\"interval_count\": "+intervalCount+",\r" +
-                   "\n\"trial_days\": "+trialDays+",\r" +
-                   (ip == null?"":"\n\"ip\":\""+ip+"\",\r") +
-                   (iva == null?"":"\n\"iva\": "+iva+",\r") +
-                   (ico == null?"":"\n\"ico\": "+ico+",\r") +
-                   (afterPayment == null?"":"\n\"afterPayment\":\""+afterPayment+"\"" )+
-                   (transactionalLimit == null?"":",\r\n\"transactionalLimit\": "+transactionalLimit+",\r") +
-                   (additionalChargePercentage == null?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage)+"\r\n}";
         }
         
         public string GetQueryRemovePlan(string publicKey, string idPlan)

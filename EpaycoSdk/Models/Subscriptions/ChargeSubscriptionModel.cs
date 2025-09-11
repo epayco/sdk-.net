@@ -1,4 +1,4 @@
-namespace EpaycoSdk.Models.Subscriptions
+﻿namespace EpaycoSdk.Models.Subscriptions
 {
     public class ChargeSubscriptionModel
     {

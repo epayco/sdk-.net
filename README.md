@@ -15,10 +15,11 @@ After installing and referencing the SDK in your project, you must import the ne
 
 ```csharp
 using EpaycoSdk; // Main SDK namespace
-using Newtonsoft.Json;
 using EpaycoSdk.Models; // For models like TokenModel, 
+// CustomerCreateModel, etc.
 using EpaycoSdk.Models.Bank; // For bank-related models
 using EpaycoSdk.Models.Cash; // For cash-related models
+using Newtonsoft.Json;
 // Add other namespaces as needed for your use case
 ```
 
@@ -29,8 +30,8 @@ This step is required so you can access all the SDK classes and methods for cons
 It is recommended to initialize the SDK in the controller or main class where you want to implement the methods.
 ```csharp
 Epayco epayco = new EpaycoSdk.Epayco(
-    "public_key",  
-    "private_key", 
+    "public_key",  // key public 
+    "private_key", // key private
     "language", // Language
     test // (true/false)
 ); 
@@ -134,7 +135,30 @@ Example request:
 FindAllPlansModel plan = epayco.GetAllPlans();
 string planResponse = JsonConvert.SerializeObject(plan, Formatting.Indented);
 Console.WriteLine(planResponse);
+
 ```
+
+#### Plan Update
+Example request:
+```csharp
+UpdatePlanModel? plan = epayco.PlanUpdate(
+    "plantest151231", // Plan ID existente
+    "Nuevo nombre plan", // name
+    "Descripción actualizada", // description
+    11900, // amount
+    "COP", // currency
+    "month", // interval
+    1, // intervalCount
+    0, // trialDays
+    "170.00.000.000",// ip
+    1900, //iva
+    0 //ico
+);
+string planResponse = JsonConvert.SerializeObject(plan, Formatting.Indented);
+Console.WriteLine(planResponse);
+```
+
+
 
 #### Plan Remove
 Example request:
@@ -242,38 +266,38 @@ Console.WriteLine(banksResponse);
 #### Pse Create SplitPayment
 Example request:
 ```csharp
-List<SplitReceivers> splitReceiverses = new List<SplitReceivers>();
-splitReceiverses.Add(new SplitReceivers() { id = "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000", fee = "100" });
-PseModel response = epayco.BankCreateSplit(
- "Banka", // Bank code
- "1-J", // Reference
- "Split", // Description
- "10000", // Amount
- "2000", // Tax 
- "8000", // Tax base
- "0", // ICO
- "COP", // Currency
- "0", // 0=Natural Person, 1=Company
- "CC", // Document type
- "256454556", // Document number
- "Juan", // First name
- "Garcia", // Last name
- "juan.pruebas@gmail.com", // Email
- "CO", // Country
- "medellin", // City
- "2254554555", // Mobile
- "url_response", // Response URL
- "url_confirmation", // Confirmation URL
- "POST", // Confirmation method
- "true", // Enable split payment functionality
- "split_app_id", // Application ID
- "split_merchant_id", // Merchant ID
- "1",  // Split type
- "1",  // Rule type
- "split_primary_receiver", // Primary receiver ID
- "split_primary_receiver_fee", // Primary receiver fee
- splitReceiverses // Array of SplitReceivers, required if split_rule is sent
-);
+//List<SplitReceivers> splitReceiverses = new List<SplitReceivers>();
+//splitReceiverses.Add(new SplitReceivers() { id = "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000", fee = "100" });
+//PseModel response = epayco.BankCreateSplit(
+//  "Banka", // Bank code
+//  "1-J", // Reference
+//  "Split", // Description
+//  "10000", // Amount
+//  "2000", // Tax 
+//  "8000", // Tax base
+//  "0", // ICO
+//  "COP", // Currency
+//  "0", // 0=Natural Person, 1=Company
+//  "CC", // Document type
+//  "256454556", // Document number
+//  "Juan", // First name
+//  "Garcia", // Last name
+//  "juan.pruebas@gmail.com", // Email
+//  "CO", // Country
+//  "medellin", // City
+//  "2254554555", // Mobile
+//  "url_response", // Response URL
+//  "url_confirmation", // Confirmation URL
+//  "POST", // Confirmation method
+//  "true", // Enable split payment functionality
+//  "split_app_id", // Application ID
+//  "split_merchant_id", // Merchant ID
+//  "1",  // Split type
+//  "1",  // Rule type
+//  "split_primary_receiver", // Primary receiver ID
+//  "split_primary_receiver_fee", // Primary receiver fee
+//  splitReceiverses // Array of SplitReceivers, required if split_rule is sent
+//);
 string banksResponse = JsonConvert.SerializeObject(pse, Formatting.Indented);
 Console.WriteLine(banksResponse);
 ```

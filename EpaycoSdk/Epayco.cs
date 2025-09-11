@@ -39,7 +39,6 @@ namespace EpaycoSdk
         private string _PUBLIC_KEY = string.Empty;
         private string _PRIVATE_KEY = string.Empty;
         private string PARAMETER = string.Empty;
-        private string PARAMETERS = string.Empty;
         private string ENDPOINT = string.Empty;
         private string _LANG = string.Empty;
         private bool _TEST = false;
@@ -64,70 +63,46 @@ namespace EpaycoSdk
             TokenModel? token = JsonConvert.DeserializeObject<TokenModel>(content);
             return token;
         }
-        
-        public CustomerCreateModel? CustomerCreate(string tokenCard, 
-            string name, 
-            string lastName, 
-            string email, 
+
+        public CustomerCreateModel? CustomerCreate(string tokenCard,
+            string name,
+            string lastName,
+            string email,
             bool isDefault,
             string city = "",
             string address = "",
             string phone = "",
             string cellPhone = "")
         {
-            var customer_ = new
-            {
-                token_card = tokenCard,
-                name = name,
-                last_name = lastName,
-                email = email,
-               //default = isDefault,
-                city = city,
-                address = address,
-                phone = phone,
-                cell_phone = cellPhone
-            };
-            var settings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                Formatting = Formatting.Indented
-            };
-            PARAMETER = JsonConvert.SerializeObject(customer_, settings);
-            
-            //PARAMETER = body.GetBodyCreateCustomer(tokenCard, name, lastName, email, isDefault, city, address, phone, cellPhone);
+            PARAMETER = body.GetBodyCreateCustomer(tokenCard, name, lastName, email, isDefault, city, address, phone, cellPhone);
             ENDPOINT = Constants.UrlCreateCustomer;
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
             CustomerCreateModel? customer = JsonConvert.DeserializeObject<CustomerCreateModel>(content);
             return customer;
         }
-        
+
         public CustomerFindModel? FindCustomer(string idCustomer)
         {
             ENDPOINT = body.GetQueryFindCustomer(_PUBLIC_KEY, idCustomer);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY));
             CustomerFindModel? customer = JsonConvert.DeserializeObject<CustomerFindModel>(content);
             return customer;
         }
-        
-        public CustomerListModel? CustomerGetList(
-            int? page, int? perPage
-            )
+
+        public CustomerListModel? CustomerGetList()
         {
-            PARAMETER = body.GetQueryFindAllCustomers(page, perPage);
-            ENDPOINT = Constants.UrlFindAllCustomer;
+            ENDPOINT = body.GetQueryFindAllCustomers(_PUBLIC_KEY);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "GET",
-                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
-                PARAMETER
-                );
+                _auxiliars.ConvertToBase64(_PUBLIC_KEY));
             StatusConsult? customer = JsonConvert.DeserializeObject<StatusConsult>(content);
             CustomerListModel? custom = new CustomerListModel();
             if (customer != null && customer.status)
@@ -142,20 +117,20 @@ namespace EpaycoSdk
 
             return custom;
         }
-        
+
         public CustomerEditModel? CustomerUpdate(string idCustomer, string name)
         {
             ENDPOINT = body.GetQueryUpdateCustomer(_PUBLIC_KEY, idCustomer);
             PARAMETER = body.GetBodyUpdateCustomer(name);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
             CustomerEditModel? customer = JsonConvert.DeserializeObject<CustomerEditModel>(content);
             return customer;
         }
-        
+
         public TokenMessage? AddNewToken(string tokenCard, string customerId)
         {
             ENDPOINT = Constants.UrlAddNewToken;
@@ -188,132 +163,50 @@ namespace EpaycoSdk
         {
             ENDPOINT = Constants.UrlTokenDelete;
             PARAMETER = body.GetBodyDeleteTokenCustomer(franchise, mask, customerId);
-       
+
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
             CustomerTokenDeleteModel? customer = JsonConvert.DeserializeObject<CustomerTokenDeleteModel>(content);
             return customer;
         }
-        
+
         /*
          * METODOS RELACIONADOS CON PLANS
          */
-        public CreatePlanModel? PlanCreate(
-            string idPlan, 
-            string name, 
-            string description, 
-            decimal amount, 
-            string currency, 
-            string interval, 
-            int intervalCount, 
-            int trialDays,
-            string? ip = null,
-            decimal? iva = null,
-            decimal? ico = null,
-            string? planLink = null,
-            string? greetMessage = null,
-            string? linkExpirationDate = null,
-            string? afterPayment = null,
-            int? subscriptionLimit = null,
-            string? imgUrl = null,
-            decimal? discountValue = null,
-            int? discountPercentage = null,
-            int? transactionalLimit = null,
-            decimal? additionalChargePercentage= null,
-            decimal? firstPaymentAdditionalCost = null
-            
-            )
+        public CreatePlanModel? PlanCreate(string idPlan, string name, string description, decimal amount, string currency, string interval, int intervalCount, int trialDays)
         {
             ENDPOINT = Constants.UrlCreatePlan;
-            /*PARAMETER = body.GetBodyCreatePlan(
-                idPlan, 
-                name, 
-                description, 
-                amount, 
-                currency, 
-                interval, 
-                intervalCount, 
-                trialDays,
-                ip,
-                iva,
-                ico,
-                planLink,
-                greetMessage,
-                linkExpirationDate, 
-                afterPayment, 
-                subscriptionLimit, 
-                imgUrl, 
-                discountValue, 
-                discountPercentage, 
-                transactionalLimit, 
-                additionalChargePercentage, 
-                firstPaymentAdditionalCost
-                );
-            */
-            var plan_ = new
-            {
-                id_plan = idPlan,
-                name = name,
-                description = description,
-                amount = amount,
-                currency = currency,
-                interval = interval,
-                interval_count = intervalCount,
-                trial_days = trialDays,
-                ip = ip,
-                iva = iva,
-                ico = ico,
-                planLink = planLink,
-                greetMessage = greetMessage,
-                linkExpirationDate = linkExpirationDate,
-                afterPayment = afterPayment,
-                subscriptionLimit = subscriptionLimit,
-                imgUrl = imgUrl,
-                discountValue = discountValue,
-                discountPercentage = discountPercentage,
-                transactionalLimit = transactionalLimit,
-                additionalChargePercentage = additionalChargePercentage,
-                firstPaymentAdditionalCost = firstPaymentAdditionalCost
-            };
-
-            var settings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                Formatting = Formatting.Indented
-            };
-            PARAMETER = JsonConvert.SerializeObject(plan_, settings);
-
-            
+            PARAMETER = body.GetBodyCreatePlan(idPlan, name, description, amount, currency, interval, intervalCount, trialDays);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-            
+
             CreatePlanModel? plan = JsonConvert.DeserializeObject<CreatePlanModel>(content);
             return plan;
         }
-        
+
         public FindPlanModel? GetPlan(string idPlan)
         {
             ENDPOINT = body.GetQueryGetPlan(idPlan, _PUBLIC_KEY);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY));
             FindPlanModel? plan = JsonConvert.DeserializeObject<FindPlanModel>(content);
             return plan;
         }
-        
+
         public FindAllPlansModel? GetAllPlans()
         {
             FindAllPlansModel? plan = new FindAllPlansModel();
             ENDPOINT = body.GetQueryGetAllPlans(_PUBLIC_KEY);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY));
             FindAllPlansSatusModel? status = JsonConvert.DeserializeObject<FindAllPlansSatusModel>(content);
@@ -328,25 +221,25 @@ namespace EpaycoSdk
             }
             return plan;
         }
-        
+
         public UpdatePlanModel? PlanUpdate(
-            string idPlan,
-            string name, 
-            string description, 
-            decimal amount, 
-            string currency, 
-            string interval, 
-            int intervalCount, 
-            int trialDays,
-            string? ip = default,
-            decimal? iva = default,
-            decimal? ico = default,
-            string? afterPayment = default,
-            int? transactionalLimit = default,
-            decimal? additionalChargePercentage= default
-            )
+       string idPlan,
+       string name,
+       string description,
+       decimal amount,
+       string currency,
+       string interval,
+       int intervalCount,
+       int trialDays,
+       string? ip = default,
+       decimal? iva = default,
+       decimal? ico = default,
+       string? afterPayment = default,
+       int? transactionalLimit = default,
+       decimal? additionalChargePercentage = default
+       )
         {
-            ENDPOINT = Constants.UrlUpdatePlan+idPlan;
+            ENDPOINT = Constants.UrlUpdatePlan + idPlan;
             /*PARAMETER = body.UpdateBodyPlan(
                 name, 
                 description, 
@@ -378,7 +271,7 @@ namespace EpaycoSdk
                 transactionalLimit = transactionalLimit,
                 additionalChargePercentage = additionalChargePercentage
             };
-     
+
             var settings = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
@@ -386,19 +279,20 @@ namespace EpaycoSdk
             };
             PARAMETER = JsonConvert.SerializeObject(plan_, settings);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
+            Console.WriteLine(content);
             UpdatePlanModel? plan = JsonConvert.DeserializeObject<UpdatePlanModel>(content);
             return plan;
         }
-        
+
         public RemovePlanModel? RemovePlan(string idPlan)
         {
             ENDPOINT = body.GetQueryRemovePlan(_PUBLIC_KEY, idPlan);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
@@ -418,7 +312,7 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-          
+
             CreateSubscriptionModel? subscription = JsonConvert.DeserializeObject<CreateSubscriptionModel>(content);
             return subscription;
         }
@@ -427,7 +321,7 @@ namespace EpaycoSdk
         {
             ENDPOINT = body.GetQueryFindSubscription(_PUBLIC_KEY, subscriptionId);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
@@ -443,9 +337,9 @@ namespace EpaycoSdk
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-          
-                AllSubscriptionModel? subscription = JsonConvert.DeserializeObject<AllSubscriptionModel>(content);
-                return subscription;
+
+            AllSubscriptionModel? subscription = JsonConvert.DeserializeObject<AllSubscriptionModel>(content);
+            return subscription;
         }
 
         public CancelSubscriptionModel? CancelSubscription(string subscriptionId)
@@ -453,7 +347,7 @@ namespace EpaycoSdk
             ENDPOINT = Constants.UrlCancelSubscription;
             PARAMETER = body.GetBodyCancelSubscription(subscriptionId);
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
@@ -491,8 +385,8 @@ namespace EpaycoSdk
          * BANK CREATE
          */
         public PseModel? BankCreate(
-            string bank, 
-            string invoice, 
+            string bank,
+            string invoice,
             string description,
             string value,
             string tax,
@@ -526,21 +420,21 @@ namespace EpaycoSdk
              )
         {
             ENDPOINT = Constants.UrlPagosDebitos;
-            PARAMETER = body.GetBodyBankCreate(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
+            PARAMETER = body.GetBodyBankCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY, bank, invoice, description, value, tax,
                 taxBase, ico, currency, typePerson, docType, docNumber, name, lastName, email, country, city,
                 cellPhone, urlResponse, urlConfirmation, methodConfirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
             string? content = _restRequest.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
             PseModel? pse = JsonConvert.DeserializeObject<PseModel>(content);
             return pse;
         }
-        
+
         public PseModel? BankCreateSplit(
-            string bank, 
-            string invoice, 
+            string bank,
+            string invoice,
             string description,
             string value,
             string tax,
@@ -580,25 +474,25 @@ namespace EpaycoSdk
             string? extras_epayco = "P46")
         {
             ENDPOINT = Constants.UrlPagosDebitos;
-            PARAMETER = body.GetBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV),_TEST,_PUBLIC_KEY,_PRIVATE_KEY, bank, invoice, description, value, tax,
+            PARAMETER = body.GetBodyBankCreateSplit(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY, bank, invoice, description, value, tax,
                 taxBase, ico, currency, typePerson, docType, docNumber, name, lastName, email, country, city,
                 cellPhone, urlResponse, urlConfirmation, methodConfirmation, splitpayment, splitAppId, splitMerchantId,
                 splitType, splitRule, splitPrimaryReceiver, splitPrimaryReceiverFee, splitReceivers, extra1, extra2, extra3,
                 extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
             string? content = _restRequest.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
             PseModel? pse = JsonConvert.DeserializeObject<PseModel>(content);
             return pse;
         }
-        
+
         public TransactionModel? GetTransaction(string transactionId)
         {
             ENDPOINT = body.GetQueryGetTransaction(_PUBLIC_KEY, transactionId);
             string? content = _restRequest.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
@@ -620,13 +514,13 @@ namespace EpaycoSdk
             }
             return transaction;
         }
-        
+
         public BanksModel? GetBanks()
         {
             BanksModel? bank = new BanksModel();
-            ENDPOINT = body.GetQueryGetBanks(_PUBLIC_KEY,_TEST);
+            ENDPOINT = body.GetQueryGetBanks(_PUBLIC_KEY, _TEST);
             string? content = _restRequest.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
@@ -647,11 +541,11 @@ namespace EpaycoSdk
             }
             return bank;
         }
-        
+
         /*
          * CASH
          */
-        public CashModel? CashCreate(string type, string invoice, 
+        public CashModel? CashCreate(string type, string invoice,
             string description,
             string value,
             string tax,
@@ -693,7 +587,7 @@ namespace EpaycoSdk
                 last_action = "validation transaction"
             };
             string medio = type.ToLower();
-            if(medio == "baloto")
+            if (medio == "baloto")
             {
                 return invalid;
             }
@@ -703,42 +597,43 @@ namespace EpaycoSdk
                 return invalid;
             }
             ENDPOINT = Constants.UrlCash + type;
-            
+
             PARAMETER = body.GetBodyCashCreate(_auxiliars.ConvertToBase64(IV), _TEST, _PUBLIC_KEY, _PRIVATE_KEY,
                 invoice, description, value, tax, taxBase, ico, currency, typePerson, docType, docNumber, name,
-                lastName, email, cellPhone, endDate, country, city, urlResponse, urlConfirmation, methodConfirmation,  extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
-            
-            if(splitDetails != null){
+                lastName, email, cellPhone, endDate, country, city, urlResponse, urlConfirmation, methodConfirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
+
+            if (splitDetails != null)
+            {
                 string splitReqBody = body.GetBodySplitPayments(splitDetails, true);
-               PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, splitReqBody);
+                PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, splitReqBody);
             }
             var content = _restRequest.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-            
+
             cash = JsonConvert.DeserializeObject<CashModel>(content);
             return cash;
         }
-        
+
         public CashTransactionModel? GetCashTransaction(string refPayco)
         {
             ENDPOINT = body.GetQueryCashTransaction(refPayco, _PUBLIC_KEY);
             string? content = _restRequest.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY));
             CashTransactionModel? transaction = JsonConvert.DeserializeObject<CashTransactionModel>(content);
             return transaction;
         }
-        
+
         /*
          * PAYMENT
          */
         public ChargeModel? ChargeCreate(
             string tokenCard,
-            string customerId, 
+            string customerId,
             string docType,
             string docNumber,
             string name,
@@ -779,21 +674,22 @@ namespace EpaycoSdk
                 email, bill, description, value, tax, taxBase, ico, currency, dues, address, country, city, phone, cellPhone,
                 urlResponse,
                 urlConfirmation, methodConfirmation, ip, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
-            
-            if(splitDetails != null){
+
+            if (splitDetails != null)
+            {
                 string splitReqBody = body.GetBodySplitPayments(splitDetails);
                 PARAMETER = Auxiliars.ConcatBodyStrings(PARAMETER, splitReqBody);
             }
-            
+
             string content = _request.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-         
-           
+
+
             ChargeModel? payment = new ChargeModel();
-            
+
             if (content.Contains("errorMessage"))
             {
                 ChargeDataListError? response = JsonConvert.DeserializeObject<ChargeDataListError>(content);
@@ -801,7 +697,7 @@ namespace EpaycoSdk
                 {
                     status = response?.data.status,
                     description = response?.data.description,
-                    errors = response?.data.errors 
+                    errors = response?.data.errors
                 };
                 if (response != null)
                 {
@@ -810,20 +706,21 @@ namespace EpaycoSdk
                 }
 
                 payment.data = data;
-               
-            }else
+
+            }
+            else
             {
                 payment = JsonConvert.DeserializeObject<ChargeModel>(content);
             }
-            
+
             return payment;
         }
-        
+
         public ChargeTransactionModel? GetChargeTransaction(string refPayco)
         {
             ENDPOINT = body.GetQueryCashTransaction(refPayco, _PUBLIC_KEY);
             string? content = _restRequest.Execute(
-                ENDPOINT, 
+                ENDPOINT,
                 "GET",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY));
             ChargeTransactionModel? transaction = JsonConvert.DeserializeObject<ChargeTransactionModel>(content);
@@ -833,6 +730,7 @@ namespace EpaycoSdk
         /* 
          * DAVIPLATA
          */
+
         public DaviplataModel? DaviplataCreate(
             string docType,
             string document,
@@ -849,7 +747,7 @@ namespace EpaycoSdk
             string invoice,
             string description,
             decimal value,
-            decimal tax = 0, 
+            decimal tax = 0,
             decimal taxBase = 0,
             decimal ico = 0,
             string test = "false",
@@ -873,13 +771,13 @@ namespace EpaycoSdk
             PARAMETER = body.GetBodyDaviplata(docType, document, name, lastName,
                 email, indCountry, phone, country, city, address, ip, currency, invoice, description, value, tax, taxBase, ico, test,
                 urlResponse, urlConfirmation, methodConfirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
-          
+
             string? content = _requestApify.Execute(
                 ENDPOINT,
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-           
+
             DaviplataModel? payment = JsonConvert.DeserializeObject<DaviplataModel>(content);
             return payment;
         }
@@ -942,15 +840,15 @@ namespace EpaycoSdk
             string? extras_epayco = "P46")
         {
             ENDPOINT = Constants.UrlSafetypay;
-            PARAMETER = body.GetBodySafetypayCreate(cash,endDate,docType,document,name,lastName,email,
-                indCountry,phone,country,city,address,ip,currency,invoice,description,value,tax,taxBase,ico,
-                test,urlResponse, urlResponsePointer, urlConfirmation, methodConfirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
-    
-             string? content = _requestApify.Execute(
-                ENDPOINT,
-                "POST",
-                _auxiliars.ConvertToBase64(_PUBLIC_KEY),
-                PARAMETER);
+            PARAMETER = body.GetBodySafetypayCreate(cash, endDate, docType, document, name, lastName, email,
+                indCountry, phone, country, city, address, ip, currency, invoice, description, value, tax, taxBase, ico,
+                test, urlResponse, urlResponsePointer, urlConfirmation, methodConfirmation, extra1, extra2, extra3, extra4, extra5, extra6, extra7, extra8, extra9, extra10, extras_epayco: "P46");
+
+            string? content = _requestApify.Execute(
+               ENDPOINT,
+               "POST",
+               _auxiliars.ConvertToBase64(_PUBLIC_KEY),
+               PARAMETER);
 
             safetypayModel? payment = JsonConvert.DeserializeObject<safetypayModel>(content);
             return payment;
@@ -959,7 +857,7 @@ namespace EpaycoSdk
         private bool GetEntitiesCash(string type)
         {
             ENDPOINT = Constants.UrlEntitiesCash;
-          
+
             string? content = _requestApify.Execute(
                 ENDPOINT,
                 "GET",

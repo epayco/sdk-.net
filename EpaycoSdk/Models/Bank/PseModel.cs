@@ -29,6 +29,7 @@ namespace EpaycoSdk.Models.Bank
 
     public class errors
     {
+
         public string codError { get; set; }
         public string errorMessage { get; set; }
     }

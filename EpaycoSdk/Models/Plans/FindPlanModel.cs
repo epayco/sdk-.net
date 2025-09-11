@@ -21,20 +21,7 @@ namespace EpaycoSdk.Models.Plans
         public int interval_count { get; set; }
         public int trial_days { get; set; }
         public bool test { get; set; }
+        public int afterPayment { get; set; }
         public string created { get; set; }
-        public string? ip { get; set; }
-        public decimal? iva { get; set; }
-        public decimal? ico { get; set; }
-        public string? planLink { get; set; }
-        public string? greetMessage { get; set; }
-        public string? linkExpirationDate { get; set; }
-        public string? afterPayment { get; set; }
-        public int? subscriptionLimit { get; set; }
-        public string? imgUrl { get; set; }
-        public decimal? discountValue { get; set; }
-        public int? discountPercentage { get; set; }
-        public int? transactionalLimit { get; set; }
-        public decimal? additionalChargePercentage { get; set; }
-        public decimal? firstPaymentAdditionalCost { get; set; }
     }
 }

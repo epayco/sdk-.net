@@ -104,16 +104,56 @@ namespace EpaycoSdk.Utils
         /*
          * PLANS QUERYS AND BODY
          */
-        public string GetBodyCreatePlan(string idPlan, string name, string description, decimal amount, string currency, string interval, int intervalCount, int trialDays)
+      /*
+         * PLANS QUERYS AND BODY
+         */
+        public string GetBodyCreatePlan(
+            string idPlan, 
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip,
+            decimal? iva,
+            decimal? ico,
+            string? planLink,
+            string? greetMessage,
+            string? linkExpirationDate,
+            string? afterPayment,
+            int? subscriptionLimit,
+            string? imgUrl,
+            decimal? discountValue,
+            int? discountPercentage,
+            int? transactionalLimit,
+            decimal? additionalChargePercentage,
+            decimal? firstPaymentAdditionalCost
+            )
         {
-            return "{\r\n\"id_plan\":\""+idPlan+"\",\r" +
-                   "\n\"name\":\""+name+"\",\r" +
-                   "\n\"description\":\""+description+"\",\r" +
-                   "\n\"amount\": "+amount+",\r" +
-                   "\n\"currency\": \""+currency+"\",\r" +
-                   "\n\"interval\": \""+interval+"\",\r" +
-                   "\n\"interval_count\": "+intervalCount+",\r" +
-                   "\n\"trial_days\":"+trialDays+"\r\n}";
+            return "{\n\"id_plan\":\""+idPlan+"\"," +
+                   "\n\"name\":\""+name+"\"," +
+                   "\n\"description\":\""+description+"\"," +
+                   "\n\"amount\": "+amount+"," +
+                   "\n\"currency\": \""+currency+"\"," +
+                   "\n\"interval\": \""+interval+"\"," +
+                   "\n\"interval_count\": "+intervalCount+"," +
+                   "\n\"trial_days\": "+trialDays+"," +
+                   (ip == null ?"":"\n\"ip\":\""+ip+"\",") +
+                   (iva == null?"":"\n\"iva\": "+iva+",") +
+                   (ico==null?"":"\n\"ico\": "+ico+",") +
+                   (planLink == null?"":"\n\"planLink\":\""+planLink+"\",") +
+                   (greetMessage==null?"":"\n\"greetMessage\":\""+greetMessage+"\",") +
+                   (linkExpirationDate==null?"":"\n\"linkExpirationDate\":\""+linkExpirationDate+"\",") +
+                   (afterPayment == null?"":"\n\"afterPayment\":\""+afterPayment+"\"," )+
+                   (subscriptionLimit == null?"": "\n\"subscriptionLimit\": "+subscriptionLimit+",") +
+                   (imgUrl == null?"": "\n\"imgUrl\":\""+imgUrl+"\"," )+
+                   (discountPercentage == null?"":"\n\"discountValue\": "+discountValue+",") +
+                   (discountPercentage == null?"":"\n\"discountPercentage\": "+discountPercentage+"," )+
+                   (transactionalLimit == null?"":"\n\"transactionalLimit\": "+transactionalLimit+",") +
+                   (additionalChargePercentage == null?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage+",") +
+                   (firstPaymentAdditionalCost == null?"":"\n\"firstPaymentAdditionalCost\":"+firstPaymentAdditionalCost)+"\n}";
         }
         
         public string GetQueryGetPlan(string idPlan, string publicKey)

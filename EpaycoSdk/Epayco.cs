@@ -64,20 +64,39 @@ namespace EpaycoSdk
             return token;
         }
 
-        public CustomerCreateModel? CustomerCreate(string tokenCard,
-            string name,
-            string lastName,
-            string email,
+         public CustomerCreateModel? CustomerCreate(string tokenCard, 
+            string name, 
+            string lastName, 
+            string email, 
             bool isDefault,
             string city = "",
             string address = "",
             string phone = "",
             string cellPhone = "")
         {
-            PARAMETER = body.GetBodyCreateCustomer(tokenCard, name, lastName, email, isDefault, city, address, phone, cellPhone);
+            var customer_ = new
+            {
+                token_card = tokenCard,
+                name = name,
+                last_name = lastName,
+                email = email,
+               //default = isDefault,
+                city = city,
+                address = address,
+                phone = phone,
+                cell_phone = cellPhone
+            };
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented
+            };
+            PARAMETER = JsonConvert.SerializeObject(customer_, settings);
+            
+            //PARAMETER = body.GetBodyCreateCustomer(tokenCard, name, lastName, email, isDefault, city, address, phone, cellPhone);
             ENDPOINT = Constants.UrlCreateCustomer;
             string content = _request.Execute(
-                ENDPOINT,
+                ENDPOINT, 
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
@@ -176,16 +195,101 @@ namespace EpaycoSdk
         /*
          * METODOS RELACIONADOS CON PLANS
          */
-        public CreatePlanModel? PlanCreate(string idPlan, string name, string description, decimal amount, string currency, string interval, int intervalCount, int trialDays)
+          /*
+         * METODOS RELACIONADOS CON PLANS
+         */
+        public CreatePlanModel? PlanCreate(
+            string idPlan, 
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip = null,
+            decimal? iva = null,
+            decimal? ico = null,
+            string? planLink = null,
+            string? greetMessage = null,
+            string? linkExpirationDate = null,
+            string? afterPayment = null,
+            int? subscriptionLimit = null,
+            string? imgUrl = null,
+            decimal? discountValue = null,
+            int? discountPercentage = null,
+            int? transactionalLimit = null,
+            decimal? additionalChargePercentage= null,
+            decimal? firstPaymentAdditionalCost = null
+            
+            )
         {
             ENDPOINT = Constants.UrlCreatePlan;
-            PARAMETER = body.GetBodyCreatePlan(idPlan, name, description, amount, currency, interval, intervalCount, trialDays);
+            /*PARAMETER = body.GetBodyCreatePlan(
+                idPlan, 
+                name, 
+                description, 
+                amount, 
+                currency, 
+                interval, 
+                intervalCount, 
+                trialDays,
+                ip,
+                iva,
+                ico,
+                planLink,
+                greetMessage,
+                linkExpirationDate, 
+                afterPayment, 
+                subscriptionLimit, 
+                imgUrl, 
+                discountValue, 
+                discountPercentage, 
+                transactionalLimit, 
+                additionalChargePercentage, 
+                firstPaymentAdditionalCost
+                );
+            */
+            var plan_ = new
+            {
+                id_plan = idPlan,
+                name = name,
+                description = description,
+                amount = amount,
+                currency = currency,
+                interval = interval,
+                interval_count = intervalCount,
+                trial_days = trialDays,
+                ip = ip,
+                iva = iva,
+                ico = ico,
+                planLink = planLink,
+                greetMessage = greetMessage,
+                linkExpirationDate = linkExpirationDate,
+                afterPayment = afterPayment,
+                subscriptionLimit = subscriptionLimit,
+                imgUrl = imgUrl,
+                discountValue = discountValue,
+                discountPercentage = discountPercentage,
+                transactionalLimit = transactionalLimit,
+                additionalChargePercentage = additionalChargePercentage,
+                firstPaymentAdditionalCost = firstPaymentAdditionalCost
+            };
+
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented
+            };
+            PARAMETER = JsonConvert.SerializeObject(plan_, settings);
+
+            
             string content = _request.Execute(
-                ENDPOINT,
+                ENDPOINT, 
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-
+            
             CreatePlanModel? plan = JsonConvert.DeserializeObject<CreatePlanModel>(content);
             return plan;
         }

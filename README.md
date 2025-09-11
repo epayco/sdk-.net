@@ -266,38 +266,38 @@ Console.WriteLine(banksResponse);
 #### Pse Create SplitPayment
 Example request:
 ```csharp
-//List<SplitReceivers> splitReceiverses = new List<SplitReceivers>();
-//splitReceiverses.Add(new SplitReceivers() { id = "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000", fee = "100" });
-//PseModel response = epayco.BankCreateSplit(
-//  "Banka", // Bank code
-//  "1-J", // Reference
-//  "Split", // Description
-//  "10000", // Amount
-//  "2000", // Tax 
-//  "8000", // Tax base
-//  "0", // ICO
-//  "COP", // Currency
-//  "0", // 0=Natural Person, 1=Company
-//  "CC", // Document type
-//  "256454556", // Document number
-//  "Juan", // First name
-//  "Garcia", // Last name
-//  "juan.pruebas@gmail.com", // Email
-//  "CO", // Country
-//  "medellin", // City
-//  "2254554555", // Mobile
-//  "url_response", // Response URL
-//  "url_confirmation", // Confirmation URL
-//  "POST", // Confirmation method
-//  "true", // Enable split payment functionality
-//  "split_app_id", // Application ID
-//  "split_merchant_id", // Merchant ID
-//  "1",  // Split type
-//  "1",  // Rule type
-//  "split_primary_receiver", // Primary receiver ID
-//  "split_primary_receiver_fee", // Primary receiver fee
-//  splitReceiverses // Array of SplitReceivers, required if split_rule is sent
-//);
+List<SplitReceivers> splitReceiverses = new List<SplitReceivers>();
+splitReceiverses.Add(new SplitReceivers() { id = "ID_COMMERCE_RECEIVER", total = "10000", iva = "2500", ico = "2500", base_iva = "5000", fee = "100" });
+PseModel response = epayco.BankCreateSplit(
+ "Banka", // Bank code
+ "1-J", // Reference
+ "Split", // Description
+ "10000", // Amount
+ "2000", // Tax 
+ "8000", // Tax base
+ "0", // ICO
+ "COP", // Currency
+ "0", // 0=Natural Person, 1=Company
+ "CC", // Document type
+ "256454556", // Document number
+ "Juan", // First name
+ "Garcia", // Last name
+ "juan.pruebas@gmail.com", // Email
+ "CO", // Country
+ "medellin", // City
+ "2254554555", // Mobile
+ "url_response", // Response URL
+ "url_confirmation", // Confirmation URL
+ "POST", // Confirmation method
+ "true", // Enable split payment functionality
+ "split_app_id", // Application ID
+ "split_merchant_id", // Merchant ID
+ "1",  // Split type
+ "1",  // Rule type
+ "split_primary_receiver", // Primary receiver ID
+ "split_primary_receiver_fee", // Primary receiver fee
+ splitReceiverses // Array of SplitReceivers, required if split_rule is sent
+);
 string banksResponse = JsonConvert.SerializeObject(pse, Formatting.Indented);
 Console.WriteLine(banksResponse);
 ```

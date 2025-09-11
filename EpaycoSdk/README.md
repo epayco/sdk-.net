@@ -3,6 +3,7 @@
 To use the SDK, you need to install the following libraries:
 * Microsoft.CSharp
 * Newtonsoft.Json
+* RestSharp
 
 ## Manual Setup
 - Download the SDK from the repository
@@ -14,7 +15,8 @@ After installing and referencing the SDK in your project, you must import the ne
 
 ```csharp
 using EpaycoSdk; // Main SDK namespace
-using EpaycoSdk.Models; // For models like TokenModel, CustomerCreateModel, etc.
+using EpaycoSdk.Models; // For models like TokenModel, 
+// CustomerCreateModel, etc.
 using EpaycoSdk.Models.Bank; // For bank-related models
 using EpaycoSdk.Models.Cash; // For cash-related models
 // Add other namespaces as needed for your use case

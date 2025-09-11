@@ -24,4 +24,12 @@ namespace EpaycoSdk.Models.Plans
         public bool test { get; set; }
         public int afterPayment { get; set; }
     }
+
+     public class Errors
+    {
+        public string? id_plan { get; set; }
+        public string? name { get; set; }
+        public string? description { get; set; }
+        public string[]? discountPercentage { get; set; }
+    }
 }

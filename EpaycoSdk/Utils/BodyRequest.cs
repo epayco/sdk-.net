@@ -125,6 +125,37 @@ namespace EpaycoSdk.Utils
         {
             return Constants.UrlGetAllPlans + publicKey;
         }
+
+          public string UpdateBodyPlan(
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip,
+            decimal? iva,
+            decimal? ico,
+            string? afterPayment,
+            int? transactionalLimit,
+            decimal? additionalChargePercentage
+            )
+        {
+            return "{\r\n\"name\":\""+name+"\",\r" +
+                   "\n\"description\":\""+description+"\",\r" +
+                   "\n\"amount\": "+amount+",\r" +
+                   "\n\"currency\": \""+currency+"\",\r" +
+                   "\n\"interval\": \""+interval+"\",\r" +
+                   "\n\"interval_count\": "+intervalCount+",\r" +
+                   "\n\"trial_days\": "+trialDays+",\r" +
+                   (ip == null?"":"\n\"ip\":\""+ip+"\",\r") +
+                   (iva == null?"":"\n\"iva\": "+iva+",\r") +
+                   (ico == null?"":"\n\"ico\": "+ico+",\r") +
+                   (afterPayment == null?"":"\n\"afterPayment\":\""+afterPayment+"\"" )+
+                   (transactionalLimit == null?"":",\r\n\"transactionalLimit\": "+transactionalLimit+",\r") +
+                   (additionalChargePercentage == null?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage)+"\r\n}";
+        }
         
         public string GetQueryRemovePlan(string publicKey, string idPlan)
         {

@@ -3,6 +3,7 @@
 To use the SDK, you need to install the following libraries:
 * Microsoft.CSharp
 * Newtonsoft.Json
+* RestSharp
 
 ## Manual Setup
 - Download the SDK from the repository

@@ -410,13 +410,9 @@ namespace EpaycoSdk.Utils
 
          public string GetQueryGetBanks(string publicKey, bool test)
          {
-             string pruebas = "2";
-             if (test)
-             {
-                 pruebas = "1";
-             }
-             return Constants.UrlGetBanks + "?public_key=" + publicKey + "&test=" + pruebas;
-         }
+            string testValue = test ? "TRUE" : "FALSE";
+            return $"{Constants.UrlGetBanks}?public_key={Uri.EscapeDataString(publicKey)}&test={testValue}";
+        }
 
          /*
           * CASH

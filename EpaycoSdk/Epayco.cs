@@ -185,6 +185,7 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
+            
             CreatePlanModel? plan = JsonConvert.DeserializeObject<CreatePlanModel>(content);
             return plan;
         }
@@ -245,6 +246,7 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
+          
             CreateSubscriptionModel? subscription = JsonConvert.DeserializeObject<CreateSubscriptionModel>(content);
             return subscription;
         }
@@ -307,8 +309,6 @@ namespace EpaycoSdk
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
             ChargeSubscriptionModel? subscription = JsonConvert.DeserializeObject<ChargeSubscriptionModel>(content);
-            Console.WriteLine(JsonConvert.SerializeObject(subscription, Formatting.Indented));
-
             return subscription;
         }
 
@@ -362,7 +362,6 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
-      
             PseModel? pse = JsonConvert.DeserializeObject<PseModel>(content);
             return pse;
         }
@@ -619,6 +618,8 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
+         
+           
             ChargeModel? payment = new ChargeModel();
             
             if (content.Contains("errorMessage"))

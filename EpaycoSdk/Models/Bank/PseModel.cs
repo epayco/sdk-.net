@@ -29,8 +29,8 @@ namespace EpaycoSdk.Models.Bank
 
     public class errors
     {
-        public string code { get; set; }
-        public string message { get; set; }
+        public string codError { get; set; }
+        public string errorMessage { get; set; }
     }
 
     public class DataPse

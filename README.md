@@ -15,10 +15,11 @@ After installing and referencing the SDK in your project, you must import the ne
 
 ```csharp
 using EpaycoSdk; // Main SDK namespace
-using Newtonsoft.Json;
 using EpaycoSdk.Models; // For models like TokenModel, 
+// CustomerCreateModel, etc.
 using EpaycoSdk.Models.Bank; // For bank-related models
 using EpaycoSdk.Models.Cash; // For cash-related models
+using Newtonsoft.Json;
 // Add other namespaces as needed for your use case
 ```
 
@@ -29,8 +30,8 @@ This step is required so you can access all the SDK classes and methods for cons
 It is recommended to initialize the SDK in the controller or main class where you want to implement the methods.
 ```csharp
 Epayco epayco = new EpaycoSdk.Epayco(
-    "public_key",  
-    "private_key", 
+    "public_key",  // key public 
+    "private_key", // key private
     "language", // Language
     test // (true/false)
 ); 
@@ -134,7 +135,30 @@ Example request:
 FindAllPlansModel plan = epayco.GetAllPlans();
 string planResponse = JsonConvert.SerializeObject(plan, Formatting.Indented);
 Console.WriteLine(planResponse);
+
 ```
+
+#### Plan Update
+Example request:
+```csharp
+UpdatePlanModel? plan = epayco.PlanUpdate(
+    "plantest151231", // Plan ID existente
+    "Nuevo nombre plan", // name
+    "Descripción actualizada", // description
+    11900, // amount
+    "COP", // currency
+    "month", // interval
+    1, // intervalCount
+    0, // trialDays
+    "170.00.000.000",// ip
+    1900, //iva
+    0 //ico
+);
+string planResponse = JsonConvert.SerializeObject(plan, Formatting.Indented);
+Console.WriteLine(planResponse);
+```
+
+
 
 #### Plan Remove
 Example request:

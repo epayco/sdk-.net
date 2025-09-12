@@ -390,6 +390,7 @@ namespace EpaycoSdk
                 "POST",
                 _auxiliars.ConvertToBase64(_PUBLIC_KEY),
                 PARAMETER);
+          
             UpdatePlanModel? plan = JsonConvert.DeserializeObject<UpdatePlanModel>(content);
             return plan;
         }

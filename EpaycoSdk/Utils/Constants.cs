@@ -26,6 +26,7 @@ namespace EpaycoSdk.Utils
         public const string UrlGetPlan = "/recurring/v1/plan/";
         public const string UrlGetAllPlans = "/recurring/v1/plans/";
         public const string UrlRemovePlan = "/recurring/v1/plan/remove/";
+        public const string UrlUpdatePlan = "/recurring/v1/plan/edit/";
 
         /*
          * SUBSCRIPTIONS

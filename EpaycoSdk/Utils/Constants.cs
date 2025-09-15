@@ -2,10 +2,10 @@ namespace EpaycoSdk.Utils
 {
     public class Constants
     {
-        public const string UrlBase = "https://eks-subscription-api-lumen-service.epayco.io";
-        public const string BaseUrlSecure = "https://eks-rest-pagos-service.epayco.io";
+        public const string UrlBase = "https://api.secure.payco.co";
+        public const string BaseUrlSecure = "https://secure.payco.co";
         public const string Entorno = "/restpagos";
-        public const string BaseUrlApify = "https://eks-apify-service.epayco.io";
+        public const string BaseUrlApify = "https://apify.epayco.co";
 
         /*
         * CUSTOMER

@@ -48,7 +48,7 @@ namespace EpaycoSdk.Models.Daviplata
         public string daviplataOtpLab { get; set; }
         public Extras extras { get; set; }
 
-        public int totalErrors { get; set; }
+       // public string totalErrors { get; set; }
         public List<errors> errors { get; set; }
     }
 
@@ -88,7 +88,7 @@ namespace EpaycoSdk.Models.Daviplata
         public string extra9 { get; set; }
         public string extra10 { get; set; }
         public string typeIntegration { get; set; }
-        public string extras_epayco { get; set; }
+        
     }
 
     public class bodyConfirmDaviplata

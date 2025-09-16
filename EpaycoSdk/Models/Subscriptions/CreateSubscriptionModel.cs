@@ -22,12 +22,17 @@ namespace EpaycoSdk.Models.Subscriptions
         public string _id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
+        public string doc_number { get; set; }
         public string phone { get; set; }
-        public string merchandId { get; set; }
+        public string merchantId { get; set; }
+        public string indicative { get; set; }
+        public string country { get; set; }
         public string city { get; set; }
         public string address { get; set; }
-        public string cell_phone { get; set; }
         public bool break_card { get; set; }
+        public string doc_type { get; set; }
+        public string cell_phone { get; set; }
+
     }
 
     public class CreateSubscriptionData
@@ -35,7 +40,8 @@ namespace EpaycoSdk.Models.Subscriptions
         public string status { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public decimal amount { get; set; }
+        public object errors { get; set; }
+        public decimal? amount { get; set; }
         public string currency { get; set; }
         public string interval { get; set; }
         public int interval_count { get; set; }

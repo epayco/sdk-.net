@@ -24,8 +24,15 @@ namespace EpaycoSdk.Models.Bank
         public string extra8 { get; set; }
         public string extra9 { get; set; }
         public string extra10 { get; set; }
+
     }
-    
+
+    public class errors
+    {
+        public string codError { get; set; }
+        public string errorMessage { get; set; }
+    }
+
     public class DataPse
     {
         public int ref_payco { get; set; }

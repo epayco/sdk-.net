@@ -1,25 +1,25 @@
-using System;
-using System.Net;
 using EpaycoSdk.Models;
 using EpaycoSdk.Models.Auth;
 using Newtonsoft.Json;
 using RestSharp;
+using System;
+using System.Net;
 
 namespace EpaycoSdk.Utils
 {
-    public class Request 
+    public class Request
     {
-        readonly RestClient _client = new RestClient(BaseUrl);
-        readonly BodyRequest _body = new BodyRequest();
-        #region Constructor
-        public Request()
+        // Configuración del cliente para NO lanzar HttpRequestException automáticamente
+        private static readonly RestClient _client = new RestClient(new RestClientOptions(Constants.UrlBase)
         {
-            
-        }
-        #endregion
+            ThrowOnAnyError = false,               // evita excepciones en 400, 401, etc.
+            ThrowOnDeserializationError = false,   // evita excepciones si el JSON no es válido
+            MaxTimeout = 30000
+        });
 
-        #region Atributes
-        const string BaseUrl = Constants.UrlBase;
+        private readonly BodyRequest _body = new BodyRequest();
+
+        #region Atributos
         private string _endPoint = string.Empty;
         private string _type = string.Empty;
         private string _publicKeyBase64 = string.Empty;
@@ -30,14 +30,14 @@ namespace EpaycoSdk.Utils
         private string _bearerToken = string.Empty;
         #endregion
 
-        #region Methods
+        #region Métodos
 
         public void AuthService(string publicKey, string privateKey)
         {
             _privateKey = privateKey;
             _publicKey = publicKey;
             var auth = GetBearerToken();
-            if (auth.status)
+            if (auth != null && auth.status)
             {
                 _bearerToken = auth.bearer_token;
             }
@@ -49,64 +49,114 @@ namespace EpaycoSdk.Utils
             _endPoint = endPoint;
             _type = type;
             _publicKeyBase64 = publicKeyBase64;
-            if (_type == "POST")
-            {
-                _response = Post();
-            }
-            else
-            {
-                _response = Get();
-            }
-            return _response;
+
+            return _type == "POST" ? Post() : Get();
         }
 
         private string Get()
         {
             var request = new RestRequest(_endPoint);
-            // string auth = "Basic " + PUBLIC_KEY_BASE64;
             string auth = "Bearer " + _bearerToken;
+
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
             request.AddHeader("type", "sdk-jwt");
             request.AddHeader("lang", ".NET");
             request.AddHeader("authorization", auth);
-            // request.RequestFormat = DataFormat.Json;
-            var response = _client.Get<dynamic>(request);
-            return response.ToString();
+
+            var response = _client.Execute(request, Method.Get);
+
+            if (!response.IsSuccessful)
+            {
+                ManejarError(response);
+                return string.Empty;
+            }
+
+            return response.Content ?? string.Empty;
         }
-        
+
         private string Post()
         {
-            var request = new RestRequest(_endPoint);
-            // string auth = "Basic " + PUBLIC_KEY_BASE64;
+            var request = new RestRequest(_endPoint, Method.Post);
             string auth = "Bearer " + _bearerToken;
+
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
             request.AddHeader("type", "sdk-jwt");
             request.AddHeader("lang", ".NET");
             request.AddHeader("authorization", auth);
-            request.RequestFormat = DataFormat.Json;
             request.AddParameter("application/json", _parameter, ParameterType.RequestBody);
+
+            var response = _client.Execute(request);
             
-            var response = _client.Post<dynamic>(request);
-            return response.ToString();
-           
+
+            if (!response.IsSuccessful)
+            {
+                ManejarError(response);
+                return string.Empty;
+            }
+
+            return response.Content ?? string.Empty;
         }
-        
-        private AuthModel GetBearerToken()
+
+        private AuthModel? GetBearerToken()
         {
             _parameter = _body.GetBodyAuthBearer(_publicKey, _privateKey);
-            var request = new RestRequest("/v1/auth/login");
+            var request = new RestRequest("/v1/auth/login", Method.Post);
+
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
             request.AddHeader("type", "sdk-jwt");
-            request.RequestFormat = DataFormat.Json;
             request.AddParameter("application/json", _parameter, ParameterType.RequestBody);
-            var response = _client.Post<dynamic>(request);
-            AuthModel auth = JsonConvert.DeserializeObject<AuthModel>(response.ToString());
-            return auth;
-        }
-        #endregion
 
+            var response = _client.Execute(request);
+        
+
+            if (!response.IsSuccessful)
+            {
+                ManejarError(response);
+                return null;
+            }
+
+            try
+            {
+                return JsonConvert.DeserializeObject<AuthModel>(response.Content ?? string.Empty);
+            }
+            catch
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(new
+                {
+                    codigoError = "104",
+                    status = false,
+                    message = "El servicio no se puede autenticar, verifique su llave pública o llave privada"
+                }, Formatting.Indented));
+                return null;
+            }
+        }
+
+        // 🔹 Método centralizado para mostrar errores HTTP
+        private void ManejarError(RestResponse response)
+        {
+            string error = response.StatusCode switch
+            {
+                HttpStatusCode.BadRequest => "Error 400: Solicitud incorrecta, por favor verifica los datos enviados.",
+                HttpStatusCode.Unauthorized => "Error 401: No autorizado, revisa tus credenciales.",
+                HttpStatusCode.Forbidden => "Error 403: Acceso prohibido, no tienes permisos para esta acción.",
+                HttpStatusCode.NotFound => "Error 404: La ruta en la que estás realizando la petición no existe.",
+                HttpStatusCode.MethodNotAllowed => "Error 405: Método no permitido en esta ruta.",
+                _ => $"Error inesperado del servidor (HTTP {(int)response.StatusCode})"
+            };
+
+            var errorResponse = new
+            {
+                status = false,
+                message = error,
+                detail = JsonConvert.DeserializeObject(response.Content ?? "{}") 
+            };
+
+            Console.WriteLine(JsonConvert.SerializeObject(errorResponse, Formatting.Indented));
+        }
+
+        #endregion
     }
 }

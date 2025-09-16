@@ -67,6 +67,7 @@ namespace EpaycoSdk.Utils
             request.AddHeader("lang", ".NET");
             // request.RequestFormat = DataFormat.Json;
             var response = _client.Get<dynamic>(request);
+     
             return response?.ToString();
         }
         
@@ -84,6 +85,7 @@ namespace EpaycoSdk.Utils
             request.AddParameter("application/json", _parameter, ParameterType.RequestBody);
             
             var response = _client.Post<dynamic>(request);
+           
             return response?.ToString();
         }
 

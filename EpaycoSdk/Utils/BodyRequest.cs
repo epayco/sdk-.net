@@ -65,9 +65,10 @@ namespace EpaycoSdk.Utils
             return Constants.UrlFindCustomer + publicKey + "/" + idCustomer;
         }
         
-        public string GetQueryFindAllCustomers(string publicKey)
+        public string GetQueryFindAllCustomers(int? page, int? perPage)
         {
-            return Constants.UrlFindAllCustomer + publicKey;
+            return "{\n\"page\":\"" + page + "\"," +
+                   "\n\"perPage\":\"" + perPage + "\"\n}";
         }
         
         public string GetQueryUpdateCustomer(string publicKey, string customerId)
@@ -104,16 +105,53 @@ namespace EpaycoSdk.Utils
         /*
          * PLANS QUERYS AND BODY
          */
-        public string GetBodyCreatePlan(string idPlan, string name, string description, decimal amount, string currency, string interval, int intervalCount, int trialDays)
+        public string GetBodyCreatePlan(
+            string idPlan, 
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip,
+            decimal? iva,
+            decimal? ico,
+            string? planLink,
+            string? greetMessage,
+            string? linkExpirationDate,
+            string? afterPayment,
+            int? subscriptionLimit,
+            string? imgUrl,
+            decimal? discountValue,
+            int? discountPercentage,
+            int? transactionalLimit,
+            decimal? additionalChargePercentage,
+            decimal? firstPaymentAdditionalCost
+            )
         {
-            return "{\r\n\"id_plan\":\""+idPlan+"\",\r" +
-                   "\n\"name\":\""+name+"\",\r" +
-                   "\n\"description\":\""+description+"\",\r" +
-                   "\n\"amount\": "+amount+",\r" +
-                   "\n\"currency\": \""+currency+"\",\r" +
-                   "\n\"interval\": \""+interval+"\",\r" +
-                   "\n\"interval_count\": "+intervalCount+",\r" +
-                   "\n\"trial_days\":"+trialDays+"\r\n}";
+            return "{\n\"id_plan\":\""+idPlan+"\"," +
+                   "\n\"name\":\""+name+"\"," +
+                   "\n\"description\":\""+description+"\"," +
+                   "\n\"amount\": "+amount+"," +
+                   "\n\"currency\": \""+currency+"\"," +
+                   "\n\"interval\": \""+interval+"\"," +
+                   "\n\"interval_count\": "+intervalCount+"," +
+                   "\n\"trial_days\": "+trialDays+"," +
+                   (ip == null ?"":"\n\"ip\":\""+ip+"\",") +
+                   (iva == null?"":"\n\"iva\": "+iva+",") +
+                   (ico==null?"":"\n\"ico\": "+ico+",") +
+                   (planLink == null?"":"\n\"planLink\":\""+planLink+"\",") +
+                   (greetMessage==null?"":"\n\"greetMessage\":\""+greetMessage+"\",") +
+                   (linkExpirationDate==null?"":"\n\"linkExpirationDate\":\""+linkExpirationDate+"\",") +
+                   (afterPayment == null?"":"\n\"afterPayment\":\""+afterPayment+"\"," )+
+                   (subscriptionLimit == null?"": "\n\"subscriptionLimit\": "+subscriptionLimit+",") +
+                   (imgUrl == null?"": "\n\"imgUrl\":\""+imgUrl+"\"," )+
+                   (discountPercentage == null?"":"\n\"discountValue\": "+discountValue+",") +
+                   (discountPercentage == null?"":"\n\"discountPercentage\": "+discountPercentage+"," )+
+                   (transactionalLimit == null?"":"\n\"transactionalLimit\": "+transactionalLimit+",") +
+                   (additionalChargePercentage == null?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage+",") +
+                   (firstPaymentAdditionalCost == null?"":"\n\"firstPaymentAdditionalCost\":"+firstPaymentAdditionalCost)+"\n}";
         }
         
         public string GetQueryGetPlan(string idPlan, string publicKey)
@@ -124,6 +162,37 @@ namespace EpaycoSdk.Utils
         public string GetQueryGetAllPlans(string publicKey)
         {
             return Constants.UrlGetAllPlans + publicKey;
+        }
+        
+        public string UpdateBodyPlan(
+            string name, 
+            string description, 
+            decimal amount, 
+            string currency, 
+            string interval, 
+            int intervalCount, 
+            int trialDays,
+            string? ip,
+            decimal? iva,
+            decimal? ico,
+            string? afterPayment,
+            int? transactionalLimit,
+            decimal? additionalChargePercentage
+            )
+        {
+            return "{\r\n\"name\":\""+name+"\",\r" +
+                   "\n\"description\":\""+description+"\",\r" +
+                   "\n\"amount\": "+amount+",\r" +
+                   "\n\"currency\": \""+currency+"\",\r" +
+                   "\n\"interval\": \""+interval+"\",\r" +
+                   "\n\"interval_count\": "+intervalCount+",\r" +
+                   "\n\"trial_days\": "+trialDays+",\r" +
+                   (ip == null?"":"\n\"ip\":\""+ip+"\",\r") +
+                   (iva == null?"":"\n\"iva\": "+iva+",\r") +
+                   (ico == null?"":"\n\"ico\": "+ico+",\r") +
+                   (afterPayment == null?"":"\n\"afterPayment\":\""+afterPayment+"\"" )+
+                   (transactionalLimit == null?"":",\r\n\"transactionalLimit\": "+transactionalLimit+",\r") +
+                   (additionalChargePercentage == null?"":"\n\"additionalChargePercentage\": "+additionalChargePercentage)+"\r\n}";
         }
         
         public string GetQueryRemovePlan(string publicKey, string idPlan)
@@ -183,7 +252,8 @@ namespace EpaycoSdk.Utils
             string? address = null,
             string? phone = null,
             string? cellPhone = null,
-            bool test =  false
+            bool test =  false,
+            string? extras_epayco = "P46" 
             )
         {
             var TEST = test ? "TRUE" : "FALSE";
@@ -238,7 +308,8 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string extras_epayco)
         {
             var localIp = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -323,7 +394,8 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string? extras_epayco)
         {
            var localIp = "";
            var splitReceiversJson = Newtonsoft.Json.JsonConvert.SerializeObject(splitReceivers);
@@ -407,13 +479,9 @@ namespace EpaycoSdk.Utils
 
          public string GetQueryGetBanks(string publicKey, bool test)
          {
-             string pruebas = "2";
-             if (test)
-             {
-                 pruebas = "1";
-             }
-             return Constants.UrlGetBanks + "?public_key=" + publicKey + "&test=" + pruebas;
-         }
+            string testValue = test ? "TRUE" : "FALSE";
+            return $"{Constants.UrlGetBanks}?public_key={Uri.EscapeDataString(publicKey)}&test={testValue}";
+        }
 
          /*
           * CASH
@@ -453,7 +521,8 @@ namespace EpaycoSdk.Utils
             string extra7,
             string extra8,
             string extra9,
-            string extra10)
+            string extra10,
+            string? extras_epayco)
         {
             var localIp = "";
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
@@ -538,7 +607,9 @@ namespace EpaycoSdk.Utils
              string extra7,
              string extra8,
              string extra9,
-             string extra10)
+             string extra10,
+             string? extras_epayco
+             )
          {
              return "{\r\n\"token_card\": \"" + tokenCard+"\",\r" +
                     "\n\"customer_id\": \""+customerId+"\",\r" +
@@ -574,8 +645,8 @@ namespace EpaycoSdk.Utils
                     "\n\"extra8\": \""+extra8+"\",\r" +
                     "\n\"extra9\": \""+extra9+"\",\r" +
                     "\n\"extra10\": \""+extra10+"\"\r },\r" +
-                    "\n\"extras_epayco\": {\"extra5\": \"" + "P46" + "\"},\r" +
-                    "\n\"ip\": \"" +ip+"\"\r\n}";
+                   "\n\"extras_epayco\": {\"extra5\": \"P46\"},\r" +
+                    "\n\"ip\": \"" + ip+"\"\r\n}";
          }
 
         public string GetBodyDaviplata(
@@ -611,7 +682,7 @@ namespace EpaycoSdk.Utils
             string extra8,
             string extra9,
             string extra10,
-            string extrasEpayco
+            string extras_epayco
             )
         {
           var body  = "{\r\n\"docType\": \"" + docType + "\",\r" +
@@ -709,7 +780,7 @@ namespace EpaycoSdk.Utils
             string extra8,
             string extra9,
             string extra10,
-            string extrasEpayco
+            string extras_epayco
             )
 
         {
